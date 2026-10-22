@@ -1,0 +1,21 @@
+/* Print-only page setup for the PDF bundle; each .cv-page is one A4 sheet. */
+
+@page {
+    size: A4;
+    margin: 0;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+}
+
+.cv-pages .cv-page {
+    break-after: page;
+}
+
+.cv-pages .cv-page:last-child {
+    break-after: auto;
+}

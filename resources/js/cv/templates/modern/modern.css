@@ -1,0 +1,95 @@
+/* Modern ATS — Calibri-metric type, ruled header, unruled sentence-case headings. */
+
+.tpl-modern {
+    --cv-margin-top: 17mm;
+    --cv-margin-x: 20mm;
+    --cv-margin-bottom: 16mm;
+    font-family: 'Carlito', Calibri, 'Segoe UI', sans-serif;
+    font-size: 11pt;
+    line-height: 1.32;
+}
+
+.tpl-modern .b-header {
+    padding-bottom: 7pt;
+    border-bottom: 1.5pt solid #111111;
+}
+
+.tpl-modern .header-row {
+    display: flex;
+    align-items: center;
+    gap: 6mm;
+}
+
+.tpl-modern .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-modern .name {
+    font-size: 25pt;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.005em;
+}
+
+.tpl-modern .headline {
+    padding-top: 3pt;
+    font-size: 12.5pt;
+}
+
+.tpl-modern .contacts {
+    padding-top: 6pt;
+    font-size: 10pt;
+}
+
+.tpl-modern .photo {
+    flex: 0 0 auto;
+    width: 22mm;
+    height: 29.3mm;
+    object-fit: cover;
+}
+
+.tpl-modern .b-heading {
+    padding-top: 13pt;
+}
+
+.tpl-modern .heading-text {
+    font-size: 13pt;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.tpl-modern .b-entry {
+    padding-top: 7pt;
+}
+
+.tpl-modern .b-heading + .b-entry,
+.tpl-modern .b-heading + .b-text,
+.tpl-modern .b-heading + .b-line {
+    padding-top: 4pt;
+}
+
+.tpl-modern .entry-title {
+    font-weight: 700;
+}
+
+.tpl-modern .entry-facts {
+    color: #333333;
+    font-size: 10.5pt;
+}
+
+.tpl-modern .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-modern .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-modern .bullet-mark {
+    width: 11pt;
+}
+
+.tpl-modern .b-line {
+    padding-top: 2pt;
+}

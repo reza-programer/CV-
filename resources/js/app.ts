@@ -15,6 +15,7 @@ void createInertiaApp({
             // The landing page and the full-screen editor bring their own chrome.
             case name === 'Welcome':
             case name === 'resumes/Edit':
+            case name === 'resumes/Try':
                 return null;
             case name.startsWith('auth/'):
                 return AuthLayout;

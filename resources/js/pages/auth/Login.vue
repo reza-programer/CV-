@@ -22,11 +22,20 @@ defineOptions({
 defineProps<{
     status?: string;
     canResetPassword: boolean;
+    /** A CV from the try-out editor is waiting to be saved. */
+    guestDraft?: boolean;
 }>();
 </script>
 
 <template>
     <Head title="Masuk" />
+
+    <p
+        v-if="guestDraft"
+        class="mb-6 border-l-2 border-ink-blue pl-3 text-sm leading-relaxed text-neutral-700"
+    >
+        CV yang Anda coba langsung tersimpan ke akun setelah masuk.
+    </p>
 
     <div
         v-if="status"

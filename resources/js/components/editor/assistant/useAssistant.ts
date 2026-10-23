@@ -15,6 +15,11 @@ export function useAssistant<T>(task: Task) {
     const result = ref<T | null>(null);
 
     async function run(extra: Record<string, unknown> = {}): Promise<T | null> {
+        // Only offered on a stored CV; the try-out editor has none.
+        if (editor.guest) {
+            return null;
+        }
+
         loading.value = true;
         error.value = '';
         result.value = null;

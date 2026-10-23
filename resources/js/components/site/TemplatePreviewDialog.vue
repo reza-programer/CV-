@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { router } from '@inertiajs/vue3';
+import { router, usePage } from '@inertiajs/vue3';
 import { ChevronLeft, ChevronRight } from '@lucide/vue';
 import { computed } from 'vue';
 import CvThumbnail from '@/components/cv/CvThumbnail.vue';
@@ -15,18 +15,22 @@ import {
 import { sampleResume } from '@/cv/sample';
 import { isColoured, isMultiColumn } from '@/cv/templates';
 import type { TemplateSlug, TemplateSummary } from '@/cv/types';
+import { dashboard } from '@/routes';
+import * as demo from '@/routes/demo';
 
 /**
  * Larger look at one template from the landing gallery, with a way to start
- * a CV with it. The choice survives sign-up through session storage and is
- * picked up by the dashboard.
+ * a CV with it: visitors open it in the try-out editor, signed-in users get
+ * the new-CV dialog on the dashboard through session storage.
  */
 const slug = defineModel<TemplateSlug | null>({ required: true });
 
 const props = defineProps<{
     templates: TemplateSummary[];
-    startHref: string;
 }>();
+
+const page = usePage();
+const signedIn = computed(() => !!page.props.auth?.user);
 
 const index = computed(() =>
     props.templates.findIndex((template) => template.slug === slug.value),
@@ -69,13 +73,20 @@ function useTemplate(): void {
         return;
     }
 
+    // Visitors try the template in the editor straight away.
+    if (!signedIn.value) {
+        router.visit(demo.show({ query: { template: template.value.slug } }));
+
+        return;
+    }
+
     try {
         sessionStorage.setItem(CHOSEN_TEMPLATE_KEY, template.value.slug);
     } catch {
         // Storage can be unavailable (private mode); the dashboard then opens normally.
     }
 
-    router.visit(props.startHref);
+    router.visit(dashboard());
 }
 </script>
 

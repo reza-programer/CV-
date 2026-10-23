@@ -17,7 +17,8 @@ import { Button } from '@/components/ui/button';
 import { SAMPLE_NAME, sampleResume } from '@/cv/sample';
 import { isMultiColumn } from '@/cv/templates';
 import type { TemplateSlug, TemplateSummary } from '@/cv/types';
-import { dashboard, register } from '@/routes';
+import { dashboard } from '@/routes';
+import * as demo from '@/routes/demo';
 
 const props = defineProps<{
     templates: TemplateSummary[];
@@ -26,8 +27,9 @@ const props = defineProps<{
 
 const page = usePage();
 const signedIn = computed(() => !!page.props.auth?.user);
+// Visitors try the editor first and sign up when they want to keep the CV.
 const startHref = computed(() =>
-    signedIn.value ? dashboard().url : register().url,
+    signedIn.value ? dashboard().url : demo.show().url,
 );
 
 /** A few structurally different layouts to flip through in the hero. */
@@ -158,6 +160,10 @@ const faqs = computed(() => [
     {
         question: 'Berapa halaman CV yang ideal?',
         answer: 'Umumnya satu halaman untuk lulusan baru dan dua halaman untuk pengalaman yang lebih panjang. Pratinjau menunjukkan jumlah halaman secara langsung, dan judul bagian tidak akan tertinggal sendirian di bawah halaman.',
+    },
+    {
+        question: 'Harus daftar dulu sebelum mencoba?',
+        answer: 'Tidak. Tombol Buat CV membuka editor berisi contoh yang bisa langsung Anda ubah, lengkap dengan pratinjau A4. Daftar gratis saat ingin menyimpan, menambahkan foto, atau mengunduh PDF; isi yang sudah Anda ketik ikut tersimpan ke akun.',
     },
     {
         question: 'Apakah data saya aman?',
@@ -533,9 +539,11 @@ const faqs = computed(() => [
                         <Button as-child size="lg" class="px-6">
                             <Link :href="startHref">Buat CV sekarang</Link>
                         </Button>
-                        <span class="text-xs text-neutral-500"
-                            >Daftar dengan email, tanpa kartu kredit.</span
-                        >
+                        <span class="text-xs text-neutral-500">{{
+                            signedIn
+                                ? 'Semua CV Anda tersimpan di halaman CV Saya.'
+                                : 'Coba dulu tanpa daftar. Daftar gratis saat ingin menyimpan.'
+                        }}</span>
                     </div>
                 </div>
             </section>
@@ -543,10 +551,6 @@ const faqs = computed(() => [
 
         <SiteFooter />
 
-        <TemplatePreviewDialog
-            v-model="previewing"
-            :templates="templates"
-            :start-href="startHref"
-        />
+        <TemplatePreviewDialog v-model="previewing" :templates="templates" />
     </div>
 </template>

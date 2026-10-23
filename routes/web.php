@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Resumes\DownloadResumePdfController;
 use App\Http\Controllers\Resumes\DuplicateResumeController;
+use App\Http\Controllers\Resumes\GuestResumeController;
 use App\Http\Controllers\Resumes\ResumeAssistController;
 use App\Http\Controllers\Resumes\ResumeController;
 use App\Http\Controllers\Resumes\ResumePhotoController;
@@ -10,6 +11,12 @@ use App\Http\Controllers\Resumes\ResumeTranslateController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
+
+// Visitors can try the editor first; signing up keeps what they typed.
+Route::middleware('guest')->group(function () {
+    Route::get('coba', [GuestResumeController::class, 'show'])->name('demo.show');
+    Route::put('coba', [GuestResumeController::class, 'update'])->middleware('throttle:guest-draft')->name('demo.update');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', [ResumeController::class, 'index'])->name('dashboard');

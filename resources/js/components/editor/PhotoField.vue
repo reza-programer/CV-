@@ -20,7 +20,7 @@ async function upload(event: Event): Promise<void> {
     const file = (event.target as HTMLInputElement).files?.[0];
     (event.target as HTMLInputElement).value = '';
 
-    if (!file) {
+    if (!file || editor.guest) {
         return;
     }
 
@@ -47,7 +47,25 @@ async function upload(event: Event): Promise<void> {
     );
 }
 
+/** Photos are stored with a CV, so visitors trying the editor sign up first. */
+function choose(): void {
+    if (editor.guest) {
+        editor.requireAccount('photo');
+
+        return;
+    }
+
+    input.value?.click();
+}
+
 async function remove(): Promise<void> {
+    // The try-out editor only shows the sample photo, which lives in the page.
+    if (editor.guest) {
+        editor.resume.photo_url = null;
+
+        return;
+    }
+
     await run(() =>
         requestJson<{ photo_url: null }>({
             method: 'delete',
@@ -118,7 +136,7 @@ async function run(
                     variant="outline"
                     size="sm"
                     :disabled="busy"
-                    @click="input?.click()"
+                    @click="choose"
                 >
                     <Spinner v-if="busy" />
                     <ImageUp v-else />

@@ -12,6 +12,8 @@ import { store } from '@/routes/register';
 
 defineProps<{
     passwordRules: string;
+    /** A CV from the try-out editor is waiting to be saved. */
+    guestDraft?: boolean;
 }>();
 
 defineOptions({
@@ -25,6 +27,13 @@ defineOptions({
 
 <template>
     <Head title="Daftar" />
+
+    <p
+        v-if="guestDraft"
+        class="mb-6 border-l-2 border-ink-blue pl-3 text-sm leading-relaxed text-neutral-700"
+    >
+        CV yang Anda coba langsung tersimpan ke akun setelah mendaftar.
+    </p>
 
     <Form
         v-bind="store.form()"

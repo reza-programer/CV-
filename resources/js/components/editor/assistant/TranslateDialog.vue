@@ -90,6 +90,11 @@ function switchOnly(): void {
 }
 
 async function translateContent(): Promise<void> {
+    // Only offered on a stored CV; the try-out editor has none.
+    if (editor.guest) {
+        return;
+    }
+
     const request = new AbortController();
     pending = request;
     loading.value = true;

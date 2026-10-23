@@ -3,7 +3,8 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import AppLogo from '@/components/AppLogo.vue';
 import { Button } from '@/components/ui/button';
-import { dashboard, home, login, register } from '@/routes';
+import { dashboard, home, login } from '@/routes';
+import * as demo from '@/routes/demo';
 
 const page = usePage();
 const signedIn = computed(() => !!page.props.auth?.user);
@@ -49,7 +50,7 @@ const links = [
                         >Masuk</Link
                     >
                     <Button as-child>
-                        <Link :href="register()">Buat CV</Link>
+                        <Link :href="demo.show()">Buat CV</Link>
                     </Button>
                 </template>
             </div>

@@ -32,10 +32,13 @@ const AUTOSAVE_DELAY = 1200;
  *
  * Every change is saved automatically after a short pause. Saves never
  * overlap: edits made while a request is in flight are sent right after it.
+ * The try-out editor saves to its own URL, which keeps the draft in the
+ * visitor's session.
  */
 export function useResumeEditor(
     initial: ResumeData,
     initialSavedAt: string | null,
+    saveUrl: string = update.url(initial.id!),
 ) {
     // Page props are reactive proxies, which structuredClone rejects.
     const resume = reactive<ResumeData>(JSON.parse(JSON.stringify(initial)));
@@ -124,7 +127,7 @@ export function useResumeEditor(
 
         inFlight = requestJson<{ saved_at: string }>({
             method: 'put',
-            url: update.url(resume.id!),
+            url: saveUrl,
             data: payload(),
         })
             .then((response) => {

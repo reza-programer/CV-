@@ -32,7 +32,8 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * PDF rendering launches a headless browser and the assistant calls a paid
-     * API, so both are limited per user.
+     * API, so both are limited per user. Guest drafts are written to the
+     * session by anyone, so they are limited per address.
      */
     protected function configureRateLimiting(): void
     {
@@ -42,6 +43,9 @@ class AppServiceProvider extends ServiceProvider
             Limit::perMinute(6)->by($request->user()?->id ?: $request->ip()),
             Limit::perDay(100)->by($request->user()?->id ?: $request->ip()),
         ]);
+
+        // Autosave sends at most one request per pause in typing.
+        RateLimiter::for('guest-draft', fn (Request $request) => Limit::perMinute(90)->by($request->ip()));
     }
 
     /**

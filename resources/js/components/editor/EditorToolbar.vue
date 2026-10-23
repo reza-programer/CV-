@@ -6,7 +6,7 @@ import { toast } from 'vue-sonner';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import type { ResumeLocale, TemplateSummary } from '@/cv/types';
-import { dashboard } from '@/routes';
+import { dashboard, home } from '@/routes';
 import { pdf } from '@/routes/resumes';
 import KeywordAssistant from './assistant/KeywordAssistant.vue';
 import TranslateDialog from './assistant/TranslateDialog.vue';
@@ -104,6 +104,13 @@ function filenameFrom(header: string | null): string {
 }
 
 async function download(): Promise<void> {
+    // PDFs are rendered from a stored CV.
+    if (editor.guest) {
+        editor.requireAccount('pdf');
+
+        return;
+    }
+
     downloading.value = true;
 
     try {
@@ -154,11 +161,13 @@ async function download(): Promise<void> {
         class="z-20 flex shrink-0 flex-wrap items-center gap-x-3 gap-y-2 border-b border-neutral-200 bg-white px-3 py-2 lg:h-14 lg:flex-nowrap lg:py-0"
     >
         <Link
-            :href="dashboard()"
+            :href="editor.guest ? home() : dashboard()"
             class="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
         >
             <ArrowLeft class="size-4" />
-            <span class="hidden sm:inline">CV Saya</span>
+            <span class="hidden sm:inline">{{
+                editor.guest ? 'Beranda' : 'CV Saya'
+            }}</span>
         </Link>
 
         <div class="h-5 w-px bg-neutral-200" />
@@ -206,6 +215,12 @@ async function download(): Promise<void> {
                 <AlertCircle class="size-3.5" />
                 Gagal menyimpan · Coba lagi
             </button>
+            <span
+                v-else-if="editor.guest"
+                class="text-neutral-500"
+                title="Disimpan sementara selama sesi ini. Daftar untuk menyimpannya ke akun."
+                >Draf sementara</span
+            >
             <span v-else class="flex items-center gap-1 text-neutral-500">
                 <Check class="size-3.5" />
                 {{ savedTime ? `Tersimpan ${savedTime}` : 'Tersimpan' }}

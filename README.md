@@ -2,7 +2,7 @@
 
 # CV by kezottt_ — Pembuat CV ATS-Friendly
 
-**CV by kezottt_** adalah aplikasi web untuk menyusun CV profesional dalam format **A4** dan mengunduhnya sebagai **PDF berteks asli** (teks dapat diseleksi dan dicari, sehingga terbaca oleh sistem pelacak lamaran/ATS). Data CV diisi sekali, lalu tampilannya bisa diganti ke salah satu dari **26 template** kapan saja tanpa mengetik ulang.
+**CV by kezottt_** adalah aplikasi web untuk menyusun CV profesional dalam format **A4** dan mengunduhnya sebagai **PDF berteks asli** (teks dapat diseleksi dan dicari, sehingga terbaca oleh sistem pelacak lamaran/ATS). Data CV diisi sekali, lalu tampilannya bisa diganti ke salah satu dari **41 template** kapan saja tanpa mengetik ulang.
 
 > Yang Anda lihat di pratinjau adalah yang tercetak: pratinjau di layar dan PDF dirender oleh komponen tata letak yang sama.
 
@@ -35,10 +35,11 @@
 
 **Untuk pengguna**
 
+- **Coba dulu tanpa daftar** (`/coba`): pengunjung langsung masuk editor berisi contoh CV, bisa mengubah isi, template, warna, dan bahasa dengan pratinjau langsung. Saat ingin menyimpan, mengunggah foto, atau mengunduh PDF, mereka diminta daftar atau masuk, dan isi yang sudah diketik otomatis menjadi CV pertama di akun.
 - **Editor dua panel**: formulir di kiri, pratinjau A4 langsung di kanan (bertumpuk di ponsel).
 - **Bagian CV lengkap**: data diri dan kontak, foto (opsional), profil singkat, pengalaman kerja, magang, organisasi, pendidikan, proyek, keahlian, sertifikasi, dan bahasa. Setiap entri dapat ditambah, disunting, dihapus, dan diurutkan ulang; urutan bagian juga dapat diatur.
 - **Bagian kosong tidak tercetak**, jadi tidak ada judul bagian yang menggantung.
-- **26 template**: 20 satu kolom yang ramah ATS dan 6 dua kolom berlabel _Kreatif_. Sebagian berwarna dengan 6 pilihan warna aksen.
+- **41 template**: 30 satu kolom dan 11 dua kolom berlabel _Kreatif_, termasuk 15 template gaya desainer dengan foto, ornamen sudut, gelombang, dan judul berbentuk pil. Sebagian berwarna dengan 6 pilihan warna aksen.
 - **Contoh CV dari berbagai bidang** di galeri template: akuntansi, keperawatan, pendidikan, pemasaran, teknik sipil, desain, SDM, hukum, farmasi, perhotelan (bahasa Inggris), lulusan baru, dan pengembang perangkat lunak.
 - **Ganti template, warna aksen, perataan paragraf (rata kiri/rata kanan-kiri), dan bahasa dokumen** tanpa kehilangan isi.
 - **Dua bahasa dokumen** (Bahasa Indonesia dan English): judul bagian dan format tanggal ikut berganti.
@@ -99,12 +100,14 @@ Contoh hasil PDF: [`docs/contoh-cv-fullstack-developer.pdf`](docs/contoh-cv-full
 
 ```mermaid
 flowchart TD
-    A[Halaman utama] -->|Lihat template| B[Galeri 26 template]
+    A[Halaman utama] -->|Lihat template| B[Galeri 41 template]
     B -->|Pakai template ini| C{Sudah masuk?}
     A -->|Buat CV| C
-    C -- Belum --> D[Daftar / Masuk]
+    C -- Belum --> T[Mode coba /coba: editor berisi contoh]
+    T -->|Simpan / Unggah foto / Unduh PDF| D[Daftar / Masuk]
+    D -->|Ada draf coba| F
+    D -->|Tanpa draf| E
     C -- Sudah --> E[Dasbor: CV Saya]
-    D --> E
     E -->|Buat CV baru: judul, bahasa, template| F[Editor]
     E -->|Buka CV lama| F
     E -->|Duplikat / Hapus / Unduh PDF| E
@@ -127,18 +130,19 @@ flowchart TD
 
 Langkah-langkahnya:
 
-1. **Halaman utama**: pengunjung melihat contoh CV, membandingkan template, lalu memilih **Buat CV** atau **Pakai template ini**. Template yang dipilih diingat sampai pengguna selesai mendaftar.
-2. **Daftar atau masuk**: akun dibuat dengan nama, email, dan kata sandi.
-3. **Dasbor (CV Saya)**: daftar CV dalam bentuk lembar kecil. Tombol **CV baru** membuka dialog untuk memilih judul, bahasa dokumen, dan template. Nama dan email akun diisikan otomatis ke CV baru.
-4. **Editor**: isi setiap bagian di panel kiri; pratinjau A4 di kanan langsung berubah. Perubahan tersimpan otomatis beberapa saat setelah mengetik, dan status simpan terlihat di bilah atas.
-5. **Atur tampilan**: ganti template, warna aksen (untuk template berwarna), perataan paragraf, dan bahasa dokumen. Isi CV tidak berubah.
-6. **Unduh PDF**: editor memastikan semua perubahan (termasuk foto) sudah tersimpan, lalu server mencetak PDF A4.
+1. **Halaman utama**: pengunjung melihat contoh CV, membandingkan template, lalu memilih **Buat CV** atau **Pakai template ini**.
+2. **Mode coba** (tanpa akun): editor terbuka berisi contoh CV dengan template yang dipilih. Pengunjung bebas mengubah isi atau menekan **Kosongkan isi**. Drafnya disimpan sementara di sesi (divalidasi dengan aturan yang sama seperti CV biasa). Tombol **Simpan ke akun**, **Unduh PDF**, dan **Unggah foto** membuka ajakan daftar.
+3. **Daftar atau masuk**: akun dibuat dengan nama, email, dan kata sandi. Bila ada draf dari mode coba, draf itu langsung disimpan sebagai CV baru dan pengguna dibawa ke editornya. Nama dan email yang dikosongkan diisi dari akun.
+4. **Dasbor (CV Saya)**: daftar CV dalam bentuk lembar kecil. Tombol **CV baru** membuka dialog untuk memilih judul, bahasa dokumen, dan template. Nama dan email akun diisikan otomatis ke CV baru.
+5. **Editor**: isi setiap bagian di panel kiri; pratinjau A4 di kanan langsung berubah. Perubahan tersimpan otomatis beberapa saat setelah mengetik, dan status simpan terlihat di bilah atas.
+6. **Atur tampilan**: ganti template, warna aksen (untuk template berwarna), perataan paragraf, dan bahasa dokumen. Isi CV tidak berubah.
+7. **Unduh PDF**: editor memastikan semua perubahan (termasuk foto) sudah tersimpan, lalu server mencetak PDF A4.
 
 ---
 
 ## Arsitektur dan alur data
 
-Isi CV disimpan **terpisah dari tata letak**. Template hanya menentukan cara blok ditampilkan, sehingga satu data dapat dirender oleh 26 template dan menghasilkan pratinjau yang sama dengan PDF.
+Isi CV disimpan **terpisah dari tata letak**. Template hanya menentukan cara blok ditampilkan, sehingga satu data dapat dirender oleh 41 template dan menghasilkan pratinjau yang sama dengan PDF.
 
 ```mermaid
 flowchart LR
@@ -193,11 +197,13 @@ flowchart LR
 | `resume_experiences`                                                                                       | Pengalaman kerja, magang, dan organisasi (dibedakan dengan `type`)                     |
 | `resume_educations`, `resume_projects`, `resume_skill_groups`, `resume_certifications`, `resume_languages` | Bagian-bagian CV lainnya                                                               |
 
-**Rute utama** (semua rute CV memerlukan login dan hanya dapat diakses pemiliknya)
+**Rute utama** (semua rute CV memerlukan login dan hanya dapat diakses pemiliknya, kecuali mode coba yang khusus untuk tamu)
 
 | Metode        | URL                                   | Fungsi                                  |
 | ------------- | ------------------------------------- | --------------------------------------- |
 | GET           | `/`                                   | Halaman utama                           |
+| GET           | `/coba`                               | Mode coba untuk tamu (`?template=slug`) |
+| PUT           | `/coba`                               | Simpan draf tamu ke sesi (maks. 90/mnt) |
 | GET           | `/dashboard`                          | Daftar CV                               |
 | POST          | `/resumes`                            | Buat CV baru                            |
 | GET           | `/resumes/{id}/edit`                  | Editor                                  |
@@ -291,12 +297,29 @@ flowchart LR
 | `corporate`     | Corporate ATS    | 1     | Hitam-putih         | Opsional                            |
 | `tabbed`        | Tab ATS          | 1     | Aksen               | Opsional                            |
 | `elegant`       | Elegant ATS      | 1     | Hitam-putih (serif) | Opsional                            |
+| `lumen`         | Lumen            | 1     | Aksen               | Bulat bercincin                     |
+| `heritage`      | Heritage         | 1     | Hitam-putih (serif) | Bulat kecil                         |
+| `skyline`       | Skyline          | 1     | Hitam-putih         | Persegi                             |
+| `prestige`      | Prestige         | 1     | Aksen + emas        | Persegi berbingkai emas             |
+| `wave`          | Gelombang        | 1     | Aksen               | Bulat bercincin                     |
+| `geo`           | Geometri         | 1     | Aksen               | Bulat                               |
+| `orbit`         | Orbit            | 1     | Aksen               | Bulat                               |
+| `fresh`         | Segar            | 1     | Aksen               | Sudut membulat                      |
+| `contrast`      | Kontras          | 1     | Aksen               | Setinggi header, di tepi kiri       |
+| `label`         | Pita             | 1     | Aksen               | Persegi                             |
 | `sidebar`       | Sidebar Kreatif  | 2     | Aksen               | Bulat                               |
 | `sidebar-light` | Sidebar Terang   | 2     | Aksen               | Bulat                               |
 | `two-column`    | Dua Kolom        | 2     | Aksen               | Bulat                               |
 | `split`         | Split            | 2     | Hitam-putih         | Opsional                            |
 | `magazine`      | Majalah          | 2     | Aksen               | Bulat                               |
 | `folio`         | Folio            | 2     | Hitam-putih         | Opsional                            |
+| `noir`          | Noir             | 2     | Arang + emas        | Bulat                               |
+| `slate`         | Slate            | 2     | Aksen               | Bulat                               |
+| `pastel`        | Pastel           | 2     | Aksen               | Melengkung di atas                  |
+| `atelier`       | Atelier          | 2     | Aksen (serif)       | Bulat                               |
+| `frame`         | Bingkai          | 2     | Hitam-putih         | Persegi                             |
+
+Lima belas template terakhir (dari `lumen` sampai `label`, dan `noir` sampai `frame`) adalah keluarga **studio**: gaya desainer seperti di aplikasi pembuat CV daring, dengan foto, ornamen sudut, gelombang, judul bagian berbentuk pil atau pita, dan tabel data diri. Ornamennya digambar dengan CSS di belakang teks, jadi PDF-nya tetap berteks asli. Semua foto bersifat opsional; tanpa foto, tata letaknya menyesuaikan.
 
 Warna aksen: navy, teal, hijau (forest), merah marun (burgundy), ungu (plum), dan arang (charcoal).
 
@@ -459,7 +482,7 @@ app/
 │   ├── Middleware/         TrackLastSeen (status online)
 │   ├── Requests/Resumes/   UpdateResumeRequest (validasi isi CV)
 │   └── Responses/          LoginResponse (admin → /admin)
-├── Listeners/              RecordSignIn, RecordRegistration (+ notifikasi admin)
+├── Listeners/              RecordSignIn, RecordRegistration (+ notifikasi admin), ClaimGuestResume (draf mode coba → CV)
 ├── Models/                 User, Resume, CvTemplate, ActivityLog, Resume* (bagian CV)
 ├── Policies/               ResumePolicy (hanya pemilik)
 ├── Services/               ResumePdfRenderer, ResumePhotos, ResumeAssistant, ResumeTranslator
@@ -499,7 +522,7 @@ docs/                       Contoh PDF dan tangkapan layar
 
 ### Menambah template baru
 
-1. Buat folder `resources/js/cv/templates/<slug>/` berisi `<Nama>Template.vue` dan `<slug>.css`. Gunakan template yang sudah ada sebagai acuan (mis. `classic`).
+1. Buat folder `resources/js/cv/templates/<slug>/` berisi `<Nama>Template.vue` dan `<slug>.css`. Gunakan template yang sudah ada sebagai acuan (mis. `classic`). Untuk template bergaya desainer, cukup tambahkan `<slug>.css` di `templates/studio/` dan daftarkan dengan `studio({...})` atau `studioPanel({...})`; komponennya sudah tersedia.
 2. Tambahkan slug ke tipe `TemplateSlug` di `resources/js/cv/types.ts`.
 3. Daftarkan di `resources/js/cv/templates/index.ts`: komponen, `layout` (`single` atau `columns`), dan `coloured`. Impor CSS-nya di file yang sama.
 4. Tambahkan slug ke `CvTemplate::SLUGS` (`app/Models/CvTemplate.php`).

@@ -21,6 +21,14 @@
     text-align: center;
 }
 
+/*
+ * With a photo the name block can no longer be centred on the page, so it
+ * aligns left and sits on the photo's vertical centre instead of its top.
+ */
+.tpl-classic .b-header.has-photo {
+    align-items: center;
+}
+
 .tpl-classic .b-header.has-photo .header-text {
     text-align: left;
 }
@@ -43,8 +51,8 @@
 
 .tpl-classic .photo {
     flex: 0 0 auto;
-    width: 21mm;
-    height: 28mm;
+    width: 20mm;
+    height: 26.7mm;
     object-fit: cover;
 }
 

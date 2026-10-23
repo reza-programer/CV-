@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Resumes;
 
 use App\Enums\ExperienceType;
+use App\Enums\ParagraphAlign;
+use App\Enums\ResumeAccent;
 use App\Enums\ResumeLocale;
 use App\Enums\ResumeSection;
 use App\Models\CvTemplate;
@@ -79,6 +81,8 @@ class UpdateResumeRequest extends FormRequest
             'title' => ['required', 'string', 'max:120'],
             'template' => ['required', 'string', Rule::in($this->allowedTemplates())],
             'locale' => ['required', Rule::enum(ResumeLocale::class)],
+            'paragraph_align' => ['required', Rule::enum(ParagraphAlign::class)],
+            'accent_color' => ['required', Rule::enum(ResumeAccent::class)],
             'section_order' => ['required', 'array', 'max:'.count(ResumeSection::cases())],
             'section_order.*' => ['string', 'distinct', Rule::enum(ResumeSection::class)],
 
@@ -214,6 +218,8 @@ class UpdateResumeRequest extends FormRequest
         $attributes = [
             'title' => 'judul CV',
             'locale' => 'bahasa dokumen',
+            'paragraph_align' => 'perataan paragraf',
+            'accent_color' => 'warna aksen',
             'personal.full_name' => 'nama lengkap',
             'personal.headline' => 'jabatan atau headline',
             'personal.email' => 'email',

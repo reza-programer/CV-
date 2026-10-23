@@ -66,10 +66,20 @@ export const SECTION_TITLES: Record<
 
 export const DOCUMENT_LABELS: Record<
     ResumeLocale,
-    { gpa: string; credential: string; expires: string }
+    { gpa: string; credential: string; expires: string; contact: string }
 > = {
-    id: { gpa: 'IPK', credential: 'ID Kredensial', expires: 'berlaku hingga' },
-    en: { gpa: 'GPA', credential: 'Credential ID', expires: 'expires' },
+    id: {
+        gpa: 'IPK',
+        credential: 'ID Kredensial',
+        expires: 'berlaku hingga',
+        contact: 'Kontak',
+    },
+    en: {
+        gpa: 'GPA',
+        credential: 'Credential ID',
+        expires: 'expires',
+        contact: 'Contact',
+    },
 };
 
 const DATE_PATTERN = /^(\d{4})(?:-(0[1-9]|1[0-2]))?$/;

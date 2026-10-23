@@ -1,0 +1,108 @@
+/* Minimal ATS — light type, generous spacing, letter-spaced labels, no rules. */
+
+.tpl-minimal {
+    --cv-margin-top: 20mm;
+    --cv-margin-x: 22mm;
+    --cv-margin-bottom: 18mm;
+    font-family: 'Carlito', Calibri, 'Segoe UI', sans-serif;
+    font-size: 11pt;
+    line-height: 1.38;
+}
+
+.tpl-minimal .b-header {
+    display: flex;
+    align-items: center;
+    gap: 6mm;
+    padding-bottom: 4pt;
+}
+
+.tpl-minimal .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-minimal .name {
+    font-size: 30pt;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+}
+
+.tpl-minimal .headline {
+    padding-top: 4pt;
+    color: #555555;
+    font-size: 12.5pt;
+}
+
+.tpl-minimal .contacts {
+    padding-top: 8pt;
+    color: #555555;
+    font-size: 10pt;
+}
+
+.tpl-minimal .photo {
+    flex: 0 0 auto;
+    width: 22mm;
+    height: 22mm;
+}
+
+.tpl-minimal .b-heading {
+    padding-top: 18pt;
+}
+
+.tpl-minimal .heading-text {
+    color: #666666;
+    font-size: 8.5pt;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.tpl-minimal .b-entry {
+    padding-top: 9pt;
+}
+
+.tpl-minimal .b-heading + .b-entry,
+.tpl-minimal .b-heading + .b-text,
+.tpl-minimal .b-heading + .b-line {
+    padding-top: 6pt;
+}
+
+.tpl-minimal .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+.tpl-minimal .entry-main {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-minimal .entry-aside,
+.tpl-minimal .entry-sub {
+    color: #666666;
+    font-size: 10pt;
+}
+
+.tpl-minimal .entry-aside {
+    flex: 0 0 auto;
+}
+
+.tpl-minimal .b-bullet {
+    padding-top: 2pt;
+}
+
+.tpl-minimal .b-entry + .b-bullet {
+    padding-top: 4pt;
+}
+
+.tpl-minimal .bullet-mark {
+    width: 11pt;
+    color: #888888;
+}
+
+.tpl-minimal .b-line {
+    padding-top: 3pt;
+}

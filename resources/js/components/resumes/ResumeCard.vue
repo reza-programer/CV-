@@ -2,7 +2,7 @@
 import { Link, router } from '@inertiajs/vue3';
 import { Copy, Download, EllipsisVertical, PenLine, Trash2 } from '@lucide/vue';
 import { computed, ref } from 'vue';
-import CvThumbnail from '@/components/cv/CvThumbnail.vue';
+import PaperTile from '@/components/cv/PaperTile.vue';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -75,17 +75,20 @@ function deleteResume(): void {
 
 <template>
     <article class="group grid min-w-0 grid-cols-1 gap-3">
-        <Link
-            :href="edit(resume.id)"
-            class="block overflow-hidden rounded-sm border border-neutral-200 transition-colors group-hover:border-neutral-400 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:outline-none"
-            :aria-label="`Buka ${resume.title}`"
-        >
-            <CvThumbnail :data="resume.document" />
-        </Link>
+        <!-- The CV contains contact links, so the card link is laid over the
+             thumbnail instead of wrapping it (anchors cannot be nested). -->
+        <div class="relative">
+            <PaperTile :data="resume.document" />
+            <Link
+                :href="edit(resume.id)"
+                class="absolute inset-0 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
+                :aria-label="`Buka ${resume.title}`"
+            />
+        </div>
 
         <div class="flex items-start gap-2">
             <div class="min-w-0 flex-1">
-                <h3 class="truncate text-sm font-medium text-neutral-900">
+                <h3 class="truncate text-[15px] font-medium text-ink">
                     <Link :href="edit(resume.id)" class="hover:underline">{{
                         resume.title
                     }}</Link>

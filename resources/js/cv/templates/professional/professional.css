@@ -11,7 +11,7 @@
 
 .tpl-professional .b-header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 6mm;
     padding-bottom: 6pt;
     border-bottom: 1pt solid #111111;

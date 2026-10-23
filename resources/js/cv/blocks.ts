@@ -39,6 +39,13 @@ export type EntryView = {
 export type HeaderBlock = {
     kind: 'header';
     id: string;
+    /**
+     * Column layouts can split the header: the name and headline open the
+     * main column while the photo and contacts open the side column.
+     */
+    part: 'all' | 'identity' | 'contact';
+    /** Localised title for a contact panel ("Kontak" / "Contact"). */
+    contactTitle: string;
     name: string;
     headline: string;
     contacts: ContactItem[];
@@ -81,7 +88,10 @@ export type LineBlock = {
     id: string;
     section: SectionKey;
     label: string;
+    /** The whole line as text, e.g. "PHP, Laravel, MySQL". */
     value: string;
+    /** The same content split into items, for templates that list them. */
+    items: string[];
 };
 
 export type Block =
@@ -95,18 +105,23 @@ export type Block =
 export type LayoutHint = {
     /** Must share a page with the following block (headings). */
     keepWithNext: boolean;
-    /** Blocks of one entry: its head line plus its bullets. */
+    /**
+     * Blocks that move together while short: one entry with its bullets, or
+     * all lines of a list section such as skills.
+     */
     group: string | null;
 };
 
 export function layoutHint(block: Block): LayoutHint {
-    return {
-        keepWithNext: block.kind === 'heading',
-        group:
-            block.kind === 'entry' || block.kind === 'bullet'
-                ? block.group
-                : null,
-    };
+    let group: string | null = null;
+
+    if (block.kind === 'entry' || block.kind === 'bullet') {
+        group = block.group;
+    } else if (block.kind === 'line') {
+        group = `${block.section}-lines`;
+    }
+
+    return { keepWithNext: block.kind === 'heading', group };
 }
 
 export function buildBlocks(data: ResumeData): Block[] {
@@ -191,6 +206,8 @@ function buildHeader(data: ResumeData): HeaderBlock | null {
     return {
         kind: 'header',
         id: 'header',
+        part: 'all',
+        contactTitle: DOCUMENT_LABELS[data.locale].contact,
         name: p.full_name.trim(),
         headline: p.headline.trim(),
         contacts,
@@ -336,26 +353,39 @@ function buildSection(
         case 'skills':
             return data.skill_groups
                 .filter((item) => hasText(item.skills))
-                .map((item, index) => ({
-                    kind: 'line',
-                    id: `skills-${index}`,
-                    section,
-                    label: item.category.trim(),
-                    value: normalizeList(item.skills),
-                }));
+                .map((item, index) => {
+                    const items = splitList(item.skills);
+
+                    return {
+                        kind: 'line',
+                        id: `skills-${index}`,
+                        section,
+                        label: item.category.trim(),
+                        value: items.join(', '),
+                        items,
+                    };
+                });
 
         case 'languages': {
-            const value = data.languages
+            const items = data.languages
                 .filter((item) => hasText(item.name))
                 .map((item) =>
                     hasText(item.proficiency)
                         ? `${item.name.trim()} (${item.proficiency.trim()})`
                         : item.name.trim(),
-                )
-                .join(', ');
+                );
 
-            return value
-                ? [{ kind: 'line', id: 'languages', section, label: '', value }]
+            return items.length
+                ? [
+                      {
+                          kind: 'line',
+                          id: 'languages',
+                          section,
+                          label: '',
+                          value: items.join(', '),
+                          items,
+                      },
+                  ]
                 : [];
         }
     }
@@ -389,11 +419,10 @@ function entryWithBullets(
     ];
 }
 
-/** "PHP,Laravel ,  MySQL" → "PHP, Laravel, MySQL" */
-function normalizeList(value: string): string {
+/** "PHP,Laravel ,  MySQL" → ["PHP", "Laravel", "MySQL"] */
+function splitList(value: string): string[] {
     return value
         .split(/[,;\n]/)
         .map((part) => part.trim())
-        .filter(Boolean)
-        .join(', ');
+        .filter(Boolean);
 }

@@ -13,7 +13,10 @@ class CvTemplate extends Model
     /**
      * Slugs that have a layout implementation in resources/js/cv/templates.
      */
-    public const SLUGS = ['classic', 'compact', 'modern', 'professional'];
+    public const SLUGS = [
+        'classic', 'compact', 'modern', 'professional', 'executive', 'accent', 'banner', 'block',
+        'portrait', 'timeline', 'gutter', 'minimal', 'sidebar', 'sidebar-light', 'two-column', 'split',
+    ];
 
     public const DEFAULT_SLUG = 'classic';
 

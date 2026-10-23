@@ -1,0 +1,161 @@
+/* Sidebar Light — pale tinted panel on the right, accent headings in the main column. */
+
+.tpl-sidebar-light {
+    --cv-margin-top: 0mm;
+    --cv-margin-x: 0mm;
+    --cv-margin-bottom: 0mm;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    line-height: 1.36;
+}
+
+.tpl-sidebar-light .cv-col-main {
+    padding: 16mm 11mm 14mm 16mm;
+}
+
+.tpl-sidebar-light .cv-col-aside {
+    width: 64mm;
+    padding: 16mm 8mm 12mm;
+    background: color-mix(in srgb, var(--cv-accent) 8%, #ffffff);
+}
+
+/* Side column ---------------------------------------------------------- */
+
+.tpl-sidebar-light .b-contact-card .photo {
+    width: 32mm;
+    height: 32mm;
+    margin: 0 auto 10pt;
+}
+
+.tpl-sidebar-light .aside-title,
+.tpl-sidebar-light .cv-col-aside .heading-text {
+    color: var(--cv-accent);
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.tpl-sidebar-light .b-contact-card .contacts {
+    padding-top: 2pt;
+    font-size: 9pt;
+}
+
+.tpl-sidebar-light .contact-icon {
+    color: var(--cv-accent);
+}
+
+.tpl-sidebar-light .cv-col-aside .b-heading {
+    padding-top: 14pt;
+}
+
+.tpl-sidebar-light .cv-col-aside .b-line {
+    padding-top: 5pt;
+    font-size: 9.5pt;
+}
+
+.tpl-sidebar-light .cv-col-aside .line-label {
+    padding-bottom: 2pt;
+    font-weight: 700;
+}
+
+.tpl-sidebar-light .chip {
+    border-color: color-mix(in srgb, var(--cv-accent) 45%, #ffffff);
+    background: #ffffff;
+    font-size: 9pt;
+}
+
+.tpl-sidebar-light .cv-col-aside .b-entry {
+    padding-top: 6pt;
+    font-size: 9.5pt;
+}
+
+.tpl-sidebar-light .cv-col-aside .entry-sub {
+    color: #444444;
+}
+
+/* Main column ------------------------------------------------------------ */
+
+.tpl-sidebar-light .b-identity {
+    padding-bottom: 8pt;
+    border-bottom: 1.5pt solid var(--cv-accent);
+}
+
+.tpl-sidebar-light .name {
+    color: var(--cv-accent);
+    font-size: 25pt;
+    font-weight: 700;
+    line-height: 1.08;
+}
+
+.tpl-sidebar-light .headline {
+    padding-top: 3pt;
+    color: #333333;
+    font-size: 12pt;
+}
+
+.tpl-sidebar-light .cv-col-main .b-heading {
+    padding-top: 13pt;
+}
+
+.tpl-sidebar-light .cv-col-main .heading-text {
+    padding-left: 3mm;
+    border-left: 3pt solid var(--cv-accent);
+    font-size: 11pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tpl-sidebar-light .cv-col-main .b-entry {
+    padding-top: 7pt;
+}
+
+.tpl-sidebar-light .cv-col-main .b-heading + .b-entry,
+.tpl-sidebar-light .cv-col-main .b-heading + .b-text,
+.tpl-sidebar-light .cv-col-main .b-heading + .b-line {
+    padding-top: 5pt;
+}
+
+.tpl-sidebar-light .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+.tpl-sidebar-light .entry-lead {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-sidebar-light .entry-aside {
+    flex: 0 0 auto;
+    color: #444444;
+    font-size: 9.5pt;
+}
+
+.tpl-sidebar-light .entry-org {
+    color: var(--cv-accent);
+}
+
+.tpl-sidebar-light .cv-col-main .entry-sub {
+    color: #444444;
+}
+
+.tpl-sidebar-light .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-sidebar-light .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-sidebar-light .bullet-mark {
+    width: 9pt;
+    color: var(--cv-accent);
+}
+
+.tpl-sidebar-light .cv-col-main .b-line {
+    padding-top: 2pt;
+}

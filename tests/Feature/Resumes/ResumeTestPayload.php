@@ -17,6 +17,8 @@ trait ResumeTestPayload
             'title' => 'CV Backend',
             'template' => 'classic',
             'locale' => 'id',
+            'paragraph_align' => 'left',
+            'accent_color' => 'navy',
             'section_order' => ['summary', 'experience', 'internship', 'organization', 'education', 'projects', 'skills', 'certifications', 'languages'],
             'personal' => [
                 'full_name' => 'Dimas Prasetyo',

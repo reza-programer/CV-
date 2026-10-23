@@ -27,6 +27,8 @@ class SaveResumeContent
             $resume->fill([
                 'title' => $data['title'],
                 'locale' => $data['locale'],
+                'paragraph_align' => $data['paragraph_align'],
+                'accent_color' => $data['accent_color'],
                 'cv_template_id' => CvTemplate::query()->where('slug', $data['template'])->value('id') ?? $resume->cv_template_id,
                 'section_order' => ResumeSection::normalizeOrder($data['section_order'] ?? null),
                 'full_name' => $personal['full_name'] ?? null,

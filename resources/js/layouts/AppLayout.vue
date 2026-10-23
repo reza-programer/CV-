@@ -23,7 +23,7 @@ const { isCurrentUrl } = useCurrentUrl();
     <div class="flex min-h-svh flex-col bg-white">
         <header class="border-b border-neutral-200">
             <div
-                class="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4 sm:px-6"
+                class="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4 sm:px-6"
             >
                 <Link :href="dashboard()" aria-label="CVForge, ke CV Saya">
                     <AppLogo />

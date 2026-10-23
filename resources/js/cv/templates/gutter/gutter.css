@@ -1,0 +1,133 @@
+/* Gutter ATS — section titles in a left gutter, content in one column on the right. */
+
+.tpl-gutter {
+    --cv-margin-top: 16mm;
+    --cv-margin-x: 16mm;
+    --cv-margin-bottom: 15mm;
+    --gutter: 40mm;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    line-height: 1.36;
+}
+
+.tpl-gutter .b-header {
+    display: flex;
+    align-items: center;
+    gap: 6mm;
+    padding-bottom: 8pt;
+    border-bottom: 1pt solid #111111;
+}
+
+.tpl-gutter .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-gutter .name {
+    font-size: 22pt;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.tpl-gutter .headline {
+    padding-top: 2pt;
+    font-size: 11pt;
+    color: #333333;
+}
+
+/* Contacts stack on the right of the header. */
+.tpl-gutter .contacts {
+    flex: 0 1 62mm;
+    font-size: 9pt;
+    line-height: 1.5;
+    text-align: right;
+}
+
+.tpl-gutter .contacts .contact {
+    display: block;
+}
+
+.tpl-gutter .contacts .contact-sep {
+    display: none;
+}
+
+.tpl-gutter .photo {
+    flex: 0 0 auto;
+    width: 17mm;
+    height: 22.7mm;
+    object-fit: cover;
+}
+
+/*
+ * The title block takes no height of its own: its text is placed in the
+ * gutter level with the next block, which carries the content.
+ */
+.tpl-gutter .b-heading {
+    position: relative;
+    padding-top: 13pt;
+}
+
+.tpl-gutter .heading-text {
+    position: absolute;
+    left: 0;
+    width: calc(var(--gutter) - 5mm);
+    font-size: 9.5pt;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.25;
+    text-transform: uppercase;
+}
+
+.tpl-gutter .b-entry,
+.tpl-gutter .b-bullet,
+.tpl-gutter .b-text,
+.tpl-gutter .b-line {
+    margin-left: var(--gutter);
+}
+
+.tpl-gutter .b-entry {
+    padding-top: 7pt;
+}
+
+.tpl-gutter .b-heading + .b-entry,
+.tpl-gutter .b-heading + .b-text,
+.tpl-gutter .b-heading + .b-line {
+    padding-top: 0;
+}
+
+.tpl-gutter .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+.tpl-gutter .entry-lead {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-gutter .entry-aside {
+    flex: 0 0 auto;
+    color: #333333;
+}
+
+.tpl-gutter .entry-sub {
+    color: #333333;
+}
+
+.tpl-gutter .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-gutter .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-gutter .bullet-mark {
+    width: 10pt;
+}
+
+.tpl-gutter .b-line {
+    padding-top: 2pt;
+}

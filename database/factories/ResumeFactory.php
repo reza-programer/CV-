@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Enums\ExperienceType;
+use App\Enums\ParagraphAlign;
+use App\Enums\ResumeAccent;
 use App\Enums\ResumeLocale;
 use App\Enums\ResumeSection;
 use App\Models\CvTemplate;
@@ -24,6 +26,8 @@ class ResumeFactory extends Factory
             'cv_template_id' => fn () => CvTemplate::query()->where('slug', CvTemplate::DEFAULT_SLUG)->value('id'),
             'title' => 'CV '.fake()->jobTitle(),
             'locale' => ResumeLocale::Indonesian,
+            'paragraph_align' => ParagraphAlign::Left,
+            'accent_color' => ResumeAccent::Navy,
             'section_order' => ResumeSection::defaultOrder(),
             'full_name' => fake()->name(),
             'headline' => fake()->jobTitle(),

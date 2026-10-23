@@ -26,6 +26,7 @@ const scale = computed(() =>
         ref="box"
         class="cv-thumbnail pointer-events-none aspect-[210/297] w-full overflow-hidden bg-white select-none"
         aria-hidden="true"
+        inert
     >
         <CvDocument :data="data" :scale="scale" :page-limit="1" />
     </div>

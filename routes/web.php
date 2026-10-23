@@ -6,6 +6,7 @@ use App\Http\Controllers\Resumes\DuplicateResumeController;
 use App\Http\Controllers\Resumes\ResumeAssistController;
 use App\Http\Controllers\Resumes\ResumeController;
 use App\Http\Controllers\Resumes\ResumePhotoController;
+use App\Http\Controllers\Resumes\ResumeTranslateController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -33,6 +34,11 @@ Route::middleware('auth')->group(function () {
         ->can('update', 'resume')
         ->middleware('throttle:assistant')
         ->name('resumes.assist');
+
+    Route::post('resumes/{resume}/translate', ResumeTranslateController::class)
+        ->can('update', 'resume')
+        ->middleware('throttle:assistant')
+        ->name('resumes.translate');
 });
 
 require __DIR__.'/settings.php';

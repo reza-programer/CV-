@@ -5,11 +5,15 @@ import { computed, ref } from 'vue';
 import { toast } from 'vue-sonner';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
-import type { TemplateSummary } from '@/cv/types';
+import type { ResumeLocale, TemplateSummary } from '@/cv/types';
 import { dashboard } from '@/routes';
 import { pdf } from '@/routes/resumes';
 import KeywordAssistant from './assistant/KeywordAssistant.vue';
+import TranslateDialog from './assistant/TranslateDialog.vue';
+import { isColoured, isMultiColumn } from '@/cv/templates';
+import AccentColorPicker from './AccentColorPicker.vue';
 import NativeSelect from './NativeSelect.vue';
+import ParagraphAlignToggle from './ParagraphAlignToggle.vue';
 import { useEditor } from './useEditorContext';
 
 const props = defineProps<{ templates: TemplateSummary[] }>();
@@ -18,10 +22,21 @@ const editor = useEditor();
 const downloading = ref(false);
 
 const templateOptions = computed(() => {
-    const options = props.templates.map((template) => ({
-        value: template.slug,
-        label: template.name,
-    }));
+    const options = props.templates.map((template) => {
+        const tags = [
+            isMultiColumn(template.slug) && !/kreatif/i.test(template.name)
+                ? 'kreatif'
+                : '',
+            isColoured(template.slug) ? 'berwarna' : '',
+        ].filter(Boolean);
+
+        return {
+            value: template.slug,
+            label: tags.length
+                ? `${template.name} · ${tags.join(', ')}`
+                : template.name,
+        };
+    });
 
     // Keep a template the admin has since deactivated selectable for this CV.
     if (!options.some((option) => option.value === editor.resume.template)) {
@@ -34,10 +49,32 @@ const templateOptions = computed(() => {
     return options;
 });
 
-const localeOptions = [
-    { value: 'id', label: 'Bahasa Indonesia' },
+const localeOptions: Array<{ value: ResumeLocale; label: string }> = [
+    { value: 'id', label: 'Indonesia' },
     { value: 'en', label: 'English' },
 ];
+
+/** Language chosen in the select while the translation dialog is open. */
+const pendingLocale = ref<ResumeLocale | null>(null);
+
+function chooseLocale(value: string): void {
+    const locale = localeOptions.find((option) => option.value === value);
+
+    if (!locale || locale.value === editor.resume.locale) {
+        return;
+    }
+
+    if (editor.assistantEnabled) {
+        pendingLocale.value = locale.value;
+
+        return;
+    }
+
+    editor.resume.locale = locale.value;
+    toast.info(
+        'Bahasa dokumen diganti. Isi CV tidak diterjemahkan otomatis; terjemahan tersedia bila asisten AI (ANTHROPIC_API_KEY) diaktifkan.',
+    );
+}
 
 const errorCount = computed(() => Object.keys(editor.errors.value).length);
 
@@ -175,20 +212,33 @@ async function download(): Promise<void> {
             </span>
         </div>
 
-        <div class="flex w-full items-center gap-2 lg:w-auto">
+        <div
+            class="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:flex-nowrap"
+        >
             <NativeSelect
                 v-model="editor.resume.template"
                 :options="templateOptions"
                 aria-label="Template"
-                class="min-w-0 flex-1 lg:w-44 lg:flex-none"
+                class="min-w-40 flex-1 lg:w-60 lg:flex-none"
             />
+            <!-- Shows the pending choice while the dialog is open and the document language again once it closes. -->
             <NativeSelect
-                v-model="editor.resume.locale"
+                :model-value="pendingLocale ?? editor.resume.locale"
                 :options="localeOptions"
                 aria-label="Bahasa dokumen"
                 title="Bahasa judul bagian dan tanggal pada dokumen"
-                class="min-w-0 flex-1 lg:w-40 lg:flex-none"
+                class="min-w-28 flex-1 lg:w-32 lg:flex-none"
+                @update:model-value="chooseLocale"
             />
+            <TranslateDialog
+                v-if="editor.assistantEnabled"
+                v-model:target="pendingLocale"
+            />
+            <AccentColorPicker
+                v-if="isColoured(editor.resume.template)"
+                v-model="editor.resume.accent_color"
+            />
+            <ParagraphAlignToggle v-model="editor.resume.paragraph_align" />
             <KeywordAssistant v-if="editor.assistantEnabled" />
             <Button :disabled="downloading" class="shrink-0" @click="download">
                 <Spinner v-if="downloading" />

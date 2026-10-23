@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
+import { watch } from 'vue';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -18,7 +19,11 @@ import TemplatePicker from './TemplatePicker.vue';
 
 const open = defineModel<boolean>('open', { required: true });
 
-const props = defineProps<{ templates: TemplateSummary[] }>();
+const props = defineProps<{
+    templates: TemplateSummary[];
+    /** Preselected template, e.g. one chosen on the landing page. */
+    template?: TemplateSlug | null;
+}>();
 
 const form = useForm<{
     title: string;
@@ -28,6 +33,12 @@ const form = useForm<{
     title: '',
     template: props.templates[0]?.slug ?? 'classic',
     locale: 'id',
+});
+
+watch(open, (isOpen) => {
+    if (isOpen && props.template) {
+        form.template = props.template;
+    }
 });
 
 function submit(): void {
@@ -42,9 +53,12 @@ function submit(): void {
 
 <template>
     <Dialog v-model:open="open">
-        <DialogContent class="max-h-[92svh] overflow-y-auto sm:max-w-3xl">
+        <DialogContent class="max-h-[92svh] overflow-y-auto sm:max-w-4xl">
             <DialogHeader>
-                <DialogTitle>Buat CV baru</DialogTitle>
+                <DialogTitle
+                    class="font-display text-2xl font-medium tracking-tight"
+                    >Buat CV baru</DialogTitle
+                >
                 <DialogDescription>
                     Nama dan email akun Anda diisikan otomatis. Template dan
                     bahasa dapat diganti kapan saja tanpa kehilangan isi.

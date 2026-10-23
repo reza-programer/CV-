@@ -3,9 +3,37 @@
  * Mirrors App\Support\Resumes\ResumePayload and UpdateResumeRequest.
  */
 
-export type TemplateSlug = 'classic' | 'compact' | 'modern' | 'professional';
+export type TemplateSlug =
+    | 'classic'
+    | 'compact'
+    | 'modern'
+    | 'professional'
+    | 'executive'
+    | 'accent'
+    | 'banner'
+    | 'block'
+    | 'portrait'
+    | 'timeline'
+    | 'gutter'
+    | 'minimal'
+    | 'sidebar'
+    | 'sidebar-light'
+    | 'two-column'
+    | 'split';
+
+/** Accent colour of the coloured templates; see accents.ts. */
+export type AccentColor =
+    | 'navy'
+    | 'teal'
+    | 'forest'
+    | 'burgundy'
+    | 'plum'
+    | 'charcoal';
 
 export type ResumeLocale = 'id' | 'en';
+
+/** Alignment of running text: the profile paragraph and bullet points. */
+export type ParagraphAlign = 'left' | 'justify';
 
 export type SectionKey =
     | 'summary'
@@ -93,6 +121,8 @@ export type ResumeData = {
     title: string;
     template: TemplateSlug;
     locale: ResumeLocale;
+    paragraph_align: ParagraphAlign;
+    accent_color: AccentColor;
     section_order: SectionKey[];
     personal: PersonalInfo;
     photo_url: string | null;

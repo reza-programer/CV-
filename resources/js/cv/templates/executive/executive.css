@@ -1,0 +1,117 @@
+/* Executive ATS — Times-metric serif, centred header with a double rule, flanked headings. */
+
+.tpl-executive {
+    --cv-margin-top: 17mm;
+    --cv-margin-x: 20mm;
+    --cv-margin-bottom: 16mm;
+    font-family: 'Tinos', 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    line-height: 1.28;
+}
+
+.tpl-executive .b-header {
+    padding-bottom: 6pt;
+    border-bottom: 2.5pt double #111111;
+    text-align: center;
+}
+
+.tpl-executive .photo {
+    width: 18mm;
+    height: 24mm;
+    margin: 0 auto 5pt;
+    object-fit: cover;
+}
+
+.tpl-executive .name {
+    font-size: 21pt;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.08em;
+    font-variant: small-caps;
+}
+
+.tpl-executive .headline {
+    padding-top: 2pt;
+    font-size: 11.5pt;
+    font-style: italic;
+}
+
+.tpl-executive .contacts {
+    padding-top: 4pt;
+    font-size: 10pt;
+}
+
+.tpl-executive .b-heading {
+    padding-top: 12pt;
+}
+
+/* Hairlines either side of the title; decoration only, the title stays text. */
+.tpl-executive .heading-text {
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+    font-size: 11.5pt;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    font-variant: small-caps;
+}
+
+.tpl-executive .heading-text::before,
+.tpl-executive .heading-text::after {
+    content: '';
+    flex: 1 1 0;
+    border-top: 0.5pt solid #111111;
+}
+
+.tpl-executive .b-entry {
+    padding-top: 7pt;
+}
+
+.tpl-executive .b-heading + .b-entry,
+.tpl-executive .b-heading + .b-text,
+.tpl-executive .b-heading + .b-line {
+    padding-top: 5pt;
+}
+
+.tpl-executive .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+.tpl-executive .entry-lead {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 11.5pt;
+}
+
+.tpl-executive .entry-aside {
+    flex: 0 0 auto;
+}
+
+.tpl-executive .entry-sub {
+    color: #333333;
+}
+
+.tpl-executive .b-bullet {
+    padding-top: 1.5pt;
+    padding-left: 4mm;
+}
+
+.tpl-executive .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-executive .bullet-mark {
+    width: 10pt;
+}
+
+.tpl-executive .b-line {
+    padding-top: 2pt;
+}
+
+.tpl-executive .line-label {
+    font-variant: small-caps;
+    letter-spacing: 0.04em;
+}

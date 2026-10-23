@@ -1,0 +1,144 @@
+/* Two Column — full-width photo header and profile, then two ruled columns. */
+
+.tpl-two-column {
+    --cv-margin-top: 14mm;
+    --cv-margin-x: 15mm;
+    --cv-margin-bottom: 13mm;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.36;
+}
+
+.tpl-two-column .cv-columns {
+    gap: 8mm;
+}
+
+/* Space between the full-width profile and the first rule of each column. */
+.tpl-two-column .cv-top {
+    padding-bottom: 8pt;
+}
+
+.tpl-two-column .cv-col-aside {
+    width: calc((100% - 8mm) / 2);
+}
+
+/* Header and profile ------------------------------------------------------ */
+
+.tpl-two-column .b-header {
+    display: flex;
+    align-items: center;
+    gap: 8mm;
+    padding: 0 4mm 8pt;
+}
+
+.tpl-two-column .photo {
+    flex: 0 0 auto;
+    width: 32mm;
+    height: 32mm;
+}
+
+.tpl-two-column .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-two-column .name {
+    color: var(--cv-accent);
+    font-size: 27pt;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.tpl-two-column .headline {
+    padding-top: 2pt;
+    font-size: 11pt;
+}
+
+.tpl-two-column .contacts {
+    padding-top: 4pt;
+    font-size: 9.5pt;
+}
+
+.tpl-two-column .contact-icon {
+    color: var(--cv-accent);
+}
+
+/* Section titles carry the rule that separates sections. */
+.tpl-two-column .b-heading {
+    padding-top: 10pt;
+}
+
+.tpl-two-column .heading-text {
+    padding-top: 7pt;
+    border-top: 0.75pt solid #111111;
+    color: var(--cv-accent);
+    font-size: 11pt;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.tpl-two-column .cv-top .b-heading + .b-text {
+    padding-top: 3pt;
+    padding-bottom: 2pt;
+}
+
+/* Columns -------------------------------------------------------------- */
+
+.tpl-two-column .b-entry {
+    padding-top: 6pt;
+}
+
+.tpl-two-column .b-heading + .b-entry,
+.tpl-two-column .b-heading + .b-text,
+.tpl-two-column .b-heading + .b-line {
+    padding-top: 4pt;
+}
+
+.tpl-two-column .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 3mm;
+}
+
+.tpl-two-column .entry-lead {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-two-column .entry-aside {
+    flex: 0 0 auto;
+}
+
+.tpl-two-column .entry-sub {
+    color: #333333;
+}
+
+.tpl-two-column .b-bullet {
+    padding-top: 1pt;
+    padding-left: 2pt;
+}
+
+.tpl-two-column .b-entry + .b-bullet {
+    padding-top: 2.5pt;
+}
+
+.tpl-two-column .bullet-mark {
+    width: 9pt;
+    color: var(--cv-accent);
+}
+
+.tpl-two-column .b-line {
+    padding-top: 2pt;
+}
+
+.tpl-two-column .line-label {
+    font-weight: 700;
+}
+
+.tpl-two-column .list-item {
+    display: flex;
+}

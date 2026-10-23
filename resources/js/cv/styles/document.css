@@ -148,6 +148,72 @@
         U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* Tinos: Times New Roman metrics, used by the Executive template. */
+@font-face {
+    font-family: 'Tinos';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url('@fontsource/tinos/files/tinos-latin-400-normal.woff2')
+        format('woff2');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Tinos';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url('@fontsource/tinos/files/tinos-latin-ext-400-normal.woff2')
+        format('woff2');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+        U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+        U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Tinos';
+    font-style: normal;
+    font-weight: 700;
+    font-display: block;
+    src: url('@fontsource/tinos/files/tinos-latin-700-normal.woff2')
+        format('woff2');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Tinos';
+    font-style: normal;
+    font-weight: 700;
+    font-display: block;
+    src: url('@fontsource/tinos/files/tinos-latin-ext-700-normal.woff2')
+        format('woff2');
+    unicode-range:
+        U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+        U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+        U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+    font-family: 'Tinos';
+    font-style: italic;
+    font-weight: 400;
+    font-display: block;
+    src: url('@fontsource/tinos/files/tinos-latin-400-italic.woff2')
+        format('woff2');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 .cv-doc {
     position: relative;
     color: #111111;
@@ -211,6 +277,8 @@
 
 .cv-page {
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 210mm;
     height: 297mm;
     overflow: hidden;
@@ -218,12 +286,35 @@
     padding: var(--cv-margin-top) var(--cv-margin-x) var(--cv-margin-bottom);
 }
 
-/* Off-screen copy of the document used to measure blocks at real size. */
+/*
+ * Columns fill the page below the optional top region. Column templates set
+ * the side column's width, background and padding; single-column templates
+ * only have the main column, which behaves like the plain page body.
+ */
+.cv-columns {
+    display: flex;
+    flex: 1 1 0;
+    min-height: 0;
+}
+
+.cv-col {
+    min-width: 0;
+}
+
+.cv-col-main {
+    flex: 1 1 auto;
+}
+
+.cv-col-aside {
+    flex: 0 0 auto;
+}
+
+/* Off-screen probe pages used to measure blocks at real size. */
 .cv-measure {
     position: absolute;
     top: 0;
     left: -10000px;
-    width: calc(210mm - 2 * var(--cv-margin-x));
+    width: 210mm;
     height: 0;
     overflow: hidden;
     visibility: hidden;
@@ -258,6 +349,88 @@
     white-space: pre-line;
 }
 
+/*
+ * Word-style justified paragraphs for the profile and bullet points. Only
+ * spacing changes, never line breaks, so pagination is unaffected. The last
+ * line stays left so short lines are not stretched, and words are never
+ * hyphenated because ATS parsers would read the split halves as two words.
+ */
+.cv-doc.align-justify .b-text,
+.cv-doc.align-justify .bullet-text {
+    text-align: justify;
+    text-align-last: left;
+    hyphens: manual;
+}
+
 .cv-doc .nowrap {
     white-space: nowrap;
+}
+
+/*
+ * Icon + text contacts. The " | " between inline items is real text, kept
+ * transparent: it spaces the items on the page and keeps the values apart in
+ * the extracted PDF text.
+ */
+.cv-doc .icon-contact {
+    white-space: nowrap;
+}
+
+.cv-doc .icon-contact-sep {
+    color: transparent;
+}
+
+.cv-doc .icon-contacts.is-stacked {
+    display: block;
+}
+
+.cv-doc .icon-contacts.is-stacked .icon-contact {
+    display: flex;
+    align-items: baseline;
+    padding-top: 2.5pt;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.cv-doc .icon-contacts.is-stacked .icon-contact-sep {
+    display: none;
+}
+
+.cv-doc .contact-icon {
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.4em;
+    vertical-align: -0.14em;
+}
+
+.cv-doc .section-icon {
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 1.05em;
+    height: 1.05em;
+}
+
+/* Round photos for the graphic templates; the stored photo is 3:4. */
+.cv-doc .photo.is-round {
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 22%;
+}
+
+/* Skill tags; plain text with a hairline frame. */
+.cv-doc .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5pt;
+}
+
+.cv-doc .chip {
+    padding: 1pt 4pt;
+    border: 0.75pt solid currentColor;
+    border-radius: 2pt;
+}
+
+.cv-doc .stack-list > li {
+    padding-top: 1.5pt;
 }

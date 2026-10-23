@@ -2,6 +2,8 @@
 
 namespace App\Support\Resumes;
 
+use App\Enums\ParagraphAlign;
+use App\Enums\ResumeAccent;
 use App\Enums\ResumeSection;
 use App\Models\CvTemplate;
 use App\Models\Resume;
@@ -32,6 +34,8 @@ class ResumePayload
             'title' => $resume->title,
             'template' => $resume->template->slug ?? CvTemplate::DEFAULT_SLUG,
             'locale' => $resume->locale->value,
+            'paragraph_align' => ($resume->paragraph_align ?? ParagraphAlign::Left)->value,
+            'accent_color' => ($resume->accent_color ?? ResumeAccent::Navy)->value,
             'section_order' => ResumeSection::normalizeOrder($resume->section_order),
             'personal' => [
                 'full_name' => (string) $resume->full_name,

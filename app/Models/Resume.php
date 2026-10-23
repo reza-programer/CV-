@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Enums\ExperienceType;
+use App\Enums\ParagraphAlign;
+use App\Enums\ResumeAccent;
 use App\Enums\ResumeLocale;
 use App\Services\ResumePhotos;
 use Database\Factories\ResumeFactory;
@@ -13,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
-    'title', 'locale', 'cv_template_id', 'section_order',
+    'title', 'locale', 'paragraph_align', 'accent_color', 'cv_template_id', 'section_order',
     'full_name', 'headline', 'email', 'phone', 'location', 'website', 'linkedin',
     'summary', 'photo_path',
 ])]
@@ -31,6 +33,8 @@ class Resume extends Model
     {
         return [
             'locale' => ResumeLocale::class,
+            'paragraph_align' => ParagraphAlign::class,
+            'accent_color' => ResumeAccent::class,
             'section_order' => 'array',
         ];
     }

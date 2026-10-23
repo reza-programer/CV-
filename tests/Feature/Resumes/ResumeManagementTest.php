@@ -3,6 +3,7 @@
 namespace Tests\Feature\Resumes;
 
 use App\Enums\ExperienceType;
+use App\Enums\ParagraphAlign;
 use App\Models\CvTemplate;
 use App\Models\Resume;
 use App\Models\User;
@@ -36,7 +37,7 @@ class ResumeManagementTest extends TestCase
                 ->has('resumes', 1)
                 ->where('resumes.0.id', $own->id)
                 ->where('resumes.0.document.title', 'Milik saya')
-                ->has('templates', 4));
+                ->has('templates', 16));
     }
 
     public function test_creating_a_resume_prefills_account_details_and_opens_the_editor(): void
@@ -105,7 +106,7 @@ class ResumeManagementTest extends TestCase
     {
         $resume = Resume::factory()->withContent()->create();
 
-        $payload = $this->payload(['template' => 'professional']);
+        $payload = $this->payload(['template' => 'professional', 'paragraph_align' => 'justify']);
         $payload['section_order'] = ['education', 'experience'];
 
         $this->actingAs($resume->user)
@@ -116,6 +117,7 @@ class ResumeManagementTest extends TestCase
         $resume->refresh();
 
         $this->assertSame('professional', $resume->template->slug);
+        $this->assertSame(ParagraphAlign::Justify, $resume->paragraph_align);
         $this->assertSame('Dimas Prasetyo', $resume->full_name);
         // Missing sections are appended so the stored order is always complete.
         $this->assertSame(['education', 'experience', 'summary', 'internship', 'organization', 'projects', 'skills', 'certifications', 'languages'], $resume->section_order);
@@ -152,6 +154,7 @@ class ResumeManagementTest extends TestCase
         $resume = Resume::factory()->create();
 
         $payload = $this->payload([
+            'paragraph_align' => 'center',
             'personal' => ['email' => 'bukan-email', 'phone' => 'telepon saya', 'website' => 'javascript:alert(1)'],
         ]);
         $payload['experiences'][0]['end_date'] = '2020-01';
@@ -161,6 +164,7 @@ class ResumeManagementTest extends TestCase
         $response = $this->actingAs($resume->user)->putJson(route('resumes.update', $resume), $payload);
 
         $response->assertUnprocessable()->assertJsonValidationErrors([
+            'paragraph_align',
             'personal.email',
             'personal.phone',
             'personal.website',

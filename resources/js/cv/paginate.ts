@@ -29,12 +29,19 @@ export type PaginateOptions = {
 /** Sub-pixel rounding differs between browsers; allow a hair of slack. */
 const EPSILON = 0.5;
 
+/**
+ * `capacity` is the usable height per page, or a function of the page index
+ * when the first page is shorter (a full-width header above two columns).
+ */
 export function paginate(
     metrics: BlockMetric[],
-    capacity: number,
+    capacity: number | ((page: number) => number),
     options: PaginateOptions = {},
 ): number[][] {
-    const keepTogetherLimit = capacity * (options.keepTogetherRatio ?? 0.4);
+    const capacityOf = (page: number): number =>
+        typeof capacity === 'function' ? capacity(page) : capacity;
+    const keepTogetherLimit =
+        capacityOf(1) * (options.keepTogetherRatio ?? 0.4);
     const count = metrics.length;
     const groupFirst = new Map<string, number>();
     const groupLast = new Map<string, number>();
@@ -107,13 +114,14 @@ export function paginate(
 
     while (index < count) {
         const end = unitEnd(index);
+        const capacityHere = capacityOf(pages.length);
         let unitHeight = 0;
 
         for (let i = index; i < end; i++) {
             unitHeight += heightOf(i, page.length === 0 && i === index);
         }
 
-        if (used + unitHeight <= capacity + EPSILON) {
+        if (used + unitHeight <= capacityHere + EPSILON) {
             for (let i = index; i < end; i++) {
                 page.push(i);
             }
@@ -128,12 +136,19 @@ export function paginate(
             continue;
         }
 
+        // A short first page (under a tall header) may not fit a unit that a
+        // full page would: leave this column empty here and start on the next.
+        if (unitHeight <= capacityOf(pages.length + 1) + EPSILON) {
+            closePage();
+            continue;
+        }
+
         // The unit is taller than an empty page: fill this page block by block
         // and continue the rest of the unit on the next one.
         while (index < end) {
             const height = heightOf(index, page.length === 0);
 
-            if (page.length > 0 && used + height > capacity + EPSILON) {
+            if (page.length > 0 && used + height > capacityHere + EPSILON) {
                 break;
             }
 

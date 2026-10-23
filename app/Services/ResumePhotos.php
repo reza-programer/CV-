@@ -104,7 +104,8 @@ class ResumePhotos
             return $image;
         }
 
-        $orientation = (int) (@exif_read_data($file->getRealPath())['Orientation'] ?? 1);
+        $exif = @exif_read_data($file->getRealPath());
+        $orientation = is_array($exif) ? (int) ($exif['Orientation'] ?? 1) : 1;
 
         $rotated = match ($orientation) {
             3 => imagerotate($image, 180, 0),

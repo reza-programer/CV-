@@ -7,19 +7,24 @@ import {
     ref,
     watch,
 } from 'vue';
+import { accentHex } from './accents';
+import type { Block } from './blocks';
 import { buildBlocks, layoutHint } from './blocks';
+import CvPageBody from './CvPageBody.vue';
 import type { BlockMetric } from './paginate';
 import { paginate } from './paginate';
-import { resolveTemplate, TEMPLATE_COMPONENTS } from './templates';
+import { splitRegions } from './regions';
+import { resolveTemplate, TEMPLATES } from './templates';
 import type { ResumeData } from './types';
 
 /**
  * Renders a CV as real A4 pages.
  *
- * Every block is first rendered off-screen at full size and measured, then
- * distributed over pages by `paginate`. The editor preview and the PDF print
- * bundle both use this component, so the PDF breaks pages exactly where the
- * preview does.
+ * Every block is first rendered off-screen at full size inside a probe page
+ * with the template's real column widths and measured, then distributed over
+ * pages by `paginate`, one column at a time. The editor preview and the PDF
+ * print bundle both use this component, so the PDF breaks pages exactly where
+ * the preview does.
  */
 const props = withDefaults(
     defineProps<{
@@ -36,13 +41,22 @@ const props = withDefaults(
 
 const emit = defineEmits<{ laidOut: [pageCount: number] }>();
 
-const slug = computed(() => resolveTemplate(props.data.template));
-const component = computed(() => TEMPLATE_COMPONENTS[slug.value]);
-const blocks = computed(() => buildBlocks(props.data));
+type PagePlan = { main: number[]; aside: number[] };
 
-const measureFlow = ref<HTMLElement | null>(null);
-const probe = ref<HTMLElement | null>(null);
-const pages = ref<number[][]>([]);
+const slug = computed(() => resolveTemplate(props.data.template));
+const template = computed(() => TEMPLATES[slug.value]);
+const hasAside = computed(() => template.value.layout.kind === 'columns');
+const asideFirst = computed(
+    () =>
+        template.value.layout.kind === 'columns' &&
+        template.value.layout.asideSide === 'left',
+);
+const regions = computed(() =>
+    splitRegions(buildBlocks(props.data), template.value.layout),
+);
+
+const measure = ref<HTMLElement | null>(null);
+const pages = ref<PagePlan[]>([]);
 const pageHeight = ref(0);
 
 const visiblePages = computed(() =>
@@ -55,44 +69,92 @@ const outerHeight = computed(() => {
     return (count * pageHeight.value + (count - 1) * props.gap) * props.scale;
 });
 
-async function layout(): Promise<number> {
-    await nextTick();
+function pick(blocks: Block[], indexes: number[]): Block[] {
+    return indexes.map((index) => blocks[index]).filter(Boolean);
+}
 
-    const flow = measureFlow.value;
-    const page = probe.value;
-
-    if (!flow || !page) {
-        return pages.value.length;
+/** Usable height inside a column box. */
+function contentHeight(element: Element | null): number {
+    if (!(element instanceof HTMLElement)) {
+        return 0;
     }
 
-    const pageStyle = getComputedStyle(page);
-    const pageBox = page.getBoundingClientRect().height;
-    const capacity =
-        pageBox -
-        parseFloat(pageStyle.paddingTop) -
-        parseFloat(pageStyle.paddingBottom);
+    const style = getComputedStyle(element);
+
+    return (
+        element.getBoundingClientRect().height -
+        parseFloat(style.paddingTop) -
+        parseFloat(style.paddingBottom)
+    );
+}
+
+// Margins count towards the space a block takes: a full-bleed header uses a
+// negative top margin to reach into the page margin. The measured DOM can lag
+// one render behind the blocks; a missing element counts as zero height until
+// the next layout pass.
+function metricsFor(flow: Element | null, blocks: Block[]): BlockMetric[] {
     const elements = new Map<number, HTMLElement>();
 
-    for (const element of Array.from(flow.children) as HTMLElement[]) {
+    for (const element of Array.from(flow?.children ?? []) as HTMLElement[]) {
         elements.set(Number(element.dataset.index), element);
     }
 
-    // The measured DOM can lag one render behind `blocks`; a block without an
-    // element yet counts as zero height until the next layout pass.
-    const metrics: BlockMetric[] = blocks.value.map((block, index) => {
+    return blocks.map((block, index) => {
         const element = elements.get(index);
 
+        if (!element) {
+            return { height: 0, spaceBefore: 0, ...layoutHint(block) };
+        }
+
+        const style = getComputedStyle(element);
+
         return {
-            height: element?.getBoundingClientRect().height ?? 0,
-            spaceBefore: element
-                ? parseFloat(getComputedStyle(element).paddingTop) || 0
-                : 0,
+            height:
+                element.getBoundingClientRect().height +
+                (parseFloat(style.marginTop) || 0) +
+                (parseFloat(style.marginBottom) || 0),
+            spaceBefore: parseFloat(style.paddingTop) || 0,
             ...layoutHint(block),
         };
     });
+}
 
-    pageHeight.value = pageBox;
-    pages.value = paginate(metrics, capacity);
+async function layout(): Promise<number> {
+    await nextTick();
+
+    const root = measure.value;
+    const first = root?.querySelector<HTMLElement>('[data-probe="first"]');
+    const rest = root?.querySelector('[data-probe="rest"]');
+
+    if (!root || !first || !rest) {
+        return pages.value.length;
+    }
+
+    // The first page loses the height of a full-width top region, so each
+    // column has its own capacity on page one and on later pages.
+    const columnPages = (region: 'main' | 'aside') => {
+        const selector = `.cv-col-${region}`;
+        const firstCapacity = contentHeight(first.querySelector(selector));
+        const restCapacity = contentHeight(rest.querySelector(selector));
+
+        return paginate(
+            metricsFor(
+                first.querySelector(`[data-flow="${region}"]`),
+                regions.value[region],
+            ),
+            (page) => (page === 0 ? firstCapacity : restCapacity),
+        );
+    };
+
+    const main = columnPages('main');
+    const aside = hasAside.value ? columnPages('aside') : [];
+    const count = Math.max(main.length, aside.length, 1);
+
+    pageHeight.value = first.getBoundingClientRect().height;
+    pages.value = Array.from({ length: count }, (_, page) => ({
+        main: main[page] ?? [],
+        aside: aside[page] ?? [],
+    }));
     emit('laidOut', pages.value.length);
 
     return pages.value.length;
@@ -105,7 +167,7 @@ function scheduleLayout(): void {
     frame = requestAnimationFrame(() => void layout());
 }
 
-watch([blocks, slug], scheduleLayout);
+watch([regions, slug], scheduleLayout);
 
 const onFontsLoaded = () => scheduleLayout();
 
@@ -126,18 +188,36 @@ defineExpose({ layout, pageCount: computed(() => pages.value.length) });
 <template>
     <div
         class="cv-doc"
-        :class="[`tpl-${slug}`, { 'is-scaled': scale !== 1 }]"
-        :style="scale === 1 ? undefined : { height: `${outerHeight}px` }"
+        :class="[
+            `tpl-${slug}`,
+            {
+                'is-scaled': scale !== 1,
+                'align-justify': data.paragraph_align === 'justify',
+            },
+        ]"
+        :style="{
+            '--cv-accent': accentHex(data.accent_color),
+            height: scale === 1 ? undefined : `${outerHeight}px`,
+        }"
     >
-        <div class="cv-measure" aria-hidden="true">
-            <div ref="probe" class="cv-page" />
-            <div ref="measureFlow" class="cv-flow">
-                <component
-                    :is="component"
-                    v-for="(block, index) in blocks"
-                    :key="block.id"
-                    :block="block"
-                    :data-index="index"
+        <div ref="measure" class="cv-measure" aria-hidden="true">
+            <div class="cv-page" data-probe="first">
+                <CvPageBody
+                    :block-component="template.component"
+                    :top="regions.top"
+                    :main="regions.main"
+                    :aside="hasAside ? regions.aside : null"
+                    :aside-first="asideFirst"
+                    indexed
+                />
+            </div>
+            <div class="cv-page" data-probe="rest">
+                <CvPageBody
+                    :block-component="template.component"
+                    :top="[]"
+                    :main="[]"
+                    :aside="hasAside ? [] : null"
+                    :aside-first="asideFirst"
                 />
             </div>
         </div>
@@ -156,14 +236,13 @@ defineExpose({ layout, pageCount: computed(() => pages.value.length) });
                         : undefined
                 "
             >
-                <div class="cv-flow">
-                    <component
-                        :is="component"
-                        v-for="index in page"
-                        :key="blocks[index].id"
-                        :block="blocks[index]"
-                    />
-                </div>
+                <CvPageBody
+                    :block-component="template.component"
+                    :top="pageIndex === 0 ? regions.top : []"
+                    :main="pick(regions.main, page.main)"
+                    :aside="hasAside ? pick(regions.aside, page.aside) : null"
+                    :aside-first="asideFirst"
+                />
             </section>
         </div>
     </div>

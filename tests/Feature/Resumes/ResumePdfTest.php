@@ -59,9 +59,14 @@ class ResumePdfTest extends TestCase
             ->assertHeader('Content-Disposition', 'attachment; filename="CV - Dimas Prasetyo.pdf"; filename*=UTF-8\'\'CV%20-%20Dimas%20Prasetyo.pdf');
     }
 
+    /**
+     * Page count from the root of the page tree.
+     */
     private function pageCount(string $pdf): int
     {
-        return preg_match_all('#/Type\s*/Page[^s]#', $pdf);
+        preg_match_all('#/Count (\d+)#', $pdf, $matches);
+
+        return max(array_map('intval', $matches[1] ?: [0]));
     }
 
     private function requirePrintBundle(): void

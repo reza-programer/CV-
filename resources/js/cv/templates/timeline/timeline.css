@@ -1,0 +1,129 @@
+/* Timeline ATS — entries on a vertical line with accent dots, dates first. */
+
+.tpl-timeline {
+    --cv-margin-top: 16mm;
+    --cv-margin-x: 18mm;
+    --cv-margin-bottom: 15mm;
+    --timeline-line: color-mix(in srgb, var(--cv-accent) 30%, #ffffff);
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.36;
+}
+
+.tpl-timeline .b-header {
+    display: flex;
+    align-items: center;
+    gap: 6mm;
+    padding-bottom: 6pt;
+}
+
+.tpl-timeline .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-timeline .name {
+    font-size: 24pt;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.tpl-timeline .headline {
+    padding-top: 2pt;
+    color: var(--cv-accent);
+    font-size: 12pt;
+    font-weight: 700;
+}
+
+.tpl-timeline .contacts {
+    padding-top: 6pt;
+    font-size: 9.5pt;
+}
+
+.tpl-timeline .contact-icon {
+    color: var(--cv-accent);
+}
+
+.tpl-timeline .photo {
+    flex: 0 0 auto;
+    width: 25mm;
+    height: 25mm;
+}
+
+.tpl-timeline .b-heading {
+    padding-top: 13pt;
+}
+
+.tpl-timeline .heading-text {
+    color: var(--cv-accent);
+    font-size: 11pt;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* The line runs down the left of every entry and bullet block. */
+.tpl-timeline .b-entry,
+.tpl-timeline .b-bullet {
+    position: relative;
+    margin-left: 2mm;
+    padding-left: 6mm;
+    border-left: 1.25pt solid var(--timeline-line);
+}
+
+.tpl-timeline .b-entry {
+    padding-top: 8pt;
+}
+
+.tpl-timeline .b-heading + .b-entry {
+    padding-top: 5pt;
+}
+
+.tpl-timeline .b-heading + .b-text,
+.tpl-timeline .b-heading + .b-line {
+    padding-top: 5pt;
+}
+
+/* Dot on the line, level with the dates. */
+.tpl-timeline .b-entry::before {
+    content: '';
+    position: absolute;
+    left: -1.6mm;
+    width: 2.6mm;
+    height: 2.6mm;
+    margin-top: 0.9mm;
+    border: 1pt solid #ffffff;
+    border-radius: 50%;
+    background: var(--cv-accent);
+}
+
+.tpl-timeline .entry-dates {
+    color: var(--cv-accent);
+    font-size: 9.5pt;
+    font-weight: 700;
+}
+
+.tpl-timeline .entry-title {
+    font-size: 11pt;
+}
+
+.tpl-timeline .entry-sub {
+    color: #444444;
+}
+
+.tpl-timeline .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-timeline .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-timeline .bullet-mark {
+    width: 10pt;
+    color: var(--cv-accent);
+}
+
+.tpl-timeline .b-line {
+    padding-top: 2pt;
+}

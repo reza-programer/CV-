@@ -14,8 +14,8 @@ import { request } from '@/routes/password';
 
 defineOptions({
     layout: {
-        title: 'Masuk ke akun Anda',
-        description: 'Masukkan email dan kata sandi Anda untuk masuk',
+        title: 'Selamat datang kembali',
+        description: 'Masuk untuk melanjutkan CV Anda.',
     },
 });
 

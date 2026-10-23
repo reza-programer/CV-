@@ -1,0 +1,126 @@
+/* Split — ruled header with icon contacts, wide history column and narrow qualifications column. */
+
+.tpl-split {
+    --cv-margin-top: 16mm;
+    --cv-margin-x: 17mm;
+    --cv-margin-bottom: 15mm;
+    font-family: 'Carlito', Calibri, 'Segoe UI', sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.32;
+}
+
+.tpl-split .b-header {
+    display: flex;
+    align-items: center;
+    gap: 6mm;
+    padding-bottom: 8pt;
+    border-bottom: 1.25pt solid #111111;
+}
+
+.tpl-split .photo {
+    flex: 0 0 auto;
+    width: 18mm;
+    height: 24mm;
+    object-fit: cover;
+}
+
+.tpl-split .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-split .name {
+    font-size: 25pt;
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+.tpl-split .headline {
+    padding-top: 3pt;
+    color: #444444;
+    font-size: 12pt;
+}
+
+.tpl-split .contacts {
+    flex: 0 0 auto;
+    max-width: 68mm;
+    font-size: 9.5pt;
+}
+
+.tpl-split .cv-columns {
+    gap: 6mm;
+    padding-top: 10pt;
+}
+
+.tpl-split .cv-col-aside {
+    width: 56mm;
+    padding-left: 6mm;
+    border-left: 0.5pt solid #9a9a9a;
+}
+
+.tpl-split .b-heading {
+    padding-top: 12pt;
+}
+
+.tpl-split .heading-text {
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.tpl-split .b-entry {
+    padding-top: 7pt;
+}
+
+.tpl-split .b-heading + .b-entry,
+.tpl-split .b-heading + .b-text,
+.tpl-split .b-heading + .b-line {
+    padding-top: 4pt;
+}
+
+.tpl-split .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+.tpl-split .entry-lead {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-split .entry-aside,
+.tpl-split .entry-sub {
+    color: #444444;
+}
+
+.tpl-split .entry-aside {
+    flex: 0 0 auto;
+}
+
+.tpl-split .cv-col-aside .b-entry {
+    padding-top: 5pt;
+    font-size: 10pt;
+}
+
+.tpl-split .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-split .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-split .bullet-mark {
+    width: 10pt;
+}
+
+.tpl-split .b-line {
+    padding-top: 4pt;
+}
+
+.tpl-split .line-label {
+    font-weight: 700;
+}

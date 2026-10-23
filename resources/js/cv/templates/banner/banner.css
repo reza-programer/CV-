@@ -1,0 +1,127 @@
+/* Banner ATS — full-bleed accent band for the header, plain single-column body. */
+
+.tpl-banner {
+    --cv-margin-top: 16mm;
+    --cv-margin-x: 18mm;
+    --cv-margin-bottom: 15mm;
+    font-family: 'Carlito', Calibri, 'Segoe UI', sans-serif;
+    font-size: 11pt;
+    line-height: 1.32;
+}
+
+/*
+ * Negative margins pull the band to the page edges. The paginator counts
+ * margins, so the band only takes up the space it visibly occupies.
+ */
+.tpl-banner .b-header {
+    margin: calc(-1 * var(--cv-margin-top)) calc(-1 * var(--cv-margin-x)) 0;
+    background: var(--cv-accent);
+    color: #ffffff;
+}
+
+.tpl-banner .band {
+    display: flex;
+    align-items: center;
+    gap: 6mm;
+    padding: 11mm var(--cv-margin-x) 8mm;
+}
+
+.tpl-banner .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-banner .name {
+    font-size: 26pt;
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+/*
+ * A solid tint rather than opacity: semi-transparent text is drawn in a
+ * separate PDF layer, which moves it to the end of the extracted text.
+ */
+.tpl-banner .headline {
+    padding-top: 3pt;
+    color: color-mix(in srgb, #ffffff 85%, var(--cv-accent));
+    font-size: 12.5pt;
+}
+
+.tpl-banner .contacts {
+    padding-top: 6pt;
+    font-size: 10pt;
+}
+
+.tpl-banner .photo {
+    flex: 0 0 auto;
+    width: 21mm;
+    height: 28mm;
+    border: 1.5pt solid #ffffff;
+    object-fit: cover;
+}
+
+.tpl-banner .b-heading {
+    padding-top: 14pt;
+}
+
+.tpl-banner .heading-text {
+    padding-bottom: 2pt;
+    border-bottom: 0.75pt solid
+        color-mix(in srgb, var(--cv-accent) 35%, #ffffff);
+    color: var(--cv-accent);
+    font-size: 13pt;
+    font-weight: 700;
+}
+
+.tpl-banner .b-entry {
+    padding-top: 7pt;
+}
+
+.tpl-banner .b-heading + .b-entry,
+.tpl-banner .b-heading + .b-text,
+.tpl-banner .b-heading + .b-line {
+    padding-top: 5pt;
+}
+
+.tpl-banner .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+.tpl-banner .entry-main {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-banner .entry-org {
+    color: var(--cv-accent);
+}
+
+.tpl-banner .entry-aside,
+.tpl-banner .entry-facts {
+    color: #444444;
+    font-size: 10.5pt;
+}
+
+.tpl-banner .entry-aside {
+    flex: 0 0 auto;
+}
+
+.tpl-banner .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-banner .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-banner .bullet-mark {
+    width: 11pt;
+    color: var(--cv-accent);
+}
+
+.tpl-banner .b-line {
+    padding-top: 2pt;
+}

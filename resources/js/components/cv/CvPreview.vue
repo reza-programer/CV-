@@ -44,7 +44,7 @@ function step(direction: 1 | -1): void {
 </script>
 
 <template>
-    <div class="flex min-h-0 flex-col bg-neutral-100">
+    <div class="flex min-h-0 flex-col bg-desk">
         <div
             class="flex h-10 shrink-0 items-center justify-between border-b border-neutral-200 bg-white px-3 text-xs text-neutral-600"
         >

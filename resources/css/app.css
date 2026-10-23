@@ -7,8 +7,18 @@
 
 @theme inline {
     --font-sans:
-        ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial,
-        sans-serif;
+        'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+        Roboto, Arial, sans-serif;
+    /* Editorial serif for page titles: the product makes printed documents. */
+    --font-display:
+        'Source Serif 4 Variable', 'Source Serif 4', Georgia, 'Times New Roman',
+        serif;
+
+    /* "Paper and ink": white sheets on a warm desk, ink text, one ink-blue accent. */
+    --color-desk: var(--desk);
+    --color-desk-line: var(--desk-line);
+    --color-ink: var(--ink);
+    --color-ink-blue: var(--ink-blue);
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -77,6 +87,10 @@
 }
 
 :root {
+    --desk: #f4f3ef;
+    --desk-line: #e4e2db;
+    --ink: #111111;
+    --ink-blue: #1e3a5f;
     --background: hsl(0 0% 100%);
     --foreground: #111111;
     --card: hsl(0 0% 100%);
@@ -122,10 +136,41 @@
     }
 }
 
-/* Pages in the on-screen preview: a hairline edge so white sheets read against the canvas. */
-.cv-preview .cv-page,
-.cv-landing .cv-page {
+@layer base {
+    body {
+        font-feature-settings: 'cv11', 'ss01';
+    }
+}
+
+/* The CV keeps its own typography; the UI font features must not leak into it. */
+.cv-doc {
+    font-feature-settings: normal;
+}
+
+/* Small uppercase label above a section title. */
+@utility eyebrow {
+    color: var(--ink-blue);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    line-height: 1rem;
+    text-transform: uppercase;
+}
+
+/* A sheet lying on the desk: hairline edge plus a soft contact shadow. */
+@utility paper {
+    background-color: #ffffff;
     box-shadow:
-        0 0 0 1px rgb(0 0 0 / 0.08),
-        0 1px 2px rgb(0 0 0 / 0.06);
+        0 0 0 1px rgb(17 17 17 / 0.07),
+        0 1px 2px rgb(17 17 17 / 0.06),
+        0 16px 32px -20px rgb(17 17 17 / 0.25);
+}
+
+/* Pages in the on-screen preview read as sheets against the desk. */
+.cv-preview .cv-page,
+.cv-sheet .cv-page {
+    box-shadow:
+        0 0 0 1px rgb(17 17 17 / 0.07),
+        0 1px 2px rgb(17 17 17 / 0.06),
+        0 16px 32px -20px rgb(17 17 17 / 0.25);
 }

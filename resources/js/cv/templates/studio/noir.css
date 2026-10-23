@@ -1,0 +1,97 @@
+/* Noir — charcoal side panel with a round photo and gold label pills, gold corner. */
+
+.tpl-noir {
+    --charcoal: #262626;
+    --gold: #d4af37;
+    --cv-margin-top: 0mm;
+    --cv-margin-x: 0mm;
+    --cv-margin-bottom: 0mm;
+    font-family: 'Carlito', Calibri, 'Segoe UI', sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.34;
+}
+
+.tpl-noir .cv-page::before {
+    top: 0;
+    right: 0;
+    width: 32mm;
+    height: 32mm;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    background: var(--gold);
+    content: '';
+}
+
+.tpl-noir .cv-col-aside {
+    width: 66mm;
+    padding: 14mm 7mm 12mm;
+    background: var(--charcoal);
+    color: #f2f2f2;
+}
+
+.tpl-noir .cv-col-main {
+    padding: 16mm 14mm 14mm 10mm;
+}
+
+/* Side panel --------------------------------------------------------------- */
+
+.tpl-noir .b-contact-card .photo {
+    display: block;
+    width: 40mm;
+    height: 40mm;
+    margin: 0 auto 12pt;
+    border: 2pt solid var(--gold);
+    border-radius: 50%;
+}
+
+.tpl-noir .cv-col-aside .heading-label,
+.tpl-noir .aside-title .heading-label {
+    padding: 2pt 10pt;
+    border-radius: 999px;
+    background: var(--gold);
+    color: #111111;
+    font-size: 9.5pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tpl-noir .cv-col-aside .contacts {
+    padding-top: 3pt;
+}
+
+.tpl-noir .cv-col-aside .contact-icon {
+    color: var(--gold);
+}
+
+.tpl-noir .cv-col-aside .entry-sub {
+    color: #c8c8c8;
+}
+
+/* Main column -------------------------------------------------------------- */
+
+.tpl-noir .b-identity {
+    padding-right: 10mm;
+    padding-bottom: 2pt;
+}
+
+.tpl-noir .name {
+    font-size: 25pt;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.tpl-noir .headline {
+    color: #555555;
+    font-style: italic;
+}
+
+.tpl-noir .cv-col-main .heading-text {
+    padding-bottom: 2.5pt;
+    border-bottom: 1.5pt solid var(--gold);
+    font-size: 11pt;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.tpl-noir .cv-col-main .bullet-mark {
+    color: #8a7124;
+}

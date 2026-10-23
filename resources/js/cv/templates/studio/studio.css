@@ -1,0 +1,186 @@
+/*
+ * Studio family: shared structure for the photo-led designer templates.
+ * Each template's own stylesheet sets type, colour and page decoration;
+ * decoration is drawn with ::before/::after on the page, never as text.
+ */
+
+.tpl-family-studio {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    line-height: 1.38;
+}
+
+/* Page decoration sits behind the text on every page. */
+.tpl-family-studio .cv-page::before,
+.tpl-family-studio .cv-page::after {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.tpl-family-studio .cv-page > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Header ------------------------------------------------------------------ */
+
+.tpl-family-studio .b-header {
+    display: flex;
+    align-items: center;
+    gap: 6mm;
+}
+
+.tpl-family-studio .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-family-studio .photo {
+    flex: 0 0 auto;
+    width: 24mm;
+    height: 32mm;
+    object-fit: cover;
+    object-position: center 22%;
+}
+
+.tpl-family-studio .name {
+    font-size: 22pt;
+    font-weight: 700;
+    line-height: 1.08;
+}
+
+.tpl-family-studio .headline {
+    padding-top: 3pt;
+    font-size: 11.5pt;
+}
+
+.tpl-family-studio .contacts {
+    padding-top: 6pt;
+    font-size: 9pt;
+}
+
+/* "Data pribadi" style contact table. */
+.tpl-family-studio .contact-table {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 4mm;
+    row-gap: 1.5pt;
+}
+
+.tpl-family-studio .contact-row {
+    display: contents;
+}
+
+.tpl-family-studio .contact-table dt {
+    font-weight: 700;
+}
+
+.tpl-family-studio .contact-table dd {
+    overflow-wrap: anywhere;
+}
+
+/* Side-column contact card (split headers). */
+.tpl-family-studio .b-contact-card {
+    display: block;
+}
+
+.tpl-family-studio .b-identity {
+    display: block;
+}
+
+/* Sections ------------------------------------------------------------------ */
+
+.tpl-family-studio .b-heading {
+    padding-top: 12pt;
+}
+
+.tpl-family-studio .heading-text,
+.tpl-family-studio .aside-title {
+    display: flex;
+    align-items: center;
+    gap: 2.5mm;
+    font-size: 11pt;
+    font-weight: 700;
+}
+
+.tpl-family-studio .icon-badge {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: 6.5mm;
+    height: 6.5mm;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #111111;
+    color: #ffffff;
+    font-size: 9pt;
+}
+
+.tpl-family-studio .icon-badge .contact-icon {
+    margin-right: 0;
+    vertical-align: 0;
+}
+
+.tpl-family-studio .b-entry {
+    padding-top: 6pt;
+}
+
+.tpl-family-studio .b-heading + .b-entry,
+.tpl-family-studio .b-heading + .b-text,
+.tpl-family-studio .b-heading + .b-line {
+    padding-top: 5pt;
+}
+
+.tpl-family-studio .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+.tpl-family-studio .entry-lead {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-family-studio .entry-aside {
+    flex: 0 0 auto;
+    color: #444444;
+    font-size: 9pt;
+}
+
+.tpl-family-studio .entry-sub {
+    color: #444444;
+    font-size: 9pt;
+}
+
+.tpl-family-studio .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-family-studio .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-family-studio .bullet-mark {
+    width: 9pt;
+}
+
+.tpl-family-studio .b-line {
+    padding-top: 2pt;
+}
+
+/* Side column ----------------------------------------------------------------- */
+
+.tpl-family-studio .cv-col-aside .b-entry {
+    padding-top: 5pt;
+}
+
+.tpl-family-studio .line-label {
+    font-weight: 700;
+}
+
+.tpl-family-studio .cv-col-aside .stack-list > li::before {
+    content: '• ';
+}

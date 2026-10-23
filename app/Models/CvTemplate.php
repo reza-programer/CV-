@@ -17,6 +17,8 @@ class CvTemplate extends Model
         'classic', 'compact', 'modern', 'professional', 'executive', 'accent', 'banner', 'block',
         'portrait', 'timeline', 'gutter', 'minimal', 'sidebar', 'sidebar-light', 'two-column', 'split',
         'monogram', 'numbered', 'leader', 'bold', 'ribbon', 'corporate', 'tabbed', 'elegant', 'magazine', 'folio',
+        'lumen', 'heritage', 'skyline', 'prestige', 'wave', 'geo', 'orbit', 'fresh', 'contrast', 'label',
+        'noir', 'slate', 'pastel', 'atelier', 'frame',
     ];
 
     public const DEFAULT_SLUG = 'classic';

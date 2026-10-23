@@ -19,6 +19,8 @@ import type { ResumeData, ResumeLocale, SectionKey } from './types';
 
 export type ContactItem = {
     kind: 'email' | 'phone' | 'location' | 'linkedin' | 'website';
+    /** Localised field name, e.g. "Telepon", for templates that show a contact table. */
+    field: string;
     label: string;
     href: string | null;
 };
@@ -158,7 +160,7 @@ export function buildBlocks(data: ResumeData): Block[] {
 
 function buildHeader(data: ResumeData): HeaderBlock | null {
     const p = data.personal;
-    const contacts: ContactItem[] = [];
+    const contacts: Array<Omit<ContactItem, 'field'>> = [];
 
     if (hasText(p.location)) {
         contacts.push({
@@ -209,6 +211,8 @@ function buildHeader(data: ResumeData): HeaderBlock | null {
         return null;
     }
 
+    const fields = DOCUMENT_LABELS[data.locale].contactFields;
+
     return {
         kind: 'header',
         id: 'header',
@@ -216,7 +220,10 @@ function buildHeader(data: ResumeData): HeaderBlock | null {
         contactTitle: DOCUMENT_LABELS[data.locale].contact,
         name: p.full_name.trim(),
         headline: p.headline.trim(),
-        contacts,
+        contacts: contacts.map((contact) => ({
+            ...contact,
+            field: fields[contact.kind],
+        })),
         photoUrl: data.photo_url,
     };
 }

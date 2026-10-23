@@ -1,0 +1,75 @@
+/* Slate — dark accent side panel with a round photo; pill titles in both columns. */
+
+.tpl-slate {
+    --slate: color-mix(in srgb, var(--cv-accent) 72%, #1a1a1a);
+    --cv-margin-top: 0mm;
+    --cv-margin-x: 0mm;
+    --cv-margin-bottom: 0mm;
+    font-size: 9.5pt;
+}
+
+.tpl-slate .cv-col-aside {
+    width: 64mm;
+    padding: 14mm 7mm 12mm;
+    background: var(--slate);
+    color: #ffffff;
+}
+
+.tpl-slate .cv-col-main {
+    padding: 16mm 13mm 14mm 9mm;
+}
+
+/* Side panel --------------------------------------------------------------- */
+
+.tpl-slate .b-contact-card .photo {
+    display: block;
+    width: 38mm;
+    height: 38mm;
+    margin: 0 auto 12pt;
+    border: 2.5pt solid #ffffff;
+    border-radius: 50%;
+}
+
+.tpl-slate .cv-col-aside .heading-label,
+.tpl-slate .aside-title .heading-label {
+    flex: 1 1 auto;
+    padding: 2pt 9pt;
+    border-radius: 999px;
+    background: #ffffff;
+    color: var(--slate);
+    font-size: 9.5pt;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.tpl-slate .cv-col-aside .entry-sub {
+    color: color-mix(in srgb, #ffffff 80%, var(--slate));
+}
+
+/* Main column -------------------------------------------------------------- */
+
+.tpl-slate .name {
+    color: var(--slate);
+    font-size: 24pt;
+    text-transform: uppercase;
+}
+
+.tpl-slate .headline {
+    color: #555555;
+    font-style: italic;
+}
+
+.tpl-slate .cv-col-main .heading-label {
+    flex: 1 1 auto;
+    padding: 2.5pt 10pt;
+    border-radius: 999px;
+    background: var(--slate);
+    color: #ffffff;
+    font-size: 10pt;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.tpl-slate .cv-col-main .bullet-mark {
+    color: var(--slate);
+}

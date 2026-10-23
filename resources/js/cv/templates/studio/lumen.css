@@ -1,0 +1,66 @@
+/* Lumen — round photo on the right with an accent ring, bold capital headings, dotted corners. */
+
+.tpl-lumen {
+    --dots: color-mix(in srgb, var(--cv-accent) 40%, #ffffff);
+    --cv-margin-top: 18mm;
+    --cv-margin-x: 18mm;
+    --cv-margin-bottom: 18mm;
+}
+
+.tpl-lumen .cv-page::before,
+.tpl-lumen .cv-page::after {
+    width: 44mm;
+    height: 24mm;
+    background: radial-gradient(circle, var(--dots) 0.9pt, transparent 1.2pt) 0
+        0 / 3.2mm 3.2mm;
+    content: '';
+}
+
+.tpl-lumen .cv-page::before {
+    top: 6mm;
+    right: 6mm;
+}
+
+.tpl-lumen .cv-page::after {
+    bottom: 6mm;
+    left: 6mm;
+}
+
+.tpl-lumen .b-header {
+    flex-direction: row-reverse;
+    padding-bottom: 4pt;
+}
+
+.tpl-lumen .photo {
+    width: 32mm;
+    height: 32mm;
+    border: 2.5pt solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1.5pt var(--cv-accent);
+}
+
+.tpl-lumen .name {
+    font-size: 26pt;
+    letter-spacing: -0.01em;
+}
+
+.tpl-lumen .headline {
+    color: var(--cv-accent);
+    font-weight: 700;
+}
+
+.tpl-lumen .contact-icon,
+.tpl-lumen .bullet-mark {
+    color: var(--cv-accent);
+}
+
+.tpl-lumen .b-heading {
+    padding-top: 15pt;
+}
+
+.tpl-lumen .heading-text {
+    font-size: 14pt;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}

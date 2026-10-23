@@ -1,0 +1,87 @@
+/* Prestige — accent and gold corner triangles, square photo, pill section titles, contact table. */
+
+.tpl-prestige {
+    --gold: #c8a24a;
+    --cv-margin-top: 20mm;
+    --cv-margin-x: 18mm;
+    --cv-margin-bottom: 26mm;
+    font-family: 'Carlito', Calibri, 'Segoe UI', sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.34;
+}
+
+/* Top right: a gold triangle with a slightly smaller accent one over it. */
+.tpl-prestige .cv-page::before,
+.tpl-prestige .cv-page::after {
+    top: 0;
+    right: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    content: '';
+}
+
+.tpl-prestige .cv-page::before {
+    width: 78mm;
+    height: 37mm;
+    background: var(--gold);
+}
+
+.tpl-prestige .cv-page::after {
+    width: 70mm;
+    height: 33mm;
+    background: var(--cv-accent);
+}
+
+/* Bottom left: the same pair, drawn with hard colour stops on the page itself. */
+.tpl-prestige .cv-page {
+    background:
+        linear-gradient(to top right, var(--cv-accent) 0 44%, transparent 44%)
+            left bottom / 64mm 30mm no-repeat,
+        linear-gradient(to top right, var(--gold) 0 50%, transparent 50%) left
+            bottom / 64mm 30mm no-repeat,
+        #ffffff;
+}
+
+.tpl-prestige .b-header {
+    align-items: flex-start;
+    padding-right: 30mm;
+}
+
+.tpl-prestige .photo {
+    width: 27mm;
+    height: 32mm;
+    border-radius: 2pt;
+    outline: 1.5pt solid var(--gold);
+    outline-offset: 2pt;
+}
+
+.tpl-prestige .name {
+    color: var(--cv-accent);
+    font-size: 23pt;
+}
+
+.tpl-prestige .headline {
+    color: #555555;
+    font-size: 11pt;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.tpl-prestige .contacts {
+    font-size: 9.5pt;
+}
+
+.tpl-prestige .heading-label {
+    padding: 2pt 10pt;
+    border-radius: 999px;
+    background: var(--cv-accent);
+    color: #ffffff;
+    font-size: 10.5pt;
+}
+
+.tpl-prestige .b-heading {
+    padding-top: 13pt;
+}
+
+.tpl-prestige .bullet-mark {
+    color: var(--gold);
+}

@@ -66,19 +66,43 @@ export const SECTION_TITLES: Record<
 
 export const DOCUMENT_LABELS: Record<
     ResumeLocale,
-    { gpa: string; credential: string; expires: string; contact: string }
+    {
+        gpa: string;
+        credential: string;
+        expires: string;
+        contact: string;
+        /** Field names for templates that list contacts as a table. */
+        contactFields: Record<
+            'email' | 'phone' | 'location' | 'linkedin' | 'website',
+            string
+        >;
+    }
 > = {
     id: {
         gpa: 'IPK',
         credential: 'ID Kredensial',
         expires: 'berlaku hingga',
         contact: 'Kontak',
+        contactFields: {
+            email: 'Email',
+            phone: 'Telepon',
+            location: 'Domisili',
+            linkedin: 'LinkedIn',
+            website: 'Website',
+        },
     },
     en: {
         gpa: 'GPA',
         credential: 'Credential ID',
         expires: 'expires',
         contact: 'Contact',
+        contactFields: {
+            email: 'Email',
+            phone: 'Phone',
+            location: 'Location',
+            linkedin: 'LinkedIn',
+            website: 'Website',
+        },
     },
 };
 

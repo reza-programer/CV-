@@ -190,6 +190,7 @@ defineExpose({ layout, pageCount: computed(() => pages.value.length) });
         class="cv-doc"
         :class="[
             `tpl-${slug}`,
+            template.family ? `tpl-family-${template.family}` : null,
             {
                 'is-scaled': scale !== 1,
                 'align-justify': data.paragraph_align === 'justify',

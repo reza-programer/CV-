@@ -29,7 +29,22 @@ export type TemplateSlug =
     | 'tabbed'
     | 'elegant'
     | 'magazine'
-    | 'folio';
+    | 'folio'
+    | 'lumen'
+    | 'heritage'
+    | 'skyline'
+    | 'prestige'
+    | 'wave'
+    | 'geo'
+    | 'orbit'
+    | 'fresh'
+    | 'contrast'
+    | 'label'
+    | 'noir'
+    | 'slate'
+    | 'pastel'
+    | 'atelier'
+    | 'frame';
 
 /** Accent colour of the coloured templates; see accents.ts. */
 export type AccentColor =

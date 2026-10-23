@@ -1,0 +1,73 @@
+/* Gelombang — accent waves along the top and bottom, ringed round photo, pill section titles. */
+
+.tpl-wave {
+    --wave-top: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 210 30' preserveAspectRatio='none'%3E%3Cpath d='M0 0H210V12C186 22 160 26 128 20C96 14 70 4 40 8C22 10 10 16 0 20Z'/%3E%3C/svg%3E");
+    --wave-bottom: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 210 22' preserveAspectRatio='none'%3E%3Cpath d='M0 22H210V6C190 0 164 2 134 10C102 18 66 20 36 12C20 8 8 6 0 8Z'/%3E%3C/svg%3E");
+    --cv-margin-top: 30mm;
+    --cv-margin-x: 18mm;
+    --cv-margin-bottom: 26mm;
+}
+
+.tpl-wave .cv-page::before,
+.tpl-wave .cv-page::after {
+    left: 0;
+    right: 0;
+    background: var(--cv-accent);
+    content: '';
+}
+
+.tpl-wave .cv-page::before {
+    top: 0;
+    height: 30mm;
+    -webkit-mask: var(--wave-top) 0 0 / 100% 100% no-repeat;
+    mask: var(--wave-top) 0 0 / 100% 100% no-repeat;
+}
+
+.tpl-wave .cv-page::after {
+    bottom: 0;
+    height: 20mm;
+    -webkit-mask: var(--wave-bottom) 0 0 / 100% 100% no-repeat;
+    mask: var(--wave-bottom) 0 0 / 100% 100% no-repeat;
+}
+
+/* The photo rises into the top wave. */
+.tpl-wave .b-header {
+    flex-direction: row-reverse;
+    align-items: flex-end;
+}
+
+.tpl-wave .photo {
+    width: 32mm;
+    height: 32mm;
+    margin-top: -14mm;
+    border: 2.5pt solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1.5pt var(--cv-accent);
+}
+
+.tpl-wave .name {
+    color: var(--cv-accent);
+    font-size: 24pt;
+}
+
+.tpl-wave .headline {
+    font-weight: 700;
+}
+
+.tpl-wave .heading-label {
+    padding: 2pt 11pt;
+    border-radius: 999px;
+    background: var(--cv-accent);
+    color: #ffffff;
+    font-size: 10.5pt;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.tpl-wave .b-heading {
+    padding-top: 13pt;
+}
+
+.tpl-wave .bullet-mark {
+    color: var(--cv-accent);
+}

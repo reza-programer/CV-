@@ -1,0 +1,58 @@
+/* Heritage — serif page, small round photo beside the name, a dark tab at the top edge. */
+
+.tpl-heritage {
+    --cv-margin-top: 18mm;
+    --cv-margin-x: 19mm;
+    --cv-margin-bottom: 16mm;
+    font-family: 'Tinos', 'Times New Roman', Times, serif;
+    font-size: 10.5pt;
+    line-height: 1.36;
+}
+
+.tpl-heritage .cv-page::before {
+    top: 0;
+    right: 15mm;
+    width: 9mm;
+    height: 40mm;
+    background: #4a4a4a;
+    content: '';
+}
+
+.tpl-heritage .b-header {
+    gap: 5mm;
+    padding: 0 14mm 9pt 0;
+    border-bottom: 0.75pt solid #111111;
+}
+
+.tpl-heritage .photo {
+    width: 22mm;
+    height: 22mm;
+    border-radius: 50%;
+}
+
+.tpl-heritage .name {
+    font-size: 23pt;
+}
+
+.tpl-heritage .headline {
+    font-style: italic;
+}
+
+.tpl-heritage .contacts {
+    font-size: 9.5pt;
+}
+
+.tpl-heritage .heading-text {
+    padding-bottom: 2pt;
+    border-bottom: 0.5pt solid #111111;
+    font-size: 12.5pt;
+}
+
+.tpl-heritage .entry-aside {
+    font-style: italic;
+}
+
+.tpl-heritage .entry-aside,
+.tpl-heritage .entry-sub {
+    font-size: 9.5pt;
+}

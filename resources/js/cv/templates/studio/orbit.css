@@ -1,0 +1,83 @@
+/* Orbit — round photo on two overlapping accent circles in the top left corner. */
+
+.tpl-orbit {
+    --cv-margin-top: 18mm;
+    --cv-margin-x: 18mm;
+    --cv-margin-bottom: 16mm;
+}
+
+.tpl-orbit .cv-page::before,
+.tpl-orbit .cv-page::after {
+    border-radius: 50%;
+    content: '';
+}
+
+.tpl-orbit .cv-page::before {
+    top: -40mm;
+    left: -32mm;
+    width: 104mm;
+    height: 104mm;
+    background: color-mix(in srgb, var(--cv-accent) 16%, #ffffff);
+}
+
+.tpl-orbit .cv-page::after {
+    top: -16mm;
+    left: -14mm;
+    width: 62mm;
+    height: 62mm;
+    background: var(--cv-accent);
+}
+
+.tpl-orbit .b-header {
+    gap: 8mm;
+    padding-bottom: 6pt;
+}
+
+/* Without a photo the name clears the circles instead. */
+.tpl-orbit .b-header:not(.has-photo) {
+    padding-left: 40mm;
+}
+
+.tpl-orbit .photo {
+    width: 34mm;
+    height: 34mm;
+    border: 2.5pt solid #ffffff;
+    border-radius: 50%;
+}
+
+.tpl-orbit .name {
+    font-size: 25pt;
+}
+
+.tpl-orbit .headline {
+    color: var(--cv-accent);
+    font-weight: 700;
+}
+
+.tpl-orbit .b-heading {
+    padding-top: 14pt;
+}
+
+.tpl-orbit .heading-text {
+    font-size: 12pt;
+}
+
+.tpl-orbit .heading-text::before {
+    width: 8pt;
+    height: 8pt;
+    border-radius: 50%;
+    background: var(--cv-accent);
+    content: '';
+}
+
+.tpl-orbit .heading-text::after {
+    flex: 1 1 auto;
+    height: 0.75pt;
+    background: color-mix(in srgb, var(--cv-accent) 30%, #ffffff);
+    content: '';
+}
+
+.tpl-orbit .bullet-mark,
+.tpl-orbit .contact-icon {
+    color: var(--cv-accent);
+}

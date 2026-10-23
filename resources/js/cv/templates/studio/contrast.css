@@ -1,0 +1,93 @@
+/* Kontras — full-width header split into an accent name panel and a grey contact panel. */
+
+.tpl-contrast {
+    --cv-margin-top: 16mm;
+    --cv-margin-x: 18mm;
+    --cv-margin-bottom: 15mm;
+}
+
+/*
+ * The header bleeds to the page edges. Its text wrapper is dissolved so the
+ * name, headline and contacts become grid cells: name and headline on the
+ * accent panel, contacts on the grey one, an optional photo at the far left.
+ */
+.tpl-contrast .b-header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) 80mm;
+    grid-template-rows: auto auto;
+    gap: 0;
+    align-items: stretch;
+    margin: calc(-1 * var(--cv-margin-top)) calc(-1 * var(--cv-margin-x)) 0;
+}
+
+.tpl-contrast .header-text {
+    display: contents;
+}
+
+.tpl-contrast .photo {
+    grid-row: 1 / 3;
+    grid-column: 1;
+    width: 32mm;
+    height: 100%;
+    min-height: 40mm;
+}
+
+.tpl-contrast .name,
+.tpl-contrast .headline {
+    grid-column: 2;
+    padding-right: 7mm;
+    padding-left: var(--cv-margin-x);
+    background: var(--cv-accent);
+    color: #ffffff;
+}
+
+.tpl-contrast .b-header.has-photo .name,
+.tpl-contrast .b-header.has-photo .headline {
+    padding-left: 7mm;
+}
+
+.tpl-contrast .name {
+    display: flex;
+    grid-row: 1;
+    align-items: flex-end;
+    padding-top: 14mm;
+    font-size: 25pt;
+}
+
+/* Solid tint rather than opacity, which would move the text in the PDF. */
+.tpl-contrast .headline {
+    grid-row: 2;
+    padding-top: 3pt;
+    padding-bottom: 10mm;
+    color: color-mix(in srgb, #ffffff 82%, var(--cv-accent));
+}
+
+.tpl-contrast .contacts {
+    display: flex;
+    grid-row: 1 / 3;
+    grid-column: 3;
+    align-items: center;
+    padding: 10mm var(--cv-margin-x) 10mm 7mm;
+    background: #f1f1f1;
+}
+
+.tpl-contrast .contacts .icon-contact {
+    overflow-wrap: normal;
+    white-space: nowrap;
+}
+
+.tpl-contrast .b-heading {
+    padding-top: 14pt;
+}
+
+.tpl-contrast .heading-text {
+    padding-left: 3mm;
+    border-left: 3pt solid var(--cv-accent);
+    font-size: 11pt;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.tpl-contrast .bullet-mark {
+    color: var(--cv-accent);
+}

@@ -1,6 +1,6 @@
 import type { Component } from 'vue';
 import type { TemplateLayout } from '../regions';
-import type { TemplateSlug } from '../types';
+import type { SectionKey, TemplateSlug } from '../types';
 import AccentTemplate from './accent/AccentTemplate.vue';
 import BannerTemplate from './banner/BannerTemplate.vue';
 import BlockTemplate from './block/BlockTemplate.vue';
@@ -24,6 +24,9 @@ import RibbonTemplate from './ribbon/RibbonTemplate.vue';
 import SidebarTemplate from './sidebar/SidebarTemplate.vue';
 import SidebarLightTemplate from './sidebar-light/SidebarLightTemplate.vue';
 import SplitTemplate from './split/SplitTemplate.vue';
+import { withOptions } from './studio/options';
+import StudioColumnsTemplate from './studio/StudioColumnsTemplate.vue';
+import StudioSingleTemplate from './studio/StudioSingleTemplate.vue';
 import TabbedTemplate from './tabbed/TabbedTemplate.vue';
 import TimelineTemplate from './timeline/TimelineTemplate.vue';
 import TwoColumnTemplate from './two-column/TwoColumnTemplate.vue';
@@ -54,6 +57,22 @@ import './tabbed/tabbed.css';
 import './elegant/elegant.css';
 import './magazine/magazine.css';
 import './folio/folio.css';
+import './studio/studio.css';
+import './studio/lumen.css';
+import './studio/heritage.css';
+import './studio/skyline.css';
+import './studio/prestige.css';
+import './studio/wave.css';
+import './studio/geo.css';
+import './studio/orbit.css';
+import './studio/fresh.css';
+import './studio/contrast.css';
+import './studio/label.css';
+import './studio/noir.css';
+import './studio/slate.css';
+import './studio/pastel.css';
+import './studio/atelier.css';
+import './studio/frame.css';
 
 export type TemplateDefinition = {
     /** Renders one block; typography lives in the template's `.tpl-{slug}` stylesheet. */
@@ -61,9 +80,34 @@ export type TemplateDefinition = {
     layout: TemplateLayout;
     /** Uses the CV's accent colour (`--cv-accent`). */
     coloured: boolean;
+    /** Shared base styles (`.tpl-family-{name}`) for templates built on one component. */
+    family?: 'studio';
 };
 
 const single: TemplateLayout = { kind: 'single' };
+
+/** Studio templates share one component per layout; options and CSS make each one distinct. */
+const studio = (
+    options: Parameters<typeof withOptions>[1],
+    coloured: boolean,
+): TemplateDefinition => ({
+    component: withOptions(StudioSingleTemplate, options),
+    layout: single,
+    coloured,
+    family: 'studio',
+});
+
+/** Two-column studio template whose side column opens with the photo and contacts. */
+const studioPanel = (
+    options: Parameters<typeof withOptions>[1],
+    coloured: boolean,
+    aside: SectionKey[] = ['skills', 'languages', 'certifications'],
+): TemplateDefinition => ({
+    component: withOptions(StudioColumnsTemplate, options),
+    layout: { kind: 'columns', aside, asideSide: 'left', header: 'split' },
+    coloured,
+    family: 'studio',
+});
 
 /**
  * Layout implementations, keyed by the slug stored in cv_templates.
@@ -165,6 +209,40 @@ export const TEMPLATES: Record<TemplateSlug, TemplateDefinition> = {
         },
         coloured: false,
     },
+    lumen: studio({ contacts: 'icons' }, true),
+    heritage: studio({ contacts: 'plain' }, false),
+    skyline: studio({ contacts: 'icons-stacked' }, false),
+    prestige: studio({ contacts: 'table' }, true),
+    wave: studio({ contacts: 'table' }, true),
+    geo: studio({ contacts: 'icons' }, true),
+    orbit: studio({ contacts: 'icons' }, true),
+    fresh: studio({ contacts: 'icons' }, true),
+    contrast: studio({ contacts: 'icons-stacked' }, true),
+    label: studio({ contacts: 'icons' }, true),
+    noir: studioPanel({ contacts: 'icons-stacked' }, false, [
+        'education',
+        'skills',
+        'languages',
+        'certifications',
+    ]),
+    slate: studioPanel({ contacts: 'icons-stacked' }, true),
+    pastel: studioPanel({ contacts: 'icons-stacked' }, true),
+    atelier: {
+        component: withOptions(StudioColumnsTemplate, { contacts: 'icons' }),
+        layout: {
+            kind: 'columns',
+            aside: ['skills', 'languages', 'certifications'],
+            asideSide: 'left',
+            header: 'top',
+        },
+        coloured: true,
+        family: 'studio',
+    },
+    frame: studioPanel(
+        { contacts: 'icons-stacked', sectionIcons: true },
+        false,
+        ['education', 'skills', 'languages', 'certifications'],
+    ),
 };
 
 export const DEFAULT_TEMPLATE: TemplateSlug = 'classic';

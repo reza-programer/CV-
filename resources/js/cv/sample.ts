@@ -18,6 +18,18 @@ const PHOTO_TEMPLATES: TemplateSlug[] = [
     'two-column',
     'magazine',
     'folio',
+    'lumen',
+    'heritage',
+    'skyline',
+    'prestige',
+    'wave',
+    'orbit',
+    'fresh',
+    'noir',
+    'slate',
+    'pastel',
+    'atelier',
+    'frame',
 ];
 
 const SAMPLE_PHOTO = `data:image/svg+xml,${encodeURIComponent(
@@ -51,6 +63,21 @@ const TEMPLATE_PERSONAS: Record<TemplateSlug, PersonaKey> = {
     split: 'legal',
     magazine: 'hospitality',
     folio: 'graduate',
+    lumen: 'designer',
+    heritage: 'legal',
+    skyline: 'marketing',
+    prestige: 'hr',
+    wave: 'teacher',
+    geo: 'civil',
+    orbit: 'nurse',
+    fresh: 'pharmacist',
+    contrast: 'accountant',
+    label: 'graduate',
+    noir: 'developer',
+    slate: 'hospitality',
+    pastel: 'designer',
+    atelier: 'accountant',
+    frame: 'legal',
 };
 
 /** Each field gets its own accent, so coloured templates show the range. */

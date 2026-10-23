@@ -1,0 +1,70 @@
+/* Bingkai — black bars along the top and bottom edges, framed photo in the side column, icon badges. */
+
+.tpl-frame {
+    --cv-margin-top: 0mm;
+    --cv-margin-x: 0mm;
+    --cv-margin-bottom: 0mm;
+    font-size: 9.5pt;
+}
+
+.tpl-frame .cv-page::before,
+.tpl-frame .cv-page::after {
+    left: 0;
+    right: 0;
+    height: 3.5mm;
+    background: #111111;
+    content: '';
+}
+
+.tpl-frame .cv-page::before {
+    top: 0;
+}
+
+.tpl-frame .cv-page::after {
+    bottom: 0;
+}
+
+.tpl-frame .cv-col-aside {
+    width: 66mm;
+    padding: 15mm 6mm 13mm 12mm;
+    border-right: 0.75pt solid #d4d4d4;
+}
+
+.tpl-frame .cv-col-main {
+    padding: 15mm 13mm 13mm 8mm;
+}
+
+.tpl-frame .b-contact-card .photo {
+    display: block;
+    width: 44mm;
+    height: 54mm;
+    margin-bottom: 10pt;
+    background: #e5e5e5;
+}
+
+.tpl-frame .name {
+    font-size: 27pt;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.tpl-frame .headline {
+    padding-top: 6pt;
+    padding-left: 3mm;
+    border-left: 1.5pt solid #111111;
+    color: #444444;
+    font-size: 9.5pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tpl-frame .heading-text,
+.tpl-frame .aside-title {
+    font-size: 10.5pt;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.tpl-frame .b-contact-card .contacts {
+    padding-top: 3pt;
+}

@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory()->admin()->create([
-            'name' => 'Admin CVForge',
+            'name' => 'Admin',
             'email' => 'admin@cvforge.test',
         ]);
 

@@ -254,20 +254,14 @@
 }
 
 .cvf-brand-mark {
-    display: inline-flex;
-    width: 1.625rem;
-    height: 1.625rem;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--admin-radius);
-    background-color: var(--admin-ink);
-    color: #ffffff;
+    flex: 0 0 auto;
+    width: 1.875rem;
+    height: 1.875rem;
 }
 
 .cvf-brand-name {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    width: auto;
+    height: 1.125rem;
 }
 
 .cvf-brand-tag {

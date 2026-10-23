@@ -10,7 +10,7 @@ use Filament\Pages\Dashboard as BaseDashboard;
 use UnitEnum;
 
 /**
- * Admin home: who uses CVForge right now and what they have been doing.
+ * Admin home: who uses the site right now and what they have been doing.
  */
 class Dashboard extends BaseDashboard
 {

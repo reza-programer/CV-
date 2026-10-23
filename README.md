@@ -1,10 +1,12 @@
-# CVForge — Pembuat CV ATS-Friendly
+<p align="center"><img src="docs/brand/kezot-logo.png" alt="kezot — Buat CV Profesional, Raih Peluangmu" width="460"></p>
 
-CVForge adalah aplikasi web untuk menyusun CV profesional dalam format **A4** dan mengunduhnya sebagai **PDF berteks asli** (teks dapat diseleksi dan dicari, sehingga terbaca oleh sistem pelacak lamaran/ATS). Data CV diisi sekali, lalu tampilannya bisa diganti ke salah satu dari **26 template** kapan saja tanpa mengetik ulang.
+# CV by kezottt_ — Pembuat CV ATS-Friendly
+
+**CV by kezottt_** adalah aplikasi web untuk menyusun CV profesional dalam format **A4** dan mengunduhnya sebagai **PDF berteks asli** (teks dapat diseleksi dan dicari, sehingga terbaca oleh sistem pelacak lamaran/ATS). Data CV diisi sekali, lalu tampilannya bisa diganti ke salah satu dari **26 template** kapan saja tanpa mengetik ulang.
 
 > Yang Anda lihat di pratinjau adalah yang tercetak: pratinjau di layar dan PDF dirender oleh komponen tata letak yang sama.
 
-![Halaman utama CVForge](docs/screenshots/landing.png)
+![Halaman utama CV by kezottt_](docs/screenshots/landing.png)
 
 ---
 
@@ -25,6 +27,7 @@ CVForge adalah aplikasi web untuk menyusun CV profesional dalam format **A4** da
 13. [Panduan pengembang](#panduan-pengembang)
 14. [Keamanan dan privasi](#keamanan-dan-privasi)
 15. [Pemecahan masalah](#pemecahan-masalah)
+16. [Pembuat](#pembuat)
 
 ---
 
@@ -235,7 +238,7 @@ Admin juga dapat memberi atau mencabut akses admin pengguna lain dari menu **Pen
 
 ```mermaid
 flowchart LR
-    U[Pengguna memakai CVForge] --> C[Controller dan listener<br/>daftar, masuk, CV, PDF, foto, AI]
+    U[Pengguna memakai situs] --> C[Controller dan listener<br/>daftar, masuk, CV, PDF, foto, AI]
     U --> M[Middleware TrackLastSeen<br/>maks. 1x per menit]
     C --> L[(activity_logs)]
     M --> S[(users.last_seen_at)]
@@ -389,6 +392,10 @@ Di server Linux tanpa sandbox (misalnya kontainer), set `CVFORGE_CHROME_NO_SANDB
 | `CVFORGE_CHROME_NO_SANDBOX`     | `false`                    | `true` untuk kontainer/server tanpa sandbox                                 |
 | `CVFORGE_PDF_TIMEOUT`           | `60`                       | Batas waktu cetak PDF (detik)                                               |
 | `ANTHROPIC_API_KEY`             | kosong                     | Mengaktifkan asisten dan terjemahan AI. Bila kosong, fitur AI disembunyikan |
+| `CVFORGE_CREATOR_NAME`          | Mohamad Reza Nurpadilah    | Nama pembuat di footer situs                                                |
+| `CVFORGE_CREATOR_INSTAGRAM`     | `kezottt_`                 | Username Instagram di footer (kosongkan untuk menyembunyikan)               |
+| `CVFORGE_CREATOR_LINKEDIN`      | pencarian nama di LinkedIn | URL profil LinkedIn di footer                                               |
+| `CVFORGE_CREATOR_EMAIL`         | `reza25022003@gmail.com`   | Email kontak di footer                                                      |
 | `CVFORGE_AI_MODEL`              | `claude-opus-5-5`          | Model Claude yang dipakai                                                   |
 | `CVFORGE_AI_EFFORT`             | `low`                      | Tingkat usaha model (`low`, `medium`, `high`)                               |
 | `CVFORGE_AI_TIMEOUT`            | `60`                       | Batas waktu permintaan AI (detik)                                           |
@@ -525,3 +532,29 @@ Tambahkan kolom/tabel lewat migrasi, model dan relasinya, aturan di `UpdateResum
 | Foto gagal diunggah                               | Pastikan ekstensi PHP `gd` (dan `exif` untuk foto dari ponsel) aktif, serta folder `storage/` dapat ditulis.                               |
 | Tombol AI tidak muncul                            | `ANTHROPIC_API_KEY` belum diisi; jalankan `php artisan config:clear` setelah mengubah `.env`.                                              |
 | `SQLSTATE[HY000] [2002]`                          | Layanan MySQL belum berjalan atau `DB_*` di `.env` salah.                                                                                  |
+
+---
+
+## Pembuat
+
+Dibuat oleh **Mohamad Reza Nurpadilah**.
+
+- Instagram: [@kezottt_](https://www.instagram.com/kezottt_/)
+- LinkedIn: [Mohamad Reza Nurpadilah](https://www.linkedin.com/search/results/people/?keywords=Mohamad%20Reza%20Nurpadilah)
+- Email: [reza25022003@gmail.com](mailto:reza25022003@gmail.com)
+
+### Logo
+
+Logo **kezot**: lembar CV berfoto dengan pensil, ditambah tulisan kezot dan slogan "Buat CV Profesional, Raih Peluangmu". File ada di `docs/brand/`:
+
+| File                     | Kegunaan                                             |
+| ------------------------ | ---------------------------------------------------- |
+| `kezot-logo.png`         | Logo lengkap: ikon, tulisan kezot, dan slogan        |
+| `kezot-icon.svg`         | Ikon vektor, tajam di ukuran berapa pun              |
+| `kezot-icon-1024.png`    | Ikon PNG transparan 1024 × 1024                      |
+| `kezot-wordmark.png`     | Tulisan kezot, latar transparan                      |
+| `kezot-profile-1080.png` | Foto profil Instagram/LinkedIn (aman dipotong bulat) |
+
+Favicon situs (`public/favicon.svg`, `favicon.ico`, `apple-touch-icon.png`) memakai ikon yang sama.
+
+Nama teknis proyek di kode tetap `cvforge` (mis. `config/cvforge.php`, `php artisan cvforge:admin`, variabel `CVFORGE_*`).

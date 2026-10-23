@@ -32,7 +32,7 @@ const points = [
             <Link
                 :href="home()"
                 class="self-start"
-                aria-label="CVForge, ke beranda"
+                aria-label="CV by kezottt_, ke beranda"
             >
                 <AppLogo />
             </Link>
@@ -57,7 +57,7 @@ const points = [
                 </div>
             </main>
 
-            <p class="text-xs text-neutral-500">© {{ year }} CVForge</p>
+            <p class="text-xs text-neutral-500">© {{ year }} CV by kezottt_</p>
         </div>
 
         <aside

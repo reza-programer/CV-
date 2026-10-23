@@ -36,9 +36,10 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('CVForge Admin')
+            ->brandName('CV by kezottt_ Admin')
             ->brandLogo(fn () => view('filament.admin.brand'))
-            ->brandLogoHeight('1.75rem')
+            ->brandLogoHeight('2rem')
+            ->favicon(asset('favicon.svg'))
             ->colors([
                 'primary' => Color::Zinc,
                 'gray' => Color::Zinc,
@@ -64,7 +65,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->userMenuItems([
                 Action::make('site')
-                    ->label('Buka situs CVForge')
+                    ->label('Buka situs')
                     ->url('/')
                     ->icon(Heroicon::OutlinedArrowTopRightOnSquare),
             ])

@@ -21,7 +21,7 @@ const links = [
         <div
             class="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4 sm:px-6"
         >
-            <Link :href="home()" aria-label="CVForge, ke beranda">
+            <Link :href="home()" aria-label="CV by kezottt_, ke beranda">
                 <AppLogo />
             </Link>
 

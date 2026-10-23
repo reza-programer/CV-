@@ -19,6 +19,14 @@ declare module '@inertiajs/core' {
         sharedPageProps: {
             name: string;
             auth: Auth;
+            creator: {
+                name: string;
+                links: Array<{
+                    kind: 'instagram' | 'linkedin' | 'email';
+                    label: string;
+                    href: string;
+                }>;
+            };
             [key: string]: unknown;
         };
     }

@@ -41,6 +41,30 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user()?->only('id', 'name', 'email', 'is_admin'),
             ],
+            'creator' => self::creator(),
+        ];
+    }
+
+    /**
+     * The site creator's name and contact links for the footer; empty
+     * settings are left out.
+     *
+     * @return array{name: string, links: list<array{kind: string, label: string, href: string}>}
+     */
+    private static function creator(): array
+    {
+        $name = (string) config('cvforge.creator.name');
+        $instagram = ltrim((string) config('cvforge.creator.instagram'), '@');
+        $linkedin = (string) config('cvforge.creator.linkedin');
+        $email = (string) config('cvforge.creator.email');
+
+        return [
+            'name' => $name,
+            'links' => array_values(array_filter([
+                $instagram !== '' ? ['kind' => 'instagram', 'label' => '@'.$instagram, 'href' => 'https://www.instagram.com/'.rawurlencode($instagram).'/'] : null,
+                $linkedin !== '' ? ['kind' => 'linkedin', 'label' => $name !== '' ? $name : 'LinkedIn', 'href' => $linkedin] : null,
+                $email !== '' ? ['kind' => 'email', 'label' => $email, 'href' => 'mailto:'.$email] : null,
+            ])),
         ];
     }
 }

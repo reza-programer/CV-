@@ -35,6 +35,24 @@ return [
     |
     */
 
+    /*
+    |--------------------------------------------------------------------------
+    | Creator
+    |--------------------------------------------------------------------------
+    |
+    | Who made the site, shown in the footer with contact links. Leave a
+    | value empty to hide that link.
+    |
+    */
+
+    'creator' => [
+        'name' => env('CVFORGE_CREATOR_NAME', 'Mohamad Reza Nurpadilah'),
+        'instagram' => env('CVFORGE_CREATOR_INSTAGRAM', 'kezottt_'),
+        // A profile URL links straight to the profile; until one is set, this searches LinkedIn for the name.
+        'linkedin' => env('CVFORGE_CREATOR_LINKEDIN', 'https://www.linkedin.com/search/results/people/?keywords=Mohamad%20Reza%20Nurpadilah'),
+        'email' => env('CVFORGE_CREATOR_EMAIL', 'reza25022003@gmail.com'),
+    ],
+
     'ai' => [
         'api_key' => env('ANTHROPIC_API_KEY'),
         'model' => env('CVFORGE_AI_MODEL', 'claude-opus-5-5'),

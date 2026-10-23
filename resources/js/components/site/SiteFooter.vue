@@ -6,17 +6,27 @@ import { dashboard, login, register } from '@/routes';
 
 const page = usePage();
 const signedIn = computed(() => !!page.props.auth?.user);
+const creator = computed(() => page.props.creator);
 const year = new Date().getFullYear();
+
+const LINK_NAMES = {
+    instagram: 'Instagram',
+    linkedin: 'LinkedIn',
+    email: 'Email',
+} as const;
 </script>
 
 <template>
     <footer class="border-t border-neutral-200">
         <div
-            class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-[minmax(0,_1fr)_auto_auto] sm:gap-16 sm:px-6"
+            class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 sm:px-6 lg:grid-cols-[minmax(0,_1fr)_auto_auto_auto] lg:gap-16"
         >
             <div class="max-w-xs">
                 <AppLogo />
-                <p class="mt-4 text-sm leading-relaxed text-neutral-600">
+                <p class="mt-4 text-sm font-medium text-ink">
+                    Buat CV Profesional, Raih Peluangmu
+                </p>
+                <p class="mt-1.5 text-sm leading-relaxed text-neutral-600">
                     Pembuat CV ATS-friendly dalam format A4, dengan PDF berteks
                     asli.
                 </p>
@@ -62,12 +72,40 @@ const year = new Date().getFullYear();
                     </template>
                 </ul>
             </nav>
+
+            <div v-if="creator?.links.length" class="text-sm">
+                <p class="font-medium text-ink">Pembuat</p>
+                <ul class="mt-4 grid gap-2.5">
+                    <li v-for="link in creator.links" :key="link.kind">
+                        <a
+                            :href="link.href"
+                            class="group grid text-neutral-600 hover:text-ink"
+                            :target="
+                                link.kind === 'email' ? undefined : '_blank'
+                            "
+                            :rel="
+                                link.kind === 'email'
+                                    ? undefined
+                                    : 'noopener noreferrer'
+                            "
+                        >
+                            <span class="text-xs text-neutral-400">{{
+                                LINK_NAMES[link.kind]
+                            }}</span>
+                            <span class="break-all group-hover:underline">{{
+                                link.label
+                            }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="border-t border-neutral-200">
             <p
-                class="mx-auto max-w-6xl px-4 py-6 text-xs text-neutral-500 sm:px-6"
+                class="mx-auto flex max-w-6xl flex-wrap justify-between gap-2 px-4 py-6 text-xs text-neutral-500 sm:px-6"
             >
-                © {{ year }} CVForge
+                <span>© {{ year }} CV by kezottt_</span>
+                <span v-if="creator?.name">Dibuat oleh {{ creator.name }}</span>
             </p>
         </div>
     </footer>

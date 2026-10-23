@@ -21,7 +21,7 @@ class CreateAdmin extends Command
 {
     protected $signature = 'cvforge:admin {email? : Email akun admin}';
 
-    protected $description = 'Buat akun admin CVForge atau jadikan akun yang ada sebagai admin';
+    protected $description = 'Buat akun admin atau jadikan akun yang ada sebagai admin';
 
     public function handle(): int
     {

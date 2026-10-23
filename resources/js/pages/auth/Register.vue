@@ -16,7 +16,7 @@ defineProps<{
 
 defineOptions({
     layout: {
-        title: 'Buat akun CVForge',
+        title: 'Buat akun baru',
         description:
             'Satu akun untuk menyimpan, menyunting, dan mengunduh semua CV Anda.',
     },

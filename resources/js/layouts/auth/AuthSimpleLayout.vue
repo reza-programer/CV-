@@ -28,7 +28,7 @@ defineProps<{
                             />
                         </div>
                         <span class="text-sm font-semibold text-black"
-                            >CVForge</span
+                            >CV by kezottt_</span
                         >
                         <span class="sr-only">{{ title }}</span>
                     </Link>

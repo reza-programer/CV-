@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Resumes;
 
+use App\Enums\ActivityEvent;
 use App\Http\Controllers\Controller;
+use App\Models\ActivityLog;
 use App\Models\Resume;
 use App\Services\ResumeAssistant;
 use Illuminate\Http\JsonResponse;
@@ -37,16 +39,21 @@ class ResumeAssistController extends Controller
         ]);
 
         $jobDescription = $data['job_description'] ?? null;
+        $task = $request->string('task')->value();
 
         try {
-            $result = match ($data['task']) {
+            $result = match ($task) {
                 'summary' => $assistant->improveSummary($resume, $jobDescription),
                 'highlights' => $assistant->rewriteHighlights($resume, $data['entry'], $jobDescription),
                 'keywords' => $assistant->matchKeywords($resume, (string) $jobDescription),
+                // Unreachable: validation only lets the three tasks above through.
+                default => abort(422),
             };
         } catch (RuntimeException $exception) {
             return response()->json(['message' => $exception->getMessage()], 503);
         }
+
+        ActivityLog::record($request->user(), ActivityEvent::AssistantUsed, $resume, ['task' => $task]);
 
         return response()->json($result);
     }

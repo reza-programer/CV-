@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Resumes;
 
+use App\Enums\ActivityEvent;
 use App\Http\Controllers\Controller;
+use App\Models\ActivityLog;
 use App\Models\Resume;
 use App\Services\ResumePhotos;
 use Illuminate\Http\JsonResponse;
@@ -57,6 +59,8 @@ class ResumePhotoController extends Controller
         } catch (RuntimeException $exception) {
             throw ValidationException::withMessages(['photo' => $exception->getMessage()]);
         }
+
+        ActivityLog::record($request->user(), ActivityEvent::PhotoUploaded, $resume);
 
         return response()->json([
             'photo_url' => self::urlFor($resume->refresh()),

@@ -13,7 +13,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $cv_template_id
+ * @property string $title
+ * @property ResumeLocale $locale
+ * @property ParagraphAlign|null $paragraph_align Null until the model is reloaded after creation (the column has a default).
+ * @property ResumeAccent|null $accent_color Null until the model is reloaded after creation (the column has a default).
+ * @property list<string>|null $section_order
+ * @property string|null $full_name
+ * @property string|null $headline
+ * @property string|null $email
+ * @property string|null $phone
+ * @property string|null $location
+ * @property string|null $website
+ * @property string|null $linkedin
+ * @property string|null $summary
+ * @property string|null $photo_path
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ */
 #[Fillable([
     'title', 'locale', 'paragraph_align', 'accent_color', 'cv_template_id', 'section_order',
     'full_name', 'headline', 'email', 'phone', 'location', 'website', 'linkedin',

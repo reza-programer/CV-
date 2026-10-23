@@ -56,6 +56,8 @@ export type HeadingBlock = {
     kind: 'heading';
     id: string;
     section: SectionKey;
+    /** 1-based position among the sections that are printed. */
+    number: number;
     title: string;
 };
 
@@ -133,14 +135,18 @@ export function buildBlocks(data: ResumeData): Block[] {
         blocks.push(header);
     }
 
+    let printedSections = 0;
+
     for (const section of data.section_order) {
         const body = buildSection(section, data, locale);
 
         if (body.length > 0) {
+            printedSections += 1;
             blocks.push({
                 kind: 'heading',
                 id: `h-${section}`,
                 section,
+                number: printedSections,
                 title: SECTION_TITLES[locale][section],
             });
             blocks.push(...body);

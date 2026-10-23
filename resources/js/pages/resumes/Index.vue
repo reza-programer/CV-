@@ -23,7 +23,7 @@ const firstName = computed(
 
 const creating = ref(false);
 const chosenTemplate = ref<TemplateSlug | null>(null);
-const example = sampleResume('professional');
+const example = sampleResume('professional', 'developer');
 
 const steps = [
     'Pilih template dan bahasa dokumen.',

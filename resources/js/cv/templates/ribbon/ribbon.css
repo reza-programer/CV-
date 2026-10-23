@@ -1,0 +1,128 @@
+/* Ribbon ATS — accent ribbon down the left edge of every page, single column. */
+
+.tpl-ribbon {
+    --ribbon-width: 7mm;
+    --cv-margin-top: 17mm;
+    --cv-margin-x: 17mm;
+    --cv-margin-bottom: 15mm;
+    font-family: 'Carlito', Calibri, 'Segoe UI', sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.34;
+}
+
+/* The page keeps its usual right margin; the left margin also clears the ribbon. */
+.tpl-ribbon .cv-page {
+    padding-left: calc(var(--cv-margin-x) + var(--ribbon-width));
+}
+
+.tpl-ribbon .cv-page::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--ribbon-width);
+    background: var(--cv-accent);
+    content: '';
+}
+
+.tpl-ribbon .b-header {
+    display: flex;
+    align-items: center;
+    gap: 6mm;
+    padding-bottom: 8pt;
+}
+
+.tpl-ribbon .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-ribbon .name {
+    color: var(--cv-accent);
+    font-size: 25pt;
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+.tpl-ribbon .headline {
+    padding-top: 3pt;
+    font-size: 12pt;
+}
+
+.tpl-ribbon .contacts {
+    padding-top: 5pt;
+    color: #333333;
+    font-size: 9.5pt;
+}
+
+.tpl-ribbon .photo {
+    flex: 0 0 auto;
+    width: 19mm;
+    height: 25.3mm;
+    object-fit: cover;
+}
+
+.tpl-ribbon .b-heading {
+    padding-top: 12pt;
+}
+
+.tpl-ribbon .heading-text {
+    padding-bottom: 2pt;
+    border-bottom: 0.75pt solid
+        color-mix(in srgb, var(--cv-accent) 45%, #ffffff);
+    color: var(--cv-accent);
+    font-size: 11pt;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.tpl-ribbon .b-entry {
+    padding-top: 7pt;
+}
+
+.tpl-ribbon .b-heading + .b-entry,
+.tpl-ribbon .b-heading + .b-text,
+.tpl-ribbon .b-heading + .b-line {
+    padding-top: 5pt;
+}
+
+.tpl-ribbon .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+.tpl-ribbon .entry-lead {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-ribbon .entry-aside {
+    flex: 0 0 auto;
+    color: #444444;
+    font-size: 10pt;
+}
+
+.tpl-ribbon .entry-sub {
+    color: #444444;
+    font-size: 10pt;
+}
+
+.tpl-ribbon .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-ribbon .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-ribbon .bullet-mark {
+    width: 10pt;
+    color: var(--cv-accent);
+}
+
+.tpl-ribbon .b-line {
+    padding-top: 2pt;
+}

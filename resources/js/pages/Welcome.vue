@@ -45,7 +45,10 @@ const heroTemplates = computed(() =>
 const heroTemplate = ref<TemplateSlug>(
     heroTemplates.value[0]?.slug ?? props.templates[0]?.slug ?? 'classic',
 );
-const heroResume = computed(() => sampleResume(heroTemplate.value));
+// The hero keeps one person across templates: same content, different layout.
+const heroResume = computed(() =>
+    sampleResume(heroTemplate.value, 'developer'),
+);
 const atsResume = sampleResume('classic');
 
 const filter = ref<TemplateFilter>('all');

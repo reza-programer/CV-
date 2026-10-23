@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Resumes;
 
+use App\Enums\ActivityEvent;
 use App\Enums\ResumeLocale;
 use App\Http\Controllers\Controller;
+use App\Models\ActivityLog;
 use App\Models\Resume;
 use App\Services\ResumeTranslator;
 use Illuminate\Http\JsonResponse;
@@ -33,6 +35,8 @@ class ResumeTranslateController extends Controller
         } catch (RuntimeException $exception) {
             return response()->json(['message' => $exception->getMessage()], 503);
         }
+
+        ActivityLog::record($request->user(), ActivityEvent::Translated, $resume, ['locale' => $data['target']]);
 
         return response()->json(['items' => $items]);
     }

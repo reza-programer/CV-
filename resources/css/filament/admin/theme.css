@@ -1,0 +1,281 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+/*
+ * CVForge Admin: an all-white operations console (WMS-style density) with
+ * hairline rules, small uppercase labels and ink text. Filament's own rules
+ * live in @layer components, so these unlayered rules take precedence.
+ */
+
+:root {
+    --admin-ink: #18181b;
+    --admin-text: #3f3f46;
+    --admin-muted: #a1a1aa;
+    --admin-line: #e4e4e7;
+    --admin-hover: #f4f4f5;
+    --admin-tint: #fafafa;
+    --admin-radius: 4px;
+}
+
+.fi-body {
+    --topbar-height: 3.25rem;
+    background-color: #ffffff;
+}
+
+/* Frame: top bar ------------------------------------------------------- */
+
+.fi-topbar {
+    background-color: #ffffff;
+    box-shadow: none;
+    border-bottom: 1px solid var(--admin-line);
+}
+
+.fi-topbar .fi-input-wrp {
+    box-shadow: inset 0 0 0 1px var(--admin-line);
+}
+
+/* Frame: sidebar ------------------------------------------------------- */
+
+.fi-sidebar,
+.fi-sidebar-header {
+    background-color: #ffffff;
+}
+
+.fi-sidebar {
+    border-inline-end: 1px solid var(--admin-line);
+}
+
+.fi-sidebar-nav {
+    padding: 1rem 0.75rem;
+    row-gap: 1.25rem;
+}
+
+.fi-sidebar-nav-groups {
+    margin-inline: 0;
+    row-gap: 1.25rem;
+}
+
+.fi-sidebar-group-btn {
+    padding: 0 0.625rem 0.25rem;
+}
+
+.fi-sidebar-group-label {
+    color: var(--admin-muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1.5rem;
+    text-transform: uppercase;
+}
+
+.fi-sidebar-group-btn .fi-icon,
+.fi-sidebar-item-btn > .fi-icon {
+    color: var(--admin-muted);
+}
+
+.fi-sidebar-group-items {
+    row-gap: 1px;
+}
+
+.fi-sidebar-item-btn {
+    border-radius: var(--admin-radius);
+    padding: 0.4375rem 0.625rem;
+}
+
+.fi-sidebar-item-label {
+    color: var(--admin-text);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:hover,
+.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:focus-visible {
+    background-color: var(--admin-hover);
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
+    background-color: var(--admin-hover);
+    box-shadow: inset 2px 0 0 var(--admin-ink);
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-icon,
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-sidebar-item-label {
+    color: var(--admin-ink);
+}
+
+/* Work area ------------------------------------------------------------ */
+
+.fi-main {
+    padding-inline: 1.25rem;
+}
+
+.fi-page-header-main-ctn {
+    row-gap: 1rem;
+    padding-block: 1rem 1.5rem;
+}
+
+.fi-page-content {
+    row-gap: 1rem;
+}
+
+.fi-header-heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.fi-header-subheading {
+    font-size: 13px;
+}
+
+.fi-breadcrumbs {
+    font-size: 12px;
+}
+
+.fi-wi {
+    gap: 1rem;
+}
+
+/* Panels: flat, ruled, small radius. */
+.fi-ta-ctn,
+.fi-section:not(.fi-section-not-contained),
+.fi-wi-stats-overview-stat,
+.fi-wi-chart .fi-section {
+    border-radius: var(--admin-radius);
+    box-shadow: 0 0 0 1px var(--admin-line);
+}
+
+.fi-btn,
+.fi-input-wrp,
+.fi-badge,
+.fi-dropdown-panel,
+.fi-modal-window {
+    border-radius: var(--admin-radius);
+}
+
+/* Panel headings read like console section labels. */
+.fi-ta-ctn .fi-ta-header {
+    padding: 0.625rem 1rem;
+}
+
+.fi-ta-ctn .fi-ta-header-heading,
+.fi-section-header-heading {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.fi-section-header {
+    padding: 0.625rem 1rem;
+}
+
+.fi-ta-ctn .fi-ta-header-toolbar {
+    padding: 0.5rem 1rem;
+}
+
+/* Tables: dense rows, small uppercase headers. */
+.fi-ta-table {
+    font-size: 13px;
+}
+
+.fi-ta-header-cell {
+    padding: 0.5rem 0.75rem;
+    background-color: var(--admin-tint);
+    color: #71717a;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.fi-ta-text:not(.fi-inline),
+.fi-ta-icon:not(.fi-inline),
+.fi-ta-toggle:not(.fi-inline),
+.fi-ta-cell:has(.fi-ta-actions),
+.fi-ta-cell:has(.fi-ta-record-checkbox) {
+    padding-block: 0.5rem;
+}
+
+.fi-ta-text-item,
+.fi-ta-text-description,
+.fi-ta-cell .fi-ta-placeholder {
+    font-size: 13px;
+    line-height: 1.25rem;
+}
+
+.fi-ta-row.fi-striped {
+    background-color: var(--admin-tint);
+}
+
+.fi-ta-row.fi-clickable:hover {
+    background-color: var(--admin-hover);
+}
+
+.fi-pagination {
+    font-size: 13px;
+}
+
+/* KPI tiles. */
+.fi-wi-stats-overview-stat {
+    padding: 0.875rem 1rem;
+}
+
+.fi-wi-stats-overview-stat .fi-wi-stats-overview-stat-content {
+    row-gap: 0.25rem;
+}
+
+.fi-wi-stats-overview-stat .fi-wi-stats-overview-stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.fi-wi-stats-overview-stat .fi-wi-stats-overview-stat-value {
+    font-size: 1.625rem;
+    line-height: 2rem;
+}
+
+.fi-wi-stats-overview-stat .fi-wi-stats-overview-stat-description {
+    font-size: 12px;
+}
+
+/* Brand ------------------------------------------------------------------ */
+
+.cvf-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: var(--admin-ink);
+}
+
+.cvf-brand-mark {
+    display: inline-flex;
+    width: 1.625rem;
+    height: 1.625rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--admin-radius);
+    background-color: var(--admin-ink);
+    color: #ffffff;
+}
+
+.cvf-brand-name {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.cvf-brand-tag {
+    border-inline-start: 1px solid var(--admin-line);
+    padding-inline-start: 0.625rem;
+    color: var(--admin-muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}

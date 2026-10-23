@@ -1,0 +1,116 @@
+/* Leader ATS — dotted leaders from entry titles to dates, letter-spaced headings. */
+
+.tpl-leader {
+    --cv-margin-top: 18mm;
+    --cv-margin-x: 19mm;
+    --cv-margin-bottom: 16mm;
+    font-family: 'Carlito', Calibri, 'Segoe UI', sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.34;
+}
+
+.tpl-leader .b-header {
+    display: flex;
+    align-items: center;
+    gap: 6mm;
+}
+
+.tpl-leader .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-leader .name {
+    font-size: 24pt;
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: 0.01em;
+}
+
+.tpl-leader .headline {
+    padding-top: 2pt;
+    font-size: 11.5pt;
+    font-weight: 700;
+}
+
+.tpl-leader .contacts {
+    padding-top: 5pt;
+    color: #444444;
+    font-size: 9.5pt;
+}
+
+.tpl-leader .photo {
+    flex: 0 0 auto;
+    width: 19mm;
+    height: 25.3mm;
+    object-fit: cover;
+}
+
+.tpl-leader .b-heading {
+    padding-top: 14pt;
+}
+
+.tpl-leader .heading-text {
+    padding-bottom: 3pt;
+    border-bottom: 0.5pt solid #111111;
+    font-size: 9.5pt;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.tpl-leader .b-entry {
+    padding-top: 7pt;
+}
+
+.tpl-leader .b-heading + .b-entry,
+.tpl-leader .b-heading + .b-text,
+.tpl-leader .b-heading + .b-line {
+    padding-top: 6pt;
+}
+
+.tpl-leader .entry-row {
+    display: flex;
+    align-items: baseline;
+    gap: 2mm;
+}
+
+.tpl-leader .entry-lead {
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+/* The dotted line fills whatever space is left between title and dates. */
+.tpl-leader .leader {
+    flex: 1 1 auto;
+    min-width: 6mm;
+    border-bottom: 1pt dotted #8c8c8c;
+    transform: translateY(-2.5pt);
+}
+
+.tpl-leader .entry-aside {
+    flex: 0 0 auto;
+    font-size: 10pt;
+}
+
+.tpl-leader .entry-sub {
+    color: #444444;
+    font-size: 10pt;
+    font-style: italic;
+}
+
+.tpl-leader .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-leader .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-leader .bullet-mark {
+    width: 10pt;
+}
+
+.tpl-leader .b-line {
+    padding-top: 2pt;
+}

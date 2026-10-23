@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string $email
  * @property bool $is_admin
+ * @property Carbon|null $last_seen_at
  * @property Carbon|null $email_verified_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -53,8 +54,12 @@ class User extends Authenticatable implements FilamentUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_admin' => 'boolean',
+            'last_seen_at' => 'datetime',
         ];
     }
+
+    /** Users seen within this many minutes count as online on the admin dashboard. */
+    public const ONLINE_MINUTES = 5;
 
     /**
      * @return HasMany<Resume, $this>
@@ -62,6 +67,19 @@ class User extends Authenticatable implements FilamentUser
     public function resumes(): HasMany
     {
         return $this->hasMany(Resume::class);
+    }
+
+    /**
+     * @return HasMany<ActivityLog, $this>
+     */
+    public function activityLogs(): HasMany
+    {
+        return $this->hasMany(ActivityLog::class);
+    }
+
+    public function isOnline(): bool
+    {
+        return $this->last_seen_at !== null && $this->last_seen_at->gt(now()->subMinutes(self::ONLINE_MINUTES));
     }
 
     public function canAccessPanel(Panel $panel): bool

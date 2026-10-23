@@ -4,17 +4,27 @@ import type { TemplateSlug } from '../types';
 import AccentTemplate from './accent/AccentTemplate.vue';
 import BannerTemplate from './banner/BannerTemplate.vue';
 import BlockTemplate from './block/BlockTemplate.vue';
+import BoldTemplate from './bold/BoldTemplate.vue';
 import ClassicTemplate from './classic/ClassicTemplate.vue';
 import CompactTemplate from './compact/CompactTemplate.vue';
+import CorporateTemplate from './corporate/CorporateTemplate.vue';
+import ElegantTemplate from './elegant/ElegantTemplate.vue';
 import ExecutiveTemplate from './executive/ExecutiveTemplate.vue';
+import FolioTemplate from './folio/FolioTemplate.vue';
 import GutterTemplate from './gutter/GutterTemplate.vue';
+import LeaderTemplate from './leader/LeaderTemplate.vue';
+import MagazineTemplate from './magazine/MagazineTemplate.vue';
 import MinimalTemplate from './minimal/MinimalTemplate.vue';
 import ModernTemplate from './modern/ModernTemplate.vue';
+import MonogramTemplate from './monogram/MonogramTemplate.vue';
+import NumberedTemplate from './numbered/NumberedTemplate.vue';
 import PortraitTemplate from './portrait/PortraitTemplate.vue';
 import ProfessionalTemplate from './professional/ProfessionalTemplate.vue';
+import RibbonTemplate from './ribbon/RibbonTemplate.vue';
 import SidebarTemplate from './sidebar/SidebarTemplate.vue';
 import SidebarLightTemplate from './sidebar-light/SidebarLightTemplate.vue';
 import SplitTemplate from './split/SplitTemplate.vue';
+import TabbedTemplate from './tabbed/TabbedTemplate.vue';
 import TimelineTemplate from './timeline/TimelineTemplate.vue';
 import TwoColumnTemplate from './two-column/TwoColumnTemplate.vue';
 import '../styles/document.css';
@@ -34,6 +44,16 @@ import './sidebar/sidebar.css';
 import './sidebar-light/sidebar-light.css';
 import './two-column/two-column.css';
 import './split/split.css';
+import './monogram/monogram.css';
+import './numbered/numbered.css';
+import './leader/leader.css';
+import './bold/bold.css';
+import './ribbon/ribbon.css';
+import './corporate/corporate.css';
+import './tabbed/tabbed.css';
+import './elegant/elegant.css';
+import './magazine/magazine.css';
+import './folio/folio.css';
 
 export type TemplateDefinition = {
     /** Renders one block; typography lives in the template's `.tpl-{slug}` stylesheet. */
@@ -108,6 +128,39 @@ export const TEMPLATES: Record<TemplateSlug, TemplateDefinition> = {
             kind: 'columns',
             aside: ['education', 'skills', 'certifications', 'languages'],
             asideSide: 'right',
+            header: 'top',
+        },
+        coloured: false,
+    },
+    monogram: { component: MonogramTemplate, layout: single, coloured: true },
+    numbered: { component: NumberedTemplate, layout: single, coloured: true },
+    leader: { component: LeaderTemplate, layout: single, coloured: false },
+    bold: { component: BoldTemplate, layout: single, coloured: false },
+    ribbon: { component: RibbonTemplate, layout: single, coloured: true },
+    corporate: {
+        component: CorporateTemplate,
+        layout: single,
+        coloured: false,
+    },
+    tabbed: { component: TabbedTemplate, layout: single, coloured: true },
+    elegant: { component: ElegantTemplate, layout: single, coloured: false },
+    magazine: {
+        component: MagazineTemplate,
+        layout: {
+            kind: 'columns',
+            aside: ['education', 'skills', 'certifications', 'languages'],
+            asideSide: 'right',
+            header: 'top',
+            topSections: ['summary'],
+        },
+        coloured: true,
+    },
+    folio: {
+        component: FolioTemplate,
+        layout: {
+            kind: 'columns',
+            aside: ['education', 'skills', 'certifications', 'languages'],
+            asideSide: 'left',
             header: 'top',
         },
         coloured: false,

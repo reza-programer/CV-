@@ -1,0 +1,146 @@
+/* Majalah — accent header band with round photo, profile across, then wide + narrow columns. */
+
+.tpl-magazine {
+    --cv-margin-top: 14mm;
+    --cv-margin-x: 16mm;
+    --cv-margin-bottom: 14mm;
+    font-family: 'Carlito', Calibri, 'Segoe UI', sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.32;
+}
+
+/* Band ------------------------------------------------------------------ */
+
+.tpl-magazine .b-header {
+    margin: calc(-1 * var(--cv-margin-top)) calc(-1 * var(--cv-margin-x)) 0;
+    background: var(--cv-accent);
+    color: #ffffff;
+}
+
+.tpl-magazine .band {
+    display: flex;
+    align-items: center;
+    gap: 7mm;
+    padding: 10mm var(--cv-margin-x) 9mm;
+}
+
+.tpl-magazine .photo {
+    flex: 0 0 auto;
+    width: 30mm;
+    height: 30mm;
+    border: 2pt solid #ffffff;
+}
+
+.tpl-magazine .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-magazine .name {
+    font-size: 26pt;
+    font-weight: 700;
+    line-height: 1.04;
+}
+
+/* Solid tints, not opacity: translucent text is extracted out of order from the PDF. */
+.tpl-magazine .headline {
+    padding-top: 3pt;
+    color: color-mix(in srgb, #ffffff 85%, var(--cv-accent));
+    font-size: 12.5pt;
+}
+
+.tpl-magazine .contacts {
+    padding-top: 6pt;
+    font-size: 9.5pt;
+}
+
+/* Profile across the page, then columns ------------------------------------- */
+
+.tpl-magazine .cv-top {
+    padding-bottom: 4pt;
+}
+
+.tpl-magazine .cv-columns {
+    gap: 7mm;
+}
+
+.tpl-magazine .cv-col-aside {
+    width: 58mm;
+    padding-left: 6mm;
+    border-left: 0.75pt solid color-mix(in srgb, var(--cv-accent) 35%, #ffffff);
+}
+
+.tpl-magazine .b-heading {
+    padding-top: 12pt;
+}
+
+.tpl-magazine .heading-text {
+    color: var(--cv-accent);
+    font-size: 11pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tpl-magazine .b-entry {
+    padding-top: 7pt;
+}
+
+.tpl-magazine .b-heading + .b-entry,
+.tpl-magazine .b-heading + .b-text,
+.tpl-magazine .b-heading + .b-line {
+    padding-top: 4pt;
+}
+
+.tpl-magazine .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 3mm;
+}
+
+.tpl-magazine .entry-lead {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-magazine .entry-aside {
+    flex: 0 0 auto;
+    color: #444444;
+    font-size: 9.5pt;
+}
+
+.tpl-magazine .entry-sub {
+    color: #444444;
+    font-size: 9.5pt;
+}
+
+.tpl-magazine .cv-col-aside .b-entry {
+    padding-top: 5pt;
+    font-size: 10pt;
+}
+
+.tpl-magazine .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-magazine .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-magazine .bullet-mark {
+    width: 9pt;
+    color: var(--cv-accent);
+}
+
+.tpl-magazine .b-line {
+    padding-top: 3pt;
+}
+
+.tpl-magazine .cv-col-aside .b-line {
+    font-size: 10pt;
+}
+
+.tpl-magazine .line-label {
+    font-weight: 700;
+}

@@ -13,6 +13,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use UnitEnum;
 
 /**
  * Templates are implemented as layout components in the frontend, so the
@@ -33,6 +34,8 @@ class CvTemplateResource extends Resource
     protected static ?string $navigationLabel = 'Template CV';
 
     protected static ?int $navigationSort = 2;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Kelola';
 
     public static function form(Schema $schema): Schema
     {

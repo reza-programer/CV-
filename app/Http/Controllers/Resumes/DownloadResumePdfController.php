@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Resumes;
 
+use App\Enums\ActivityEvent;
 use App\Http\Controllers\Controller;
+use App\Models\ActivityLog;
 use App\Models\Resume;
 use App\Services\ResumePdfRenderer;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -12,7 +15,7 @@ use Throwable;
 
 class DownloadResumePdfController extends Controller
 {
-    public function __invoke(Resume $resume, ResumePdfRenderer $renderer): Response
+    public function __invoke(Request $request, Resume $resume, ResumePdfRenderer $renderer): Response
     {
         try {
             $pdf = $renderer->render($resume);
@@ -21,6 +24,8 @@ class DownloadResumePdfController extends Controller
 
             throw new HttpException(503, 'PDF belum dapat dibuat. Silakan coba lagi beberapa saat lagi.', $exception);
         }
+
+        ActivityLog::record($request->user(), ActivityEvent::PdfDownloaded, $resume, ['locale' => $resume->locale->value]);
 
         $filename = $renderer->filename($resume);
 

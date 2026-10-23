@@ -1,0 +1,117 @@
+/* Bold ATS — heavy uppercase name over a thick rule, heavy headings with a rule above. */
+
+.tpl-bold {
+    --cv-margin-top: 16mm;
+    --cv-margin-x: 17mm;
+    --cv-margin-bottom: 15mm;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    line-height: 1.38;
+}
+
+.tpl-bold .header-top {
+    display: flex;
+    align-items: flex-end;
+    gap: 6mm;
+    padding-bottom: 7pt;
+    border-bottom: 3pt solid #111111;
+}
+
+.tpl-bold .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-bold .name {
+    font-size: 30pt;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+}
+
+.tpl-bold .headline {
+    padding-top: 5pt;
+    font-size: 12pt;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.tpl-bold .photo {
+    flex: 0 0 auto;
+    width: 19mm;
+    height: 25.3mm;
+    object-fit: cover;
+}
+
+.tpl-bold .contacts {
+    padding-top: 6pt;
+    font-size: 9pt;
+}
+
+.tpl-bold .b-heading {
+    padding-top: 15pt;
+}
+
+.tpl-bold .heading-text {
+    padding-top: 4pt;
+    border-top: 1.5pt solid #111111;
+    font-size: 12pt;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.tpl-bold .b-entry {
+    padding-top: 8pt;
+}
+
+.tpl-bold .b-heading + .b-entry,
+.tpl-bold .b-heading + .b-text,
+.tpl-bold .b-heading + .b-line {
+    padding-top: 5pt;
+}
+
+.tpl-bold .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+.tpl-bold .entry-lead {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 10.5pt;
+}
+
+.tpl-bold .entry-aside {
+    flex: 0 0 auto;
+    font-size: 9.5pt;
+    font-weight: 700;
+}
+
+.tpl-bold .entry-sub {
+    color: #333333;
+    font-size: 9.5pt;
+}
+
+.tpl-bold .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-bold .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-bold .bullet-mark {
+    width: 10pt;
+    padding-top: 1pt;
+    font-size: 6pt;
+    line-height: 13.8pt;
+}
+
+.tpl-bold .b-line {
+    padding-top: 2pt;
+}

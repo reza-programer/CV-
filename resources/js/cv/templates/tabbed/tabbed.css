@@ -1,0 +1,118 @@
+/* Tab ATS — section titles on small accent tabs sitting on a rule to the margin. */
+
+.tpl-tabbed {
+    --cv-margin-top: 17mm;
+    --cv-margin-x: 18mm;
+    --cv-margin-bottom: 15mm;
+    font-family: 'Carlito', Calibri, 'Segoe UI', sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.34;
+}
+
+.tpl-tabbed .b-header {
+    display: flex;
+    align-items: center;
+    gap: 6mm;
+    padding-bottom: 4pt;
+}
+
+.tpl-tabbed .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-tabbed .name {
+    font-size: 24pt;
+    font-weight: 700;
+    line-height: 1.06;
+}
+
+.tpl-tabbed .headline {
+    padding-top: 2pt;
+    color: var(--cv-accent);
+    font-size: 12pt;
+    font-weight: 700;
+}
+
+.tpl-tabbed .contacts {
+    padding-top: 5pt;
+    color: #333333;
+    font-size: 9.5pt;
+}
+
+.tpl-tabbed .photo {
+    flex: 0 0 auto;
+    width: 19mm;
+    height: 25.3mm;
+    object-fit: cover;
+}
+
+.tpl-tabbed .b-heading {
+    padding-top: 13pt;
+}
+
+.tpl-tabbed .heading-text {
+    display: flex;
+    border-bottom: 1pt solid var(--cv-accent);
+}
+
+.tpl-tabbed .tab {
+    padding: 3pt 7pt 2pt;
+    background: var(--cv-accent);
+    color: #ffffff;
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.tpl-tabbed .b-entry {
+    padding-top: 7pt;
+}
+
+.tpl-tabbed .b-heading + .b-entry,
+.tpl-tabbed .b-heading + .b-text,
+.tpl-tabbed .b-heading + .b-line {
+    padding-top: 6pt;
+}
+
+.tpl-tabbed .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+.tpl-tabbed .entry-lead {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-tabbed .entry-aside {
+    flex: 0 0 auto;
+    color: #444444;
+    font-size: 10pt;
+}
+
+.tpl-tabbed .entry-sub {
+    color: #444444;
+    font-size: 10pt;
+}
+
+.tpl-tabbed .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-tabbed .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-tabbed .bullet-mark {
+    width: 10pt;
+    color: var(--cv-accent);
+}
+
+.tpl-tabbed .b-line {
+    padding-top: 2pt;
+}

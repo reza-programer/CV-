@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use Anthropic\Beta\Messages\BetaTextBlock;
 use Anthropic\Client;
 use Anthropic\Core\Exceptions\APIException;
 use App\Enums\ResumeLocale;
 use App\Models\Resume;
+use App\Support\AiEffort;
 use App\Support\Resumes\ResumePayload;
 use Illuminate\Support\Facades\Log;
 use RuntimeException;
@@ -141,7 +143,7 @@ class ResumeAssistant
                 model: (string) config('cvforge.ai.model'),
                 fallbacks: 'default',
                 outputConfig: [
-                    'effort' => (string) config('cvforge.ai.effort'),
+                    'effort' => AiEffort::configured(),
                     'format' => [
                         'type' => 'json_schema',
                         'schema' => [
@@ -166,7 +168,7 @@ class ResumeAssistant
         }
 
         foreach ($message->content as $block) {
-            if ($block->type === 'text') {
+            if ($block instanceof BetaTextBlock) {
                 $decoded = json_decode($block->text, true);
 
                 if (is_array($decoded)) {

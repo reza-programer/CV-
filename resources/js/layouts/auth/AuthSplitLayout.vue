@@ -15,7 +15,7 @@ defineProps<{
     description?: string;
 }>();
 
-const example = sampleResume('professional');
+const example = sampleResume('professional', 'developer');
 const year = new Date().getFullYear();
 const points = [
     'PDF A4 berteks asli, terbaca sistem ATS',

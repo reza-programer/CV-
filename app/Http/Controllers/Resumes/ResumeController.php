@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Resumes;
 
 use App\Actions\Resumes\CreateResume;
 use App\Actions\Resumes\SaveResumeContent;
+use App\Enums\ActivityEvent;
 use App\Enums\ResumeLocale;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Resumes\StoreResumeRequest;
 use App\Http\Requests\Resumes\UpdateResumeRequest;
+use App\Models\ActivityLog;
 use App\Models\CvTemplate;
 use App\Models\Resume;
 use App\Services\ResumeAssistant;
@@ -50,6 +52,8 @@ class ResumeController extends Controller
             ResumeLocale::from($request->string('locale')->value()),
         );
 
+        ActivityLog::record($request->user(), ActivityEvent::ResumeCreated, $resume);
+
         return to_route('resumes.edit', $resume);
     }
 
@@ -67,13 +71,18 @@ class ResumeController extends Controller
     {
         $resume = $saveContent->handle($resume, $request->validated());
 
+        ActivityLog::recordEdit($request->user(), $resume);
+
         return response()->json([
             'saved_at' => $resume->updated_at?->toIso8601String(),
         ]);
     }
 
-    public function destroy(Resume $resume): RedirectResponse
+    public function destroy(Request $request, Resume $resume): RedirectResponse
     {
+        // Recorded first: the entry keeps the template after the CV is gone.
+        ActivityLog::record($request->user(), ActivityEvent::ResumeDeleted, $resume);
+
         $resume->delete();
 
         Inertia::flash('toast', ['type' => 'success', 'message' => 'CV dihapus.']);
@@ -86,6 +95,6 @@ class ResumeController extends Controller
      */
     private function templates(): array
     {
-        return CvTemplate::query()->active()->get()->map->toPublicArray()->values()->all();
+        return array_values(CvTemplate::query()->active()->get()->map->toPublicArray()->all());
     }
 }

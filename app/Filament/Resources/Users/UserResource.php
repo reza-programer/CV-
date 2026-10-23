@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Users;
 use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Pages\EditUser;
 use App\Filament\Resources\Users\Pages\ListUsers;
+use App\Filament\Resources\Users\RelationManagers\ActivityLogsRelationManager;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Tables\UsersTable;
 use App\Models\User;
@@ -13,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class UserResource extends Resource
 {
@@ -29,6 +31,15 @@ class UserResource extends Resource
     protected static ?string $navigationLabel = 'Pengguna';
 
     protected static ?int $navigationSort = 1;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Kelola';
+
+    public static function getRelations(): array
+    {
+        return [
+            ActivityLogsRelationManager::class,
+        ];
+    }
 
     public static function form(Schema $schema): Schema
     {

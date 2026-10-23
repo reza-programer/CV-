@@ -19,7 +19,17 @@ export type TemplateSlug =
     | 'sidebar'
     | 'sidebar-light'
     | 'two-column'
-    | 'split';
+    | 'split'
+    | 'monogram'
+    | 'numbered'
+    | 'leader'
+    | 'bold'
+    | 'ribbon'
+    | 'corporate'
+    | 'tabbed'
+    | 'elegant'
+    | 'magazine'
+    | 'folio';
 
 /** Accent colour of the coloured templates; see accents.ts. */
 export type AccentColor =

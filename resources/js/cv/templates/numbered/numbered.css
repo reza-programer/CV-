@@ -1,0 +1,132 @@
+/* Numbered ATS — accent numerals before each section title, rule to the margin. */
+
+.tpl-numbered {
+    --cv-margin-top: 17mm;
+    --cv-margin-x: 18mm;
+    --cv-margin-bottom: 15mm;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    line-height: 1.38;
+}
+
+.tpl-numbered .b-header {
+    display: flex;
+    align-items: center;
+    gap: 6mm;
+    padding-bottom: 9pt;
+    border-bottom: 2pt solid #111111;
+}
+
+.tpl-numbered .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-numbered .name {
+    font-size: 23pt;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+}
+
+.tpl-numbered .headline {
+    padding-top: 3pt;
+    color: #444444;
+    font-size: 11.5pt;
+}
+
+.tpl-numbered .contacts {
+    padding-top: 5pt;
+    font-size: 9pt;
+}
+
+.tpl-numbered .photo {
+    flex: 0 0 auto;
+    width: 19mm;
+    height: 25.3mm;
+    object-fit: cover;
+}
+
+.tpl-numbered .b-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 3mm;
+    padding-top: 14pt;
+}
+
+.tpl-numbered .heading-number {
+    flex: 0 0 auto;
+    color: var(--cv-accent);
+    font-size: 17pt;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.tpl-numbered .heading-text {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 3mm;
+    font-size: 10.5pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tpl-numbered .heading-text::after {
+    flex: 1 1 auto;
+    height: 0.75pt;
+    background: #bdbdbd;
+    content: '';
+}
+
+.tpl-numbered .b-entry {
+    padding-top: 7pt;
+}
+
+.tpl-numbered .b-heading + .b-entry,
+.tpl-numbered .b-heading + .b-text,
+.tpl-numbered .b-heading + .b-line {
+    padding-top: 6pt;
+}
+
+.tpl-numbered .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+.tpl-numbered .entry-lead {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-numbered .entry-aside {
+    flex: 0 0 auto;
+    color: var(--cv-accent);
+    font-size: 9.5pt;
+    font-weight: 700;
+}
+
+.tpl-numbered .entry-sub {
+    color: #444444;
+    font-size: 9.5pt;
+}
+
+.tpl-numbered .b-bullet {
+    padding-top: 1.5pt;
+}
+
+.tpl-numbered .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-numbered .bullet-mark {
+    width: 10pt;
+    color: #777777;
+}
+
+.tpl-numbered .b-line {
+    padding-top: 2pt;
+}

@@ -1,0 +1,111 @@
+/* Elegant ATS — Times-metric serif, light large name, italic section titles on a hairline. */
+
+.tpl-elegant {
+    --cv-margin-top: 20mm;
+    --cv-margin-x: 21mm;
+    --cv-margin-bottom: 18mm;
+    font-family: 'Tinos', 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    line-height: 1.36;
+}
+
+.tpl-elegant .b-header {
+    display: flex;
+    align-items: center;
+    gap: 7mm;
+    padding-bottom: 6pt;
+}
+
+.tpl-elegant .header-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-elegant .name {
+    font-size: 28pt;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+}
+
+.tpl-elegant .headline {
+    padding-top: 4pt;
+    color: #444444;
+    font-size: 12.5pt;
+    font-style: italic;
+}
+
+.tpl-elegant .contacts {
+    padding-top: 7pt;
+    color: #444444;
+    font-size: 9.5pt;
+    letter-spacing: 0.02em;
+}
+
+.tpl-elegant .photo {
+    flex: 0 0 auto;
+    width: 20mm;
+    height: 26.7mm;
+    object-fit: cover;
+}
+
+.tpl-elegant .b-heading {
+    padding-top: 16pt;
+}
+
+.tpl-elegant .heading-text {
+    padding-bottom: 3pt;
+    border-bottom: 0.5pt solid #9a9a9a;
+    font-size: 14pt;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.tpl-elegant .b-entry {
+    padding-top: 8pt;
+}
+
+.tpl-elegant .b-heading + .b-entry,
+.tpl-elegant .b-heading + .b-text,
+.tpl-elegant .b-heading + .b-line {
+    padding-top: 6pt;
+}
+
+.tpl-elegant .entry-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4mm;
+}
+
+.tpl-elegant .entry-lead {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.tpl-elegant .entry-aside {
+    flex: 0 0 auto;
+    color: #444444;
+    font-size: 10.5pt;
+}
+
+.tpl-elegant .entry-sub {
+    color: #444444;
+    font-size: 10.5pt;
+}
+
+.tpl-elegant .b-bullet {
+    padding-top: 2pt;
+}
+
+.tpl-elegant .b-entry + .b-bullet {
+    padding-top: 3pt;
+}
+
+.tpl-elegant .bullet-mark {
+    width: 11pt;
+}
+
+.tpl-elegant .b-line {
+    padding-top: 2pt;
+}

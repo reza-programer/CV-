@@ -16,6 +16,7 @@ class CvTemplate extends Model
     public const SLUGS = [
         'classic', 'compact', 'modern', 'professional', 'executive', 'accent', 'banner', 'block',
         'portrait', 'timeline', 'gutter', 'minimal', 'sidebar', 'sidebar-light', 'two-column', 'split',
+        'monogram', 'numbered', 'leader', 'bold', 'ribbon', 'corporate', 'tabbed', 'elegant', 'magazine', 'folio',
     ];
 
     public const DEFAULT_SLUG = 'classic';

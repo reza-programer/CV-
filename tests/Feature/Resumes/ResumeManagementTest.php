@@ -37,7 +37,7 @@ class ResumeManagementTest extends TestCase
                 ->has('resumes', 1)
                 ->where('resumes.0.id', $own->id)
                 ->where('resumes.0.document.title', 'Milik saya')
-                ->has('templates', 16));
+                ->has('templates', 26));
     }
 
     public function test_creating_a_resume_prefills_account_details_and_opens_the_editor(): void

@@ -95,7 +95,7 @@ class ResumeFactory extends Factory
 
             foreach (range(0, $scale) as $index) {
                 $resume->projects()->create([
-                    'name' => ucfirst(fake()->words(3, true)),
+                    'name' => rtrim(fake()->sentence(3), '.'),
                     'role' => fake()->jobTitle(),
                     'url' => 'github.com/'.fake()->userName(),
                     'start_date' => '2023-02',

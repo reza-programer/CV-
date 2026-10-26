@@ -1,0 +1,669 @@
+/*
+ * Kit: style traits for the catalogue templates (catalog.ts). Each template
+ * sets a few `t-*` classes on the document on top of the studio markup: a
+ * font, a header, a section title style, and optionally a page decoration,
+ * a photo shape and, for two columns, a side panel. Decoration is drawn
+ * behind the text with pseudo-elements; nothing here adds text.
+ *
+ * Colours come from variables so the same trait works in black and white
+ * (`t-mono`) and in the CV's accent colour (`t-colour`), and inverts inside
+ * a dark side panel.
+ */
+
+/* Base ------------------------------------------------------------------------ */
+
+.t-kit {
+    --kit-ink: #111111;
+    --kit-on-ink: #ffffff;
+    --kit-tint: #f1f1f1;
+    --kit-tint-strong: #e2e2e2;
+    --kit-muted: #4d4d4d;
+    --kit-panel: var(--kit-ink);
+    --kit-size: 10pt;
+    --kit-scale: 1;
+    --cv-margin-top: 16mm;
+    --cv-margin-x: 17mm;
+    --cv-margin-bottom: 15mm;
+    font-size: calc(var(--kit-size) * var(--kit-scale));
+}
+
+.t-colour {
+    --kit-ink: var(--cv-accent);
+    --kit-tint: color-mix(in srgb, var(--cv-accent) 9%, #ffffff);
+    --kit-tint-strong: color-mix(in srgb, var(--cv-accent) 20%, #ffffff);
+}
+
+.t-ink-charcoal {
+    --kit-ink: #2b2f36;
+}
+
+.t-kit .entry-aside,
+.t-kit .entry-sub {
+    color: var(--kit-muted);
+}
+
+/* Fonts and density ---------------------------------------------------------------- */
+
+.t-font-carlito {
+    --kit-size: 10.5pt;
+    font-family: 'Carlito', Calibri, 'Segoe UI', sans-serif;
+    line-height: 1.34;
+}
+
+.t-font-tinos {
+    --kit-size: 10.5pt;
+    font-family: 'Tinos', 'Times New Roman', serif;
+    line-height: 1.32;
+}
+
+.t-font-mixed .name,
+.t-font-mixed .heading-text,
+.t-font-mixed .aside-title,
+.t-name-serif .name {
+    font-family: 'Tinos', 'Times New Roman', serif;
+}
+
+.t-dense {
+    --kit-scale: 0.95;
+}
+
+.t-dense .b-heading {
+    padding-top: 9pt;
+}
+
+.t-dense .b-entry {
+    padding-top: 4pt;
+}
+
+.t-airy {
+    line-height: 1.45;
+}
+
+.t-airy .b-heading {
+    padding-top: 16pt;
+}
+
+.t-airy .b-entry {
+    padding-top: 8pt;
+}
+
+/* Header ------------------------------------------------------------------------- */
+
+.t-head-right .b-header {
+    flex-direction: row-reverse;
+}
+
+.t-head-center .b-header {
+    flex-direction: column;
+    gap: 4mm;
+    text-align: center;
+}
+
+.t-head-center .header-text {
+    width: 100%;
+}
+
+.t-head-center .contact-table {
+    display: inline-grid;
+    text-align: left;
+}
+
+.t-head-rule .b-header {
+    padding-bottom: 7pt;
+    border-bottom: 2.25pt solid var(--kit-ink);
+}
+
+/*
+ * The header opens the page, where document.css drops top padding, so the
+ * space above it is a border in the card or band colour instead.
+ */
+.t-head-tint .b-header {
+    padding: 0 7mm 6mm;
+    border-top: 6mm solid var(--kit-tint);
+    border-radius: 2.5mm;
+    background: var(--kit-tint);
+}
+
+/* A solid band across the top of the first page, behind the header. */
+.t-head-band .b-header {
+    margin: calc(-1 * var(--cv-margin-top)) calc(-1 * var(--cv-margin-x)) 2mm;
+    padding: 0 var(--cv-margin-x) 9mm;
+    border-top: 13mm solid var(--kit-ink);
+    background: var(--kit-ink);
+    color: #ffffff;
+}
+
+.t-head-band .b-header .name,
+.t-head-band .b-header .contact-table dt {
+    color: #ffffff;
+}
+
+.t-head-band .b-header .headline,
+.t-head-band .b-header .contacts,
+.t-head-band .b-header .contact-icon,
+.t-head-band .b-header a {
+    color: color-mix(in srgb, #ffffff 86%, var(--kit-ink));
+}
+
+.t-head-band .b-header .photo {
+    border: 2pt solid #ffffff;
+}
+
+/* Name and headline on the left, contacts stacked on the right. */
+.t-head-split .header-text {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    column-gap: 8mm;
+}
+
+.t-head-split .name,
+.t-head-split .headline {
+    grid-column: 1;
+}
+
+.t-head-split .contacts {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    align-self: center;
+    padding-top: 0;
+}
+
+/* Name and headline ------------------------------------------------------------------- */
+
+.t-name-caps .name {
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.t-name-accent .name {
+    color: var(--kit-ink);
+}
+
+.t-name-xl .name {
+    font-size: 27pt;
+}
+
+.t-name-regular .name {
+    font-weight: 400;
+}
+
+.t-headline-caps .headline {
+    color: var(--kit-muted);
+    font-size: 9.5pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.t-headline-accent .headline {
+    color: var(--kit-ink);
+    font-weight: 700;
+}
+
+/* Section titles --------------------------------------------------------------------- */
+
+.t-h-rule .heading-text,
+.t-h-line-after .heading-text,
+.t-h-line-center .heading-text,
+.t-h-bar .heading-text,
+.t-h-boxed .heading-text,
+.t-h-band .heading-text,
+.t-h-double .heading-text,
+.t-h-plain-caps .heading-text,
+.t-h-pill .heading-label,
+.t-h-pill-soft .heading-label,
+.t-h-tab .heading-label {
+    font-size: 10.5pt;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.t-h-accent .heading-text,
+.t-h-accent .aside-title {
+    color: var(--kit-ink);
+}
+
+.t-h-rule .heading-text {
+    padding-bottom: 2.5pt;
+    border-bottom: 0.9pt solid var(--kit-ink);
+}
+
+.t-h-line-after .heading-text::after,
+.t-h-line-center .heading-text::before,
+.t-h-line-center .heading-text::after {
+    flex: 1 1 auto;
+    height: 0.9pt;
+    background: var(--kit-ink);
+    content: '';
+}
+
+.t-h-line-center .heading-text,
+.t-h-center .heading-text {
+    justify-content: center;
+    text-align: center;
+}
+
+.t-h-bar .heading-text {
+    padding-left: 2.5mm;
+    border-left: 3pt solid var(--kit-ink);
+}
+
+.t-h-pill .heading-label,
+.t-h-pill-soft .heading-label {
+    padding: 1.5pt 9pt;
+    border-radius: 999px;
+    font-size: 10pt;
+}
+
+.t-h-pill .heading-label {
+    background: var(--kit-ink);
+    color: var(--kit-on-ink);
+}
+
+.t-h-pill-soft .heading-label {
+    background: var(--kit-tint-strong);
+    color: var(--kit-ink);
+}
+
+.t-h-underline .heading-label {
+    padding-bottom: 2pt;
+    border-bottom: 2.4pt solid var(--kit-ink);
+}
+
+.t-h-boxed .heading-text {
+    padding: 2.5pt 3mm;
+    background: var(--kit-tint);
+}
+
+.t-h-band .heading-text {
+    padding: 3pt 3mm;
+    background: var(--kit-ink);
+    color: var(--kit-on-ink);
+}
+
+.t-h-dot .heading-text::before {
+    flex: 0 0 auto;
+    width: 2.3mm;
+    height: 2.3mm;
+    border-radius: 50%;
+    background: var(--kit-ink);
+    content: '';
+}
+
+.t-h-caps-spaced .heading-text {
+    color: var(--kit-ink);
+    font-size: 10pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.t-h-double .heading-text {
+    padding: 2pt 0;
+    border-top: 0.9pt solid var(--kit-ink);
+    border-bottom: 0.9pt solid var(--kit-ink);
+}
+
+.t-h-tab .heading-label {
+    padding: 2pt 6mm 2pt 3mm;
+    background: var(--kit-ink);
+    color: var(--kit-on-ink);
+    clip-path: polygon(
+        0 0,
+        calc(100% - 2.5mm) 0,
+        100% 50%,
+        calc(100% - 2.5mm) 100%,
+        0 100%
+    );
+}
+
+/* The section's position, from the heading's data attribute. */
+.t-h-number .heading-text::before {
+    flex: 0 0 auto;
+    color: var(--kit-ink);
+    content: attr(data-number);
+    font-size: 1.15em;
+}
+
+.t-h-marker .heading-label {
+    padding: 0 1.5mm;
+    background: linear-gradient(transparent 52%, var(--kit-tint-strong) 52%);
+}
+
+.t-h-bold .heading-text {
+    font-size: 12.5pt;
+}
+
+/* Entries and bullets ----------------------------------------------------------------- */
+
+.t-dates-accent .entry-aside {
+    color: var(--kit-ink);
+    font-weight: 700;
+}
+
+.t-dates-strong .entry-aside {
+    color: #222222;
+    font-weight: 700;
+}
+
+.t-sub-italic .entry-sub {
+    font-style: italic;
+}
+
+.t-bullet-accent .bullet-mark {
+    color: var(--kit-ink);
+}
+
+/* Drawn marks; the bullet character stays in the text, just invisible. */
+.t-bullet-square .bullet-mark,
+.t-bullet-dash .bullet-mark {
+    position: relative;
+    color: transparent;
+}
+
+.t-bullet-square .bullet-mark::before,
+.t-bullet-dash .bullet-mark::before {
+    position: absolute;
+    left: 0.5pt;
+    background: var(--kit-ink);
+    content: '';
+}
+
+.t-bullet-square .bullet-mark::before {
+    top: 0.5em;
+    width: 3.2pt;
+    height: 3.2pt;
+}
+
+.t-bullet-dash .bullet-mark::before {
+    top: 0.66em;
+    width: 5pt;
+    height: 0.9pt;
+}
+
+/* Photo shapes -------------------------------------------------------------------- */
+
+.t-photo-round .photo,
+.t-photo-ring .photo {
+    width: 28mm;
+    height: 28mm;
+    border-radius: 50%;
+}
+
+.t-photo-square .photo,
+.t-photo-rounded .photo {
+    width: 25mm;
+    height: 32mm;
+}
+
+.t-photo-rounded .photo {
+    border-radius: 3mm;
+}
+
+.t-photo-arch .photo {
+    width: 26mm;
+    height: 32mm;
+    border-radius: 13mm 13mm 2.5mm 2.5mm;
+}
+
+.t-photo-ring .photo {
+    border: 2pt solid #ffffff;
+    box-shadow: 0 0 0 1.5pt var(--kit-ink);
+}
+
+/* On a header band the ring is white, with a gap in the band colour. */
+.t-head-band.t-photo-ring .b-header .photo {
+    border-color: var(--kit-ink);
+    box-shadow: 0 0 0 1.5pt #ffffff;
+}
+
+/* Page decoration ------------------------------------------------------------------- */
+
+.t-deco-topbar .cv-page::before,
+.t-deco-bars .cv-page::before {
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 5mm;
+    background: var(--kit-ink);
+    content: '';
+}
+
+.t-deco-bottombar .cv-page::after,
+.t-deco-bars .cv-page::after {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 3.5mm;
+    background: var(--kit-ink);
+    content: '';
+}
+
+.t-deco-stripe .cv-page::before,
+.t-deco-stripe-right .cv-page::before {
+    top: 0;
+    bottom: 0;
+    width: 5mm;
+    background: var(--kit-ink);
+    content: '';
+}
+
+.t-deco-stripe .cv-page::before {
+    left: 0;
+}
+
+.t-deco-stripe-right .cv-page::before {
+    right: 0;
+}
+
+/* Two stacked triangles in the top right corner, kept inside the margins. */
+.t-deco-corner .cv-page::before,
+.t-deco-corner .cv-page::after {
+    top: 0;
+    right: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    content: '';
+}
+
+.t-deco-corner .cv-page::before {
+    width: 30mm;
+    height: 30mm;
+    background: var(--kit-tint-strong);
+}
+
+.t-deco-corner .cv-page::after {
+    width: 20mm;
+    height: 20mm;
+    background: var(--kit-ink);
+}
+
+.t-deco-corner .b-header {
+    padding-right: 12mm;
+}
+
+.t-deco-dots .cv-page::before,
+.t-deco-dots .cv-page::after {
+    width: 42mm;
+    height: 10mm;
+    background: radial-gradient(
+            circle,
+            var(--kit-tint-strong) 0.9pt,
+            transparent 1.2pt
+        )
+        0 0 / 3.2mm 3.2mm;
+    content: '';
+}
+
+.t-deco-dots .cv-page::before {
+    top: 4mm;
+    right: 5mm;
+}
+
+.t-deco-dots .cv-page::after {
+    bottom: 3.5mm;
+    left: 5mm;
+}
+
+.t-deco-frame .cv-page::before,
+.t-deco-frame-double .cv-page::before {
+    inset: 7mm;
+    content: '';
+}
+
+.t-deco-frame .cv-page::before {
+    border: 0.9pt solid var(--kit-ink);
+}
+
+.t-deco-frame-double .cv-page::before {
+    border: 2.6pt double var(--kit-ink);
+}
+
+/* First page only: large shapes would sit behind the text on later pages. */
+.t-deco-diagonal .cv-pages > .cv-page:first-child::before {
+    top: 0;
+    left: 0;
+    width: 120mm;
+    height: 52mm;
+    clip-path: polygon(0 0, 100% 0, 62% 100%, 0 100%);
+    background: var(--kit-tint);
+    content: '';
+}
+
+.t-deco-arc .cv-pages > .cv-page:first-child::before {
+    top: -70mm;
+    left: -30mm;
+    width: 270mm;
+    height: 128mm;
+    border-radius: 50%;
+    background: var(--kit-tint);
+    content: '';
+}
+
+.t-deco-circles .cv-pages > .cv-page:first-child::before {
+    top: -30mm;
+    right: -26mm;
+    width: 74mm;
+    height: 74mm;
+    border-radius: 50%;
+    background: var(--kit-tint-strong);
+    content: '';
+}
+
+.t-deco-circles .cv-page::after {
+    bottom: -16mm;
+    left: -14mm;
+    width: 40mm;
+    height: 40mm;
+    border-radius: 50%;
+    background: var(--kit-tint);
+    content: '';
+}
+
+.t-deco-circles .b-header {
+    padding-right: 18mm;
+}
+
+/* Two columns --------------------------------------------------------------------- */
+
+.t-cols {
+    --cv-margin-top: 0mm;
+    --cv-margin-x: 0mm;
+    --cv-margin-bottom: 0mm;
+}
+
+.t-cols .cv-col-aside {
+    width: 64mm;
+    padding: 14mm 7mm 12mm;
+}
+
+.t-aside-left .cv-col-main {
+    padding: 15mm 15mm 14mm 10mm;
+}
+
+.t-aside-right .cv-col-main {
+    padding: 15mm 10mm 14mm 16mm;
+}
+
+/* A full-width header above the columns on the first page. */
+.t-header-top .cv-top {
+    padding: 14mm 15mm 2mm 16mm;
+}
+
+.t-header-top .cv-top + .cv-columns .cv-col {
+    padding-top: 6mm;
+}
+
+.t-cols.t-head-band .cv-top {
+    padding: 0;
+}
+
+.t-cols.t-head-band .b-header {
+    margin: 0;
+    padding: 0 16mm 9mm;
+    border-top-width: 12mm;
+}
+
+.t-cols .b-contact-card .photo {
+    display: block;
+    margin: 0 auto 10pt;
+}
+
+.t-cols.t-photo-round .b-contact-card .photo,
+.t-cols.t-photo-ring .b-contact-card .photo {
+    width: 36mm;
+    height: 36mm;
+}
+
+.t-cols.t-photo-square .b-contact-card .photo,
+.t-cols.t-photo-rounded .b-contact-card .photo,
+.t-cols.t-photo-arch .b-contact-card .photo {
+    width: 38mm;
+    height: 48mm;
+}
+
+.t-cols.t-photo-arch .b-contact-card .photo {
+    border-radius: 19mm 19mm 3mm 3mm;
+}
+
+.t-cols .b-identity {
+    padding-bottom: 2pt;
+}
+
+.t-cols .aside-title {
+    padding-top: 2pt;
+}
+
+.t-aside-tint .cv-col-aside {
+    background: var(--kit-tint);
+}
+
+.t-aside-gray .cv-col-aside {
+    background: #f1f1f1;
+}
+
+.t-aside-line.t-aside-left .cv-col-aside {
+    border-right: 0.75pt solid #d4d4d4;
+}
+
+.t-aside-line.t-aside-right .cv-col-aside {
+    border-left: 0.75pt solid #d4d4d4;
+}
+
+/* A dark panel: the traits inside it draw in white on the panel colour. */
+.t-aside-dark .cv-col-aside {
+    --kit-ink: #ffffff;
+    --kit-on-ink: var(--kit-panel);
+    --kit-tint: color-mix(in srgb, #ffffff 14%, var(--kit-panel));
+    --kit-tint-strong: color-mix(in srgb, #ffffff 24%, var(--kit-panel));
+    --kit-muted: color-mix(in srgb, #ffffff 76%, var(--kit-panel));
+    background: var(--kit-panel);
+    color: #f5f5f5;
+}
+
+.t-aside-dark .cv-col-aside a,
+.t-aside-dark .cv-col-aside .contact-icon {
+    color: inherit;
+}
+
+.t-aside-dark .cv-col-aside .photo {
+    border-color: var(--kit-panel);
+}

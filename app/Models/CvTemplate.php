@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['slug', 'name', 'description', 'is_active', 'sort_order'])]
+#[Fillable(['slug', 'name', 'description', 'is_active', 'is_recommended', 'sort_order'])]
 class CvTemplate extends Model
 {
     /**
@@ -19,6 +19,14 @@ class CvTemplate extends Model
         'monogram', 'numbered', 'leader', 'bold', 'ribbon', 'corporate', 'tabbed', 'elegant', 'magazine', 'folio',
         'lumen', 'heritage', 'skyline', 'prestige', 'wave', 'geo', 'orbit', 'fresh', 'contrast', 'label',
         'noir', 'slate', 'pastel', 'atelier', 'frame',
+        // Catalogue templates assembled from style traits (templates/kit).
+        'clean', 'simple', 'formal', 'academic', 'crisp', 'nordic', 'office', 'ledger', 'concise',
+        'serif', 'swiss', 'outline', 'bar', 'centered', 'graphite', 'sided', 'tidy', 'plain',
+        'azure', 'horizon', 'stripe', 'corner', 'sunrise', 'ink', 'vista', 'marker', 'emblem',
+        'pulse', 'crest', 'harbor', 'bloom', 'spark', 'linear', 'metro', 'canvas', 'aurora',
+        'sage', 'royal', 'zenith', 'ember', 'coral', 'tide', 'mint', 'ridge',
+        'harmony', 'summit', 'balance', 'ivory', 'duo', 'cobalt', 'terra', 'mosaic',
+        'crystal', 'quartz', 'sierra', 'pixel', 'lotus', 'vertex', 'echo',
     ];
 
     public const DEFAULT_SLUG = 'classic';
@@ -27,6 +35,7 @@ class CvTemplate extends Model
     {
         return [
             'is_active' => 'boolean',
+            'is_recommended' => 'boolean',
             'sort_order' => 'integer',
         ];
     }
@@ -48,7 +57,7 @@ class CvTemplate extends Model
     }
 
     /**
-     * @return array{slug: string, name: string, description: string|null}
+     * @return array{slug: string, name: string, description: string|null, recommended: bool}
      */
     public function toPublicArray(): array
     {
@@ -56,6 +65,7 @@ class CvTemplate extends Model
             'slug' => $this->slug,
             'name' => $this->name,
             'description' => $this->description,
+            'recommended' => (bool) $this->is_recommended,
         ];
     }
 }

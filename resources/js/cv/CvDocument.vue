@@ -191,6 +191,7 @@ defineExpose({ layout, pageCount: computed(() => pages.value.length) });
         :class="[
             `tpl-${slug}`,
             template.family ? `tpl-family-${template.family}` : null,
+            ...(template.traits ?? []).map((trait) => `t-${trait}`),
             {
                 'is-scaled': scale !== 1,
                 'align-justify': data.paragraph_align === 'justify',

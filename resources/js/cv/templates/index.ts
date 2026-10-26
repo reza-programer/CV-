@@ -73,6 +73,8 @@ import './studio/slate.css';
 import './studio/pastel.css';
 import './studio/atelier.css';
 import './studio/frame.css';
+import './kit/kit.css';
+import { KIT_TEMPLATES } from './kit/catalog';
 
 export type TemplateDefinition = {
     /** Renders one block; typography lives in the template's `.tpl-{slug}` stylesheet. */
@@ -82,6 +84,8 @@ export type TemplateDefinition = {
     coloured: boolean;
     /** Shared base styles (`.tpl-family-{name}`) for templates built on one component. */
     family?: 'studio';
+    /** Style traits from kit/kit.css, set as `t-{trait}` classes on the document. */
+    traits?: string[];
 };
 
 const single: TemplateLayout = { kind: 'single' };
@@ -243,6 +247,7 @@ export const TEMPLATES: Record<TemplateSlug, TemplateDefinition> = {
         false,
         ['education', 'skills', 'languages', 'certifications'],
     ),
+    ...KIT_TEMPLATES,
 };
 
 export const DEFAULT_TEMPLATE: TemplateSlug = 'classic';

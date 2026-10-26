@@ -23,7 +23,7 @@ class GuestResumeTest extends TestCase
                 ->component('resumes/Try')
                 ->where('draft', null)
                 ->where('template', 'wave')
-                ->has('templates', 41));
+                ->has('templates', 100));
     }
 
     public function test_unknown_and_inactive_templates_are_ignored(): void
@@ -31,7 +31,7 @@ class GuestResumeTest extends TestCase
         CvTemplate::query()->where('slug', 'compact')->update(['is_active' => false]);
 
         $this->get(route('demo.show', ['template' => 'compact']))
-            ->assertInertia(fn (Assert $page) => $page->where('template', null)->has('templates', 40));
+            ->assertInertia(fn (Assert $page) => $page->where('template', null)->has('templates', 99));
 
         $this->get(route('demo.show', ['template' => 'tidak-ada']))
             ->assertInertia(fn (Assert $page) => $page->where('template', null));

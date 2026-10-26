@@ -50,6 +50,11 @@ const facts = computed(() => {
         : 'Hitam-putih, tetap rapi saat dicetak di printer kantor.';
 
     return [
+        ...(template.value.recommended
+            ? [
+                  'Direkomendasikan untuk melamar: tata letak yang sudah teruji, terbaca rapi oleh sistem ATS dan nyaman dibaca perekrut.',
+              ]
+            : []),
         columns,
         colour,
         'Isi CV yang sama dapat dipindah ke template lain kapan saja.',
@@ -93,11 +98,11 @@ function useTemplate(): void {
 <template>
     <Dialog :open="slug !== null" @update:open="onOpenChange">
         <DialogContent
-            class="max-h-[94svh] gap-0 overflow-y-auto p-0 sm:max-w-4xl"
+            class="flex max-h-[94svh] flex-col gap-0 overflow-hidden p-0 sm:max-w-4xl"
         >
             <div
                 v-if="template"
-                class="grid md:grid-cols-[minmax(0,_1fr)_minmax(0,_20rem)]"
+                class="grid min-h-0 flex-1 overflow-y-auto md:grid-cols-[minmax(0,_1fr)_minmax(0,_20rem)]"
             >
                 <div class="bg-desk px-6 py-8 sm:px-12 sm:py-10">
                     <div class="mx-auto max-w-[26rem] paper">
@@ -116,7 +121,10 @@ function useTemplate(): void {
                             {{ template.name }}
                         </DialogTitle>
                         <div class="mt-2 flex flex-wrap gap-1.5">
-                            <TemplateBadges :slug="template.slug" />
+                            <TemplateBadges
+                                :slug="template.slug"
+                                :recommended="template.recommended"
+                            />
                         </div>
                         <DialogDescription
                             class="mt-3 text-sm leading-relaxed text-neutral-600"
@@ -135,7 +143,7 @@ function useTemplate(): void {
                         </li>
                     </ul>
 
-                    <div class="mt-auto grid gap-3">
+                    <div class="mt-auto hidden gap-3 md:grid">
                         <Button size="lg" @click="useTemplate"
                             >Pakai template ini</Button
                         >
@@ -151,6 +159,32 @@ function useTemplate(): void {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- On phones the preview scrolls, so the actions sit in a bar below it. -->
+            <div
+                v-if="template"
+                class="flex items-center gap-2 border-t border-neutral-200 bg-white p-3 md:hidden"
+            >
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Template sebelumnya"
+                    @click="go(-1)"
+                >
+                    <ChevronLeft />
+                </Button>
+                <Button size="lg" class="flex-1" @click="useTemplate"
+                    >Pakai template ini</Button
+                >
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Template berikutnya"
+                    @click="go(1)"
+                >
+                    <ChevronRight />
+                </Button>
             </div>
         </DialogContent>
     </Dialog>

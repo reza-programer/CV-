@@ -386,7 +386,10 @@ const faqs = computed(() => [
                                     class="mt-4 flex flex-wrap items-center gap-1.5 text-[15px] font-medium"
                                 >
                                     {{ template.name }}
-                                    <TemplateBadges :slug="template.slug" />
+                                    <TemplateBadges
+                                        :slug="template.slug"
+                                        :recommended="template.recommended"
+                                    />
                                 </span>
                                 <span
                                     class="mt-1 line-clamp-2 block text-sm leading-snug text-neutral-600"

@@ -42,6 +42,10 @@ class CvTemplateForm
                             ->label('Aktif')
                             ->helperText('Template nonaktif tidak dapat dipilih untuk CV baru. CV yang sudah memakainya tetap dapat dibuka dan diunduh.')
                             ->inline(false),
+                        Toggle::make('is_recommended')
+                            ->label('Rekomendasi')
+                            ->helperText('Diberi label Rekomendasi dan muncul di saringan Rekomendasi. Pilih template satu kolom yang aman untuk ATS.')
+                            ->inline(false),
                     ]),
             ]);
     }

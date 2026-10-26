@@ -37,7 +37,21 @@ class ResumeManagementTest extends TestCase
                 ->has('resumes', 1)
                 ->where('resumes.0.id', $own->id)
                 ->where('resumes.0.document.title', 'Milik saya')
-                ->has('templates', 41));
+                ->has('templates', 100));
+    }
+
+    public function test_recommended_templates_come_first_and_are_flagged(): void
+    {
+        $this->actingAs(User::factory()->create())
+            ->get(route('dashboard'))
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('templates.0.slug', 'professional')
+                ->where('templates.0.recommended', true)
+                ->where('templates.8.recommended', false)
+                ->where('templates', fn ($templates) => collect($templates)->where('recommended', true)->count() === 8));
+
+        // Every template in the catalogue has a row, and every row a layout.
+        $this->assertEqualsCanonicalizing(CvTemplate::SLUGS, CvTemplate::query()->pluck('slug')->all());
     }
 
     public function test_creating_a_resume_prefills_account_details_and_opens_the_editor(): void

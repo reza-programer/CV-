@@ -37,7 +37,10 @@ withDefaults(
     </header>
 
     <div v-else-if="block.kind === 'heading'" class="b-heading">
-        <h2 class="heading-text">
+        <h2
+            class="heading-text"
+            :data-number="String(block.number).padStart(2, '0')"
+        >
             <span v-if="options.sectionIcons" class="icon-badge"
                 ><SectionIcon :section="block.section"
             /></span>

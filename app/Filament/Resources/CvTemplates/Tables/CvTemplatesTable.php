@@ -35,6 +35,8 @@ class CvTemplatesTable
                     ->label('Dipakai')
                     ->numeric()
                     ->alignEnd(),
+                ToggleColumn::make('is_recommended')
+                    ->label('Rekomendasi'),
                 ToggleColumn::make('is_active')
                     ->label('Aktif'),
             ])

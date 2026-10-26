@@ -91,7 +91,7 @@ class ResumeController extends Controller
     }
 
     /**
-     * @return list<array{slug: string, name: string, description: string|null}>
+     * @return list<array{slug: string, name: string, description: string|null, recommended: bool}>
      */
     private function templates(): array
     {

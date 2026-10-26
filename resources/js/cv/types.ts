@@ -44,7 +44,73 @@ export type TemplateSlug =
     | 'slate'
     | 'pastel'
     | 'atelier'
-    | 'frame';
+    | 'frame'
+    | KitSlug;
+
+/** Catalogue templates assembled from style traits (templates/kit/catalog.ts). */
+export type KitSlug =
+    // Plain black-and-white ATS, one column.
+    | 'clean'
+    | 'simple'
+    | 'formal'
+    | 'academic'
+    | 'crisp'
+    | 'nordic'
+    | 'office'
+    | 'ledger'
+    | 'concise'
+    | 'serif'
+    | 'swiss'
+    | 'outline'
+    | 'bar'
+    | 'centered'
+    | 'graphite'
+    | 'sided'
+    | 'tidy'
+    | 'plain'
+    // Coloured, one column.
+    | 'azure'
+    | 'horizon'
+    | 'stripe'
+    | 'corner'
+    | 'sunrise'
+    | 'ink'
+    | 'vista'
+    | 'marker'
+    | 'emblem'
+    | 'pulse'
+    | 'crest'
+    | 'harbor'
+    | 'bloom'
+    | 'spark'
+    | 'linear'
+    | 'metro'
+    | 'canvas'
+    | 'aurora'
+    | 'sage'
+    | 'royal'
+    | 'zenith'
+    | 'ember'
+    | 'coral'
+    | 'tide'
+    | 'mint'
+    | 'ridge'
+    // Two columns.
+    | 'harmony'
+    | 'summit'
+    | 'balance'
+    | 'ivory'
+    | 'duo'
+    | 'cobalt'
+    | 'terra'
+    | 'mosaic'
+    | 'crystal'
+    | 'quartz'
+    | 'sierra'
+    | 'pixel'
+    | 'lotus'
+    | 'vertex'
+    | 'echo';
 
 /** Accent colour of the coloured templates; see accents.ts. */
 export type AccentColor =
@@ -165,6 +231,8 @@ export type TemplateSummary = {
     slug: TemplateSlug;
     name: string;
     description: string | null;
+    /** A safe pick for job applications, chosen in the admin panel. */
+    recommended: boolean;
 };
 
 export const SECTION_KEYS: SectionKey[] = [

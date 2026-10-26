@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { isColoured, isMultiColumn } from '@/cv/templates';
 
-/** Small labels that tell coloured and two-column templates apart. */
-defineProps<{ slug: string }>();
+/** Small labels for recommended, coloured and two-column templates. */
+defineProps<{ slug: string; recommended?: boolean }>();
 </script>
 
 <template>
+    <span
+        v-if="recommended"
+        class="rounded-sm bg-emerald-50 px-1 text-[10px] font-medium text-emerald-700 ring-1 ring-emerald-200 ring-inset"
+        title="Paling aman untuk melamar: satu kolom, teks asli, terbaca sistem ATS"
+        >Rekomendasi</span
+    >
     <span
         v-if="isMultiColumn(slug)"
         class="rounded-sm bg-neutral-900 px-1 text-[10px] font-normal text-white"

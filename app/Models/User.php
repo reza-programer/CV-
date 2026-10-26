@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\ResumePhotos;
+use App\Services\UserAvatars;
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
@@ -18,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $name
  * @property string $email
+ * @property string|null $avatar_path
  * @property bool $is_admin
  * @property Carbon|null $last_seen_at
  * @property Carbon|null $email_verified_at
@@ -33,13 +35,14 @@ class User extends Authenticatable implements FilamentUser
 
     /**
      * CVs are removed by the database cascade, which skips model events, so
-     * delete their photo files here first.
+     * delete their photo files here first, along with the account photo.
      */
     protected static function booted(): void
     {
         static::deleting(function (User $user): void {
             $photos = app(ResumePhotos::class);
             $user->resumes()->whereNotNull('photo_path')->pluck('photo_path')->each(fn (string $path) => $photos->delete($path));
+            app(UserAvatars::class)->delete($user->avatar_path);
         });
     }
 

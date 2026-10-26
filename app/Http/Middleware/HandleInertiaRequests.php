@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\UserAvatars;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -39,7 +40,10 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
-                'user' => $request->user()?->only('id', 'name', 'email', 'is_admin'),
+                'user' => $request->user() === null ? null : [
+                    ...$request->user()->only('id', 'name', 'email', 'is_admin'),
+                    'avatar_url' => UserAvatars::urlFor($request->user()),
+                ],
             ],
             'creator' => self::creator(),
         ];

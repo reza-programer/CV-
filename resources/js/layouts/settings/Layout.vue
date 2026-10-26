@@ -26,7 +26,7 @@ const { isCurrentOrParentUrl } = useCurrentUrl();
     <div class="py-8">
         <Heading
             title="Pengaturan akun"
-            description="Kelola nama, email, dan kata sandi Anda."
+            description="Kelola foto, nama, email, dan kata sandi Anda."
         />
 
         <div class="flex flex-col lg:flex-row lg:gap-12">

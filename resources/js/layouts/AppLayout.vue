@@ -2,16 +2,15 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import AppLogo from '@/components/AppLogo.vue';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Toaster } from '@/components/ui/sonner';
+import UserAvatar from '@/components/UserAvatar.vue';
 import UserMenuContent from '@/components/UserMenuContent.vue';
 import { useCurrentUrl } from '@/composables/useCurrentUrl';
-import { getInitials } from '@/composables/useInitials';
 import { dashboard } from '@/routes';
 
 const page = usePage();
@@ -53,13 +52,7 @@ const { isCurrentUrl } = useCurrentUrl();
                     <DropdownMenuTrigger
                         class="ml-auto flex items-center gap-2 rounded-md px-1.5 py-1 text-sm text-neutral-700 hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-neutral-300 focus-visible:outline-none"
                     >
-                        <Avatar class="size-7 rounded-full">
-                            <AvatarFallback
-                                class="rounded-full bg-neutral-200 text-xs font-medium text-neutral-800"
-                            >
-                                {{ getInitials(user.name) }}
-                            </AvatarFallback>
-                        </Avatar>
+                        <UserAvatar :user="user" class="size-7" />
                         <span class="hidden max-w-40 truncate sm:inline">{{
                             user.name
                         }}</span>

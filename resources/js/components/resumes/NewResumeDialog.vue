@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
-import { watch } from 'vue';
+import { computed, watch } from 'vue';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -41,6 +41,12 @@ watch(open, (isOpen) => {
     }
 });
 
+const selectedName = computed(
+    () =>
+        props.templates.find((item) => item.slug === form.template)?.name ??
+        form.template,
+);
+
 function submit(): void {
     form.submit(store(), {
         onSuccess: () => {
@@ -53,8 +59,14 @@ function submit(): void {
 
 <template>
     <Dialog v-model:open="open">
-        <DialogContent class="max-h-[92svh] overflow-y-auto sm:max-w-4xl">
-            <DialogHeader>
+        <!-- Only the form scrolls; the footer with the start button stays in view,
+             so picking a template never means scrolling past all the others. -->
+        <DialogContent
+            class="flex max-h-[92svh] flex-col gap-0 overflow-hidden p-0 sm:max-w-4xl"
+        >
+            <DialogHeader
+                class="border-b border-neutral-200 px-6 pt-6 pr-12 pb-4"
+            >
                 <DialogTitle
                     class="font-display text-2xl font-medium tracking-tight"
                     >Buat CV baru</DialogTitle
@@ -65,7 +77,11 @@ function submit(): void {
                 </DialogDescription>
             </DialogHeader>
 
-            <form id="new-resume" class="grid gap-5" @submit.prevent="submit">
+            <form
+                id="new-resume"
+                class="grid min-h-0 flex-1 gap-5 overflow-y-auto px-6 py-5"
+                @submit.prevent="submit"
+            >
                 <FormField
                     label="Judul CV"
                     for="new-title"
@@ -128,17 +144,29 @@ function submit(): void {
                 </fieldset>
             </form>
 
-            <DialogFooter class="gap-2">
-                <Button variant="outline" type="button" @click="open = false"
+            <DialogFooter
+                class="flex-row items-center gap-2 border-t border-neutral-200 px-6 py-4"
+            >
+                <p class="mr-auto min-w-0 truncate text-sm text-neutral-500">
+                    Template:
+                    <span class="font-medium text-ink">{{ selectedName }}</span>
+                </p>
+                <Button
+                    variant="outline"
+                    type="button"
+                    class="hidden sm:inline-flex"
+                    @click="open = false"
                     >Batal</Button
                 >
                 <Button
                     type="submit"
                     form="new-resume"
+                    class="shrink-0"
                     :disabled="form.processing"
                 >
                     <Spinner v-if="form.processing" />
-                    Buat dan mulai mengisi
+                    <span class="sm:hidden">Buat CV</span>
+                    <span class="hidden sm:inline">Buat dan mulai mengisi</span>
                 </Button>
             </DialogFooter>
         </DialogContent>

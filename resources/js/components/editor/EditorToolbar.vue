@@ -14,7 +14,7 @@ import { isColoured, isMultiColumn } from '@/cv/templates';
 import AccentColorPicker from './AccentColorPicker.vue';
 import NativeSelect from './NativeSelect.vue';
 import ParagraphAlignToggle from './ParagraphAlignToggle.vue';
-import { useEditor } from './useEditorContext';
+import { showFirstError, useEditor } from './useEditorContext';
 
 const props = defineProps<{ templates: TemplateSummary[] }>();
 
@@ -87,12 +87,6 @@ const savedTime = computed(() =>
         : '',
 );
 
-function showFirstError(): void {
-    const field = document.querySelector<HTMLElement>('[aria-invalid="true"]');
-    field?.scrollIntoView({ block: 'center', behavior: 'smooth' });
-    field?.focus({ preventScroll: true });
-}
-
 function filenameFrom(header: string | null): string {
     const encoded = header?.match(/filename\*=UTF-8''([^;]+)/i)?.[1];
 
@@ -120,7 +114,7 @@ async function download(): Promise<void> {
                     ? 'Perbaiki isian yang ditandai sebelum mengunduh PDF.'
                     : 'CV belum tersimpan. Periksa koneksi lalu coba lagi.',
             );
-            showFirstError();
+            void showFirstError();
 
             return;
         }

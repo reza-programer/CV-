@@ -13,7 +13,7 @@ import {
 import { Spinner } from '@/components/ui/spinner';
 import { login, register } from '@/routes';
 import type { AccountReason } from './useEditorContext';
-import { useEditor } from './useEditorContext';
+import { showFirstError, useEditor } from './useEditorContext';
 
 /**
  * Shown when a visitor in the try-out editor does something that needs an
@@ -64,9 +64,7 @@ async function leave(target: 'register' | 'login'): Promise<void> {
                 ? 'Perbaiki isian yang ditandai dulu agar semua isi ikut tersimpan.'
                 : 'Draf belum tersimpan. Periksa koneksi lalu coba lagi.',
         );
-        document
-            .querySelector<HTMLElement>('[aria-invalid="true"]')
-            ?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        void showFirstError();
 
         return;
     }

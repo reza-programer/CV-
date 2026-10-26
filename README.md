@@ -2,7 +2,7 @@
 
 # CV by kezottt_ — Pembuat CV ATS-Friendly
 
-**CV by kezottt_** adalah aplikasi web untuk menyusun CV profesional dalam format **A4** dan mengunduhnya sebagai **PDF berteks asli** (teks dapat diseleksi dan dicari, sehingga terbaca oleh sistem pelacak lamaran/ATS). Data CV diisi sekali, lalu tampilannya bisa diganti ke salah satu dari **41 template** kapan saja tanpa mengetik ulang.
+**CV by kezottt_** adalah aplikasi web untuk menyusun CV profesional dalam format **A4** dan mengunduhnya sebagai **PDF berteks asli** (teks dapat diseleksi dan dicari, sehingga terbaca oleh sistem pelacak lamaran/ATS). Data CV diisi sekali, lalu tampilannya bisa diganti ke salah satu dari **100 template** kapan saja tanpa mengetik ulang.
 
 > Yang Anda lihat di pratinjau adalah yang tercetak: pratinjau di layar dan PDF dirender oleh komponen tata letak yang sama.
 
@@ -36,10 +36,12 @@
 **Untuk pengguna**
 
 - **Coba dulu tanpa daftar** (`/coba`): pengunjung langsung masuk editor berisi contoh CV, bisa mengubah isi, template, warna, dan bahasa dengan pratinjau langsung. Saat ingin menyimpan, mengunggah foto, atau mengunduh PDF, mereka diminta daftar atau masuk, dan isi yang sudah diketik otomatis menjadi CV pertama di akun.
-- **Editor dua panel**: formulir di kiri, pratinjau A4 langsung di kanan (bertumpuk di ponsel).
+- **Editor dua panel**: formulir di kiri, pratinjau A4 langsung di kanan. Di ponsel keduanya dipindah lewat tab **Isi data / Pratinjau** di bawah layar, dan posisi formulir diingat.
+- **Foto profil akun**: diunggah di halaman Profil, dipotong persegi, disimpan privat, dan tampil di menu akun.
 - **Bagian CV lengkap**: data diri dan kontak, foto (opsional), profil singkat, pengalaman kerja, magang, organisasi, pendidikan, proyek, keahlian, sertifikasi, dan bahasa. Setiap entri dapat ditambah, disunting, dihapus, dan diurutkan ulang; urutan bagian juga dapat diatur.
 - **Bagian kosong tidak tercetak**, jadi tidak ada judul bagian yang menggantung.
-- **41 template**: 30 satu kolom dan 11 dua kolom berlabel _Kreatif_, termasuk 15 template gaya desainer dengan foto, ornamen sudut, gelombang, dan judul berbentuk pil. Sebagian berwarna dengan 6 pilihan warna aksen.
+- **100 template**: 74 satu kolom dan 26 dua kolom berlabel _Kreatif_. Ada yang hitam-putih murni untuk ATS, ada yang bergaya desainer dengan foto, ornamen sudut, gelombang, dan judul berbentuk pil. Sebagian berwarna dengan 6 pilihan warna aksen.
+- **Template Rekomendasi**: 8 template satu kolom yang paling aman untuk melamar diberi label _Rekomendasi_, tampil paling depan, dan punya saringan sendiri. Admin dapat mengubah pilihannya.
 - **Contoh CV dari berbagai bidang** di galeri template: akuntansi, keperawatan, pendidikan, pemasaran, teknik sipil, desain, SDM, hukum, farmasi, perhotelan (bahasa Inggris), lulusan baru, dan pengembang perangkat lunak.
 - **Ganti template, warna aksen, perataan paragraf (rata kiri/rata kanan-kiri), dan bahasa dokumen** tanpa kehilangan isi.
 - **Dua bahasa dokumen** (Bahasa Indonesia dan English): judul bagian dan format tanggal ikut berganti.
@@ -56,7 +58,7 @@
 - **Notifikasi** di ikon lonceng setiap ada pengguna baru mendaftar.
 - **Riwayat per pengguna** di halaman detail pengguna.
 - **Ekspor CSV** untuk daftar pengguna dan log aktivitas (mengikuti filter yang aktif).
-- Mengelola pengguna (termasuk memberi akses admin) dan template.
+- Mengelola pengguna (termasuk memberi akses admin) dan template, termasuk menandai template _Rekomendasi_.
 - Admin yang masuk lewat `/login` langsung diarahkan ke panel admin.
 
 ---
@@ -100,7 +102,7 @@ Contoh hasil PDF: [`docs/contoh-cv-fullstack-developer.pdf`](docs/contoh-cv-full
 
 ```mermaid
 flowchart TD
-    A[Halaman utama] -->|Lihat template| B[Galeri 41 template]
+    A[Halaman utama] -->|Lihat template| B[Galeri 100 template]
     B -->|Pakai template ini| C{Sudah masuk?}
     A -->|Buat CV| C
     C -- Belum --> T[Mode coba /coba: editor berisi contoh]
@@ -142,7 +144,7 @@ Langkah-langkahnya:
 
 ## Arsitektur dan alur data
 
-Isi CV disimpan **terpisah dari tata letak**. Template hanya menentukan cara blok ditampilkan, sehingga satu data dapat dirender oleh 41 template dan menghasilkan pratinjau yang sama dengan PDF.
+Isi CV disimpan **terpisah dari tata letak**. Template hanya menentukan cara blok ditampilkan, sehingga satu data dapat dirender oleh 100 template dan menghasilkan pratinjau yang sama dengan PDF.
 
 ```mermaid
 flowchart LR
@@ -275,6 +277,25 @@ flowchart LR
 
 ## Template
 
+### Rekomendasi untuk melamar
+
+Delapan template ini diberi label **Rekomendasi**: satu kolom, teks asli, dan terbaca rapi oleh sistem ATS. Labelnya dapat diubah admin di `/admin/cv-templates`.
+
+| Template         | Paling cocok untuk                                                                 |
+| ---------------- | ---------------------------------------------------------------------------------- |
+| Professional ATS | Pilihan utama untuk hampir semua lowongan; jabatan dan tanggal mudah dipindai.     |
+| Classic ATS      | Bank, BUMN, instansi pemerintah, dan perusahaan yang konservatif.                  |
+| Modern ATS       | Startup, teknologi, pemasaran, dan bidang kreatif yang tetap melamar lewat portal. |
+| Executive ATS    | Posisi senior, hukum, keuangan, dan konsultan; huruf serif yang formal.            |
+| Compact ATS      | Pengalaman panjang yang perlu muat di satu atau dua halaman.                       |
+| Minimal ATS      | Lulusan baru dan magang; bersih dan mudah dibaca.                                  |
+| Portrait ATS     | Lowongan yang meminta pas foto, tetap satu kolom dan aman untuk ATS.               |
+| Clean ATS        | CV yang rapi di tengah untuk lamaran umum dan dikirim lewat email.                 |
+
+Template _Kreatif_ (dua kolom) dan yang penuh ornamen lebih cocok dikirim langsung ke perekrut, misalnya lewat email, LinkedIn, atau dicetak saat wawancara.
+
+### Semua template
+
 | Slug            | Nama             | Kolom | Warna               | Foto                                |
 | --------------- | ---------------- | ----- | ------------------- | ----------------------------------- |
 | `classic`       | Classic ATS      | 1     | Hitam-putih         | Opsional                            |
@@ -318,8 +339,67 @@ flowchart LR
 | `pastel`        | Pastel           | 2     | Aksen               | Melengkung di atas                  |
 | `atelier`       | Atelier          | 2     | Aksen (serif)       | Bulat                               |
 | `frame`         | Bingkai          | 2     | Hitam-putih         | Persegi                             |
+| `clean`         | Clean ATS        | 1     | Hitam-putih         | Opsional                            |
+| `simple`        | Simple ATS       | 1     | Hitam-putih         | Opsional                            |
+| `formal`        | Formal ATS       | 1     | Hitam-putih (serif) | Opsional                            |
+| `academic`      | Akademik ATS     | 1     | Hitam-putih (serif) | Opsional                            |
+| `crisp`         | Crisp ATS        | 1     | Hitam-putih         | Opsional                            |
+| `nordic`        | Nordic ATS       | 1     | Hitam-putih         | Opsional                            |
+| `office`        | Office ATS       | 1     | Hitam-putih         | Opsional                            |
+| `ledger`        | Ledger ATS       | 1     | Hitam-putih         | Opsional                            |
+| `concise`       | Ringkas ATS      | 1     | Hitam-putih         | Opsional                            |
+| `serif`         | Serif ATS        | 1     | Hitam-putih (serif) | Opsional                            |
+| `swiss`         | Swiss ATS        | 1     | Hitam-putih         | Opsional                            |
+| `outline`       | Garis Tepi ATS   | 1     | Hitam-putih         | Opsional                            |
+| `bar`           | Bar ATS          | 1     | Hitam-putih         | Opsional                            |
+| `centered`      | Center ATS       | 1     | Hitam-putih         | Opsional                            |
+| `graphite`      | Grafit ATS       | 1     | Hitam-putih         | Opsional                            |
+| `sided`         | Dua Sisi ATS     | 1     | Hitam-putih         | Opsional                            |
+| `tidy`          | Rapi ATS         | 1     | Hitam-putih         | Opsional                            |
+| `plain`         | Polos ATS        | 1     | Hitam-putih         | Opsional                            |
+| `azure`         | Azure            | 1     | Aksen               | Bulat bercincin                     |
+| `horizon`       | Horizon          | 1     | Aksen               | Opsional                            |
+| `stripe`        | Garis Samping    | 1     | Aksen               | Opsional                            |
+| `corner`        | Sudut            | 1     | Aksen               | Bulat                               |
+| `sunrise`       | Fajar            | 1     | Aksen               | Bulat                               |
+| `ink`           | Tinta            | 1     | Aksen (serif)       | Opsional                            |
+| `vista`         | Vista            | 1     | Aksen               | Bulat bercincin                     |
+| `marker`        | Stabilo          | 1     | Aksen               | Persegi                             |
+| `emblem`        | Lencana          | 1     | Aksen               | Bulat bercincin                     |
+| `pulse`         | Denyut           | 1     | Aksen               | Opsional                            |
+| `crest`         | Puncak           | 1     | Aksen               | Bulat                               |
+| `harbor`        | Dermaga          | 1     | Aksen               | Persegi                             |
+| `bloom`         | Mekar            | 1     | Aksen               | Bulat                               |
+| `spark`         | Percik           | 1     | Aksen               | Opsional                            |
+| `linear`        | Linear           | 1     | Aksen               | Opsional                            |
+| `metro`         | Metro            | 1     | Aksen               | Opsional                            |
+| `canvas`        | Kanvas           | 1     | Aksen               | Bulat                               |
+| `aurora`        | Aurora           | 1     | Aksen               | Bulat bercincin                     |
+| `sage`          | Sage             | 1     | Aksen               | Bulat                               |
+| `royal`         | Royal            | 1     | Aksen (serif)       | Opsional                            |
+| `zenith`        | Zenit            | 1     | Aksen               | Melengkung                          |
+| `ember`         | Bara             | 1     | Aksen               | Bulat                               |
+| `coral`         | Koral            | 1     | Aksen               | Bulat                               |
+| `tide`          | Pasang           | 1     | Aksen               | Opsional                            |
+| `mint`          | Mint             | 1     | Aksen               | Bulat                               |
+| `ridge`         | Punggung         | 1     | Aksen               | Persegi                             |
+| `harmony`       | Harmoni          | 2     | Aksen               | Bulat                               |
+| `summit`        | Summit           | 2     | Aksen               | Bulat bercincin                     |
+| `balance`       | Seimbang         | 2     | Aksen               | Persegi                             |
+| `ivory`         | Gading           | 2     | Hitam-putih (serif) | Bulat                               |
+| `duo`           | Duo              | 2     | Aksen               | Bulat                               |
+| `cobalt`        | Kobalt           | 2     | Aksen               | Melengkung                          |
+| `terra`         | Terra            | 2     | Aksen               | Bulat                               |
+| `mosaic`        | Mozaik           | 2     | Aksen               | Persegi                             |
+| `crystal`       | Kristal          | 2     | Aksen               | Melengkung                          |
+| `quartz`        | Kuarsa           | 2     | Hitam-putih         | Bulat                               |
+| `sierra`        | Sierra           | 2     | Arang               | Persegi                             |
+| `pixel`         | Piksel           | 2     | Aksen               | Bulat                               |
+| `lotus`         | Teratai          | 2     | Aksen               | Bulat                               |
+| `vertex`        | Verteks          | 2     | Aksen               | Bulat bercincin                     |
+| `echo`          | Gema             | 2     | Hitam-putih         | Opsional                            |
 
-Lima belas template terakhir (dari `lumen` sampai `label`, dan `noir` sampai `frame`) adalah keluarga **studio**: gaya desainer seperti di aplikasi pembuat CV daring, dengan foto, ornamen sudut, gelombang, judul bagian berbentuk pil atau pita, dan tabel data diri. Ornamennya digambar dengan CSS di belakang teks, jadi PDF-nya tetap berteks asli. Semua foto bersifat opsional; tanpa foto, tata letaknya menyesuaikan.
+Template dari `lumen` sampai `frame` adalah keluarga **studio**: gaya desainer seperti di aplikasi pembuat CV daring, dengan foto, ornamen sudut, gelombang, judul bagian berbentuk pil atau pita, dan tabel data diri. Template dari `clean` sampai `echo` adalah **katalog**: dibangun di atas komponen studio dari gabungan beberapa _trait_ gaya (huruf, kepala, judul bagian, ornamen halaman, bentuk foto, panel samping) di `resources/js/cv/templates/kit/`. Ornamen selalu digambar dengan CSS di belakang teks, jadi PDF-nya tetap berteks asli. Semua foto bersifat opsional; tanpa foto, tata letaknya menyesuaikan.
 
 Warna aksen: navy, teal, hijau (forest), merah marun (burgundy), ungu (plum), dan arang (charcoal).
 
@@ -522,7 +602,7 @@ docs/                       Contoh PDF dan tangkapan layar
 
 ### Menambah template baru
 
-1. Buat folder `resources/js/cv/templates/<slug>/` berisi `<Nama>Template.vue` dan `<slug>.css`. Gunakan template yang sudah ada sebagai acuan (mis. `classic`). Untuk template bergaya desainer, cukup tambahkan `<slug>.css` di `templates/studio/` dan daftarkan dengan `studio({...})` atau `studioPanel({...})`; komponennya sudah tersedia.
+1. Buat folder `resources/js/cv/templates/<slug>/` berisi `<Nama>Template.vue` dan `<slug>.css`. Gunakan template yang sudah ada sebagai acuan (mis. `classic`). Untuk template bergaya desainer, cukup tambahkan `<slug>.css` di `templates/studio/` dan daftarkan dengan `studio({...})` atau `studioPanel({...})`; komponennya sudah tersedia. Cara tercepat: tambahkan satu baris resep di `templates/kit/catalog.ts` (`single({...})` atau `columns({...})`) dengan gabungan _trait_ dari `kit.css`, tanpa file CSS baru.
 2. Tambahkan slug ke tipe `TemplateSlug` di `resources/js/cv/types.ts`.
 3. Daftarkan di `resources/js/cv/templates/index.ts`: komponen, `layout` (`single` atau `columns`), dan `coloured`. Impor CSS-nya di file yang sama.
 4. Tambahkan slug ke `CvTemplate::SLUGS` (`app/Models/CvTemplate.php`).

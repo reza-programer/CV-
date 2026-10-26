@@ -1,5 +1,5 @@
 import type { InjectionKey } from 'vue';
-import { inject, provide } from 'vue';
+import { inject, nextTick, provide } from 'vue';
 import type { ResumeEditor } from '@/composables/useResumeEditor';
 
 /** What a visitor in the try-out editor tried to do that needs an account. */
@@ -31,4 +31,17 @@ export function useEditor(): EditorContext {
     }
 
     return context;
+}
+
+/** Asks the workspace to show the form, which is hidden behind the preview on phones. */
+export const SHOW_FORM_EVENT = 'editor:show-form';
+
+/** Brings the first field with a validation error into view and focuses it. */
+export async function showFirstError(): Promise<void> {
+    window.dispatchEvent(new Event(SHOW_FORM_EVENT));
+    await nextTick();
+
+    const field = document.querySelector<HTMLElement>('[aria-invalid="true"]');
+    field?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    field?.focus({ preventScroll: true });
 }
